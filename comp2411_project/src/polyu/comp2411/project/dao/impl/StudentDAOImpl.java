@@ -68,11 +68,11 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
 
     @Override
     public List<Student> searchByExam(Exam ex) {
-        String sql = String.format("SELECT * FROM EXAM_LIST NATUAL JOIN STUDENT WHERE TEST_ID = ?");
+        String sql = "SELECT * FROM EXAM_LIST NATUAL JOIN STUDENT WHERE TEST_ID = ?";
         try{
             setPs(sql);
             getPs().setInt(1,ex.getTestId());
-            List ans = new ArrayList<Student>();
+            List<Student> ans = new ArrayList<>();
             while(rs.next()){
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
@@ -93,10 +93,12 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
 
     @Override
     public List<Student> searchByClass(Classe cls) {
-        String sql = String.format("SELECT * FROM STUDENT WHERE CLASS_NO = %d",cls.getClassNo());
+        String sql = "SELECT * FROM STUDENT WHERE CLASS_NO = ?";
         try{
-            rs = getStmt().executeQuery(sql);
-            List ans = new ArrayList<Student>();
+            setPs(sql);
+            getPs().setInt(1,cls.getClassNo());
+            rs = getPs().executeQuery(sql);
+            List<Student> ans = new ArrayList<>();
             while(rs.next()){
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
