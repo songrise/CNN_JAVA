@@ -3,10 +3,12 @@ package polyu.comp2411.project.entity;
 public class Student {
     private int id;
     private String name;
+    private int classNo;
 
-    public Student(int id, String name) {
+    public Student(int id, String name,int classNo) {
         this.id = id;
         this.name = name;
+        this.classNo=classNo;
     }
 
     public void setName(String name) {
@@ -24,4 +26,11 @@ public class Student {
     public String getName() {
         return name;
     }
+
+    public void setClassNo(int classNo) {
+        this.classNo = classNo;
+    }
+
+    public int getClassNo() { return classNo; }
 }
+
