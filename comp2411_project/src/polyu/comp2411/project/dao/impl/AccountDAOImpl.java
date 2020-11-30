@@ -7,7 +7,7 @@ import polyu.comp2411.project.entity.Student;
 import java.sql.Connection;
 
 public class AccountDAOImpl extends BaseDAO implements AccountDAO {
-    Student stu;
+    private Student stu;
 
     @Override
     public Account searchByID(int id) {

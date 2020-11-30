@@ -15,5 +15,5 @@ public interface ExamDAO {
     List<Exam> searchBySubject(Subject sub);
     List<Exam> searchByClass(Classe cls);
     //get the next question number of an exam
-    int getNextExamId(Exam ex);
+    int getNextExamId();
 }

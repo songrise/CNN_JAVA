@@ -15,7 +15,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    ExamDAOImpl(){
+    public ExamDAOImpl(){
         super();
     }
 
@@ -140,7 +140,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     }
 
     @Override
-    public int getNextExamId(Exam ex) {
+    public int getNextExamId() {
         String sql = "SELECT MAX(TEST_ID) FROM EXAM";
         try{
             setPs(sql);
@@ -162,5 +162,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         }
         return -1;
     }
+
 
 }

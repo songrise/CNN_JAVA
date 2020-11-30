@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * provide service for account management.
  */
 public class AccountManager {
-    AccountDAO ad = new AccountDAOImpl();
     static final int INVALID = -1;
     static final int MINLEN = 6;
 
@@ -23,8 +22,8 @@ public class AccountManager {
         if (inputPassword==null || inputPassword.length()<MINLEN)
             throw new IllegalStateException("Password must be no less than 6 bytes!");
         try{
-            AccountDAO ad = new AccountDAOImpl();
-            Account acct = ad.searchByID(uid); //search that account in DB
+            AccountDAO dao = new AccountDAOImpl();
+            Account acct = dao.searchByID(uid); //search that account in DB
             String encryptedInput = stringToMD5(inputPassword);
             if (encryptedInput.equals(acct.getPassword())){//check if password is right
                 return acct.getPrivilege(); // succeccful log in
@@ -36,17 +35,17 @@ public class AccountManager {
     }
 
     public static void changePassword(){
-
+        //TODO
     }
 
     public static void register(int uid, String inputPassword,int priviledge){
         if (inputPassword==null || inputPassword.length() < MINLEN)
             throw new IllegalStateException("Password must be no less than 6 bytes!");
         try{
-            AccountDAO ad = new AccountDAOImpl();
+            AccountDAO dao = new AccountDAOImpl();
             String encryptedInput = stringToMD5(inputPassword);
             Account acct = new Account(uid,encryptedInput,priviledge);
-            ad.addAccount(acct);
+            dao.addAccount(acct);
         }catch (Exception e){
             e.printStackTrace();
         }

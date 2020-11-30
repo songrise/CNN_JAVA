@@ -15,7 +15,7 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    StudentDAOImpl(){
+    public StudentDAOImpl(){
         super();
     }
 

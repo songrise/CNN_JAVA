@@ -1,5 +1,5 @@
 package polyu.comp2411.project.entity;
-//it means class, or "ban ji" in Chinese. added an e to avoid name clash with java Class
+//it means class, or a body of students . added an "e" to avoid name ambiguity with java.lang.Class
 public class Classe {
     private int classNo;
 

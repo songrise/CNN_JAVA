@@ -17,7 +17,7 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    ExamListDAOImpl(){
+    public ExamListDAOImpl(){
         super();
     }
 
