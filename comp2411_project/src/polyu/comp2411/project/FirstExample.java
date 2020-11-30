@@ -67,5 +67,5 @@ public class FirstExample {
         }//end try
         System.out.println("Goodbye!");
     }//end main
-}//end FirstExample - by www.yiibai.com//原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/jdbc/jdbc_quick_guide.html
+}//end FirstExample
 
