@@ -6,6 +6,7 @@ public interface AccountDAO {
     Account searchByID(int id);
     void addAccount(Account act);
     void delAccount(Account act);
+    //upload an account the newAct shall have same user id as old one
     void updAccount(Account act, Account newAct);
-    void changePassword(Account act);
+
 }

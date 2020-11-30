@@ -1,6 +1,7 @@
 ackage polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.TeacherDAO;
+import polyu.comp2411.project.dao.impl.BaseDAO;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Teacher;
 
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherDAOImpl extends BaseDAO  implements TeacherDAO {
+public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
     private Teacher teacher;
     private ResultSet rs;
 

@@ -1,7 +1,7 @@
 package polyu.comp2411.project.dao;
 
+import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.Subject;
 
 import java.sql.*;
@@ -13,6 +13,7 @@ public interface ExamDAO {
     void addExam(Exam ex);
     void delExam(Exam ex);
     List<Exam> searchBySubject(Subject sub);
-    List<Exam> searchByClass(Subject Classe);
-    int getLargestExamId(Exam ex);
+    List<Exam> searchByClass(Classe cls);
+    //get the next question number of an exam
+    int getNextExamId(Exam ex);
 }

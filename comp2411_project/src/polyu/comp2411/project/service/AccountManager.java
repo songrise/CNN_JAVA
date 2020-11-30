@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  * provide service for account management.
  */
 public class AccountManager {
+    AccountDAO ad = new AccountDAOImpl();
     static final int INVALID = -1;
     static final int MINLEN = 6;
 

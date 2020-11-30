@@ -72,11 +72,17 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     }
 
     @Override
+    public void delExam(Exam ex) {
+
+    }
+
+    @Override
     public List<Exam> searchBySubject(Subject sub) {
         String sql = "SELECT * FROM EXAM WHERE SUBJECT_ID = ?";
         try{
             setPs(sql);
-            getPs().setInt(1,sub.getSubId());
+            getPs().setInt(1,sub.getId());
+            rs = getPs().executeQuery();
             List<Exam> ans = new ArrayList<>();
             while(rs.next()){
                 int testId=rs.getInt("TEST_ID");
@@ -107,6 +113,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         try{
             setPs(sql);
             getPs().setInt(1,classe.getClassNo());
+            rs = getPs().executeQuery();
             List<Exam> ans = new ArrayList<>();
             while(rs.next()){
                 int testId=rs.getInt("TEST_ID");
@@ -133,7 +140,27 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     }
 
     @Override
-    public int getLargestExamId(Exam ex) {
-        return 0;
+    public int getNextExamId(Exam ex) {
+        String sql = "SELECT MAX(TEST_ID) FROM EXAM";
+        try{
+            setPs(sql);
+
+            rs = getPs().executeQuery();
+            while(rs.next()){
+                return rs.getInt("TEST_ID")+1;
+            }
+            return 0;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            // close resources used
+            closeConn();
+            closeStatement();
+            closePreparedStatement();
+        }
+        return -1;
     }
+
 }

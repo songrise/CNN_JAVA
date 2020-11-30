@@ -1,5 +1,6 @@
 package polyu.comp2411.project.service;
 
+import polyu.comp2411.project.dao.ExamDAO;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Subject;
 import polyu.comp2411.project.entity.Teacher;
