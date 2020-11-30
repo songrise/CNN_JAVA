@@ -10,19 +10,19 @@ public class Teacher {
 
     private String tName;
 
-    public int gettId() {
+    public int getTId() {
         return tId;
     }
 
-    public void settId(int tId) {
+    public void setTId(int tId) {
         this.tId = tId;
     }
 
-    public String gettName() {
+    public String getTName() {
         return tName;
     }
 
-    public void settName(String tName) {
+    public void setTName(String tName) {
         this.tName = tName;
     }
 }
