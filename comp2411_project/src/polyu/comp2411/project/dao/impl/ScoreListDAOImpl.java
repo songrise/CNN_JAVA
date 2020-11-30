@@ -13,6 +13,11 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
     }
 
     @Override
+    public void delScoreList(ScoreList sl) {
+
+    }
+
+    @Override
     public List<ScoreList> searchByStudent(Student stu) {
         return null;
     }

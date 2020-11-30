@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ScoreListDAO {
     void addScoreList(ScoreList sl);
+    void delScoreList(ScoreList sl);
     List<ScoreList> searchByStudent(Student stu);
 }

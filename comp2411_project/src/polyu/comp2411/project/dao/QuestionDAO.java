@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface QuestionDAO {
     Question searchByID(int id);
+
+    void delAllQuestionOfExam(Exam ex);
     void addQuestion(Question que);
     void delQuestion(Question que);
     List<Question> searchByExam(Exam ex);

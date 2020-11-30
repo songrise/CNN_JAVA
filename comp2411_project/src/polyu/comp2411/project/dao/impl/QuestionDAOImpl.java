@@ -12,6 +12,13 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
         return null;
     }
 
+
+
+    @Override
+    public void delAllQuestionOfExam(Exam ex) {
+
+    }
+
     @Override
     public void addQuestion(Question que) {
 

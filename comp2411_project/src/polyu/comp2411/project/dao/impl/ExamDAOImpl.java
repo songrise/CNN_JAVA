@@ -18,6 +18,11 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     }
 
     @Override
+    public void delExam(Exam ex) {
+
+    }
+
+    @Override
     public List<Exam> searchBySubject(Subject sub) {
         return null;
     }

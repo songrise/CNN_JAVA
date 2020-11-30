@@ -8,6 +8,16 @@ import java.util.List;
 
 public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     @Override
+    public void addExamList(ExamList el) {
+
+    }
+
+    @Override
+    public void delExamList(ExamList el) {
+
+    }
+
+    @Override
     public List<ExamList> searchByStudent(Student stu) {
         return null;
     }
