@@ -1,28 +1,32 @@
 package polyu.comp2411.project.entity;
 
 public class Teacher {
-    private int tId;
+    private int id;
+    private String name;
 
-    public Teacher(int tId, String tName) {
-        this.tId = tId;
-        this.tName = tName;
+    public Teacher(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    private String tName;
 
-    public int gettId() {
-        return tId;
+
+    public int getId() {
+        return id;
     }
 
-    public void settId(int tId) {
-        this.tId = tId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String gettName() {
-        return tName;
+    public String getName() {
+        return name;
     }
 
-    public void settName(String tName) {
-        this.tName = tName;
+    public void setName(String name) {
+        this.name = name;
     }
+
+
+
 }

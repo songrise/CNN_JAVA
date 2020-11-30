@@ -1,48 +1,51 @@
 package polyu.comp2411.project.entity;
 
 public class ScoreList {
-    private int stu_id;
-    private int test_id;
+
+    private int stuId;
+    private int testId;
     private int score;
 
-    public ScoreList(int stu_id, int test_id, int score, String feedBack) {
-        this.stu_id = stu_id;
-        this.test_id = test_id;
+    public ScoreList(int stuId, int testId, int score, String feedBack) {
+        this.stuId = stuId;
+        this.testId = testId;
         this.score = score;
         this.feedBack = feedBack;
     }
 
     private String feedBack;
 
-    public int getStu_id() {
-        return stu_id;
+    public int getStuId() {
+        return stuId;
     }
 
-    public void setStu_id(int stu_id) {
-        this.stu_id = stu_id;
-    }
-
-    public int getTest_id() {
-        return test_id;
-    }
-
-    public void setTest_id(int test_id) {
-        this.test_id = test_id;
+    public int getTestId() {
+        return testId;
     }
 
     public int getScore() {
         return score;
     }
 
+    public void setStuId(int stuId) {
+        this.stuId = stuId;
+    }
+
+    public void setTestId(int testId) {
+        this.testId = testId;
+    }
+
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setFeedBack(String feedBack) {
+        this.feedBack = feedBack;
     }
 
     public String getFeedBack() {
         return feedBack;
     }
 
-    public void setFeedBack(String feedBack) {
-        this.feedBack = feedBack;
-    }
+
 }

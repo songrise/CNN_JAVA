@@ -2,13 +2,13 @@ package polyu.comp2411.project.entity;
 
 public class ExamList {
     private int stuId;
+    private int testId;
 
     public ExamList(int stuId, int test_id) {
         this.stuId = stuId;
         this.testId = test_id;
     }
 
-    private int testId;
 
     public int getStuId() {
         return stuId;

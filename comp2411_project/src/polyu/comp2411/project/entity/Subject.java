@@ -1,28 +1,27 @@
 package polyu.comp2411.project.entity;
 
 public class Subject {
-    public Subject(int subId, String subName) {
-        this.subId = subId;
-        this.subName = subName;
+    private int id;
+    private String name;
+
+    public Subject(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    private int subId;
-    private String subName;
-
-
-    public int getSubId() {
-        return subId;
+    public int getId() {
+        return id;
     }
 
-    public void setSubId(int subId) {
-        this.subId = subId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSubName() {
-        return subName;
+    public String getName() {
+        return name;
     }
 
-    public void setSubName(String subName) {
-        this.subName = subName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
