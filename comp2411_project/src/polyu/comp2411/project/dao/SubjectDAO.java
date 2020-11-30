@@ -11,7 +11,6 @@ public interface SubjectDAO {
     Subject searchByID(int id);
     void addSubject(Subject sub);
 
-    List<Subject> searchByClass(Class cls);
     List<Subject> searchByTeacher(Teacher tc);
     List<Subject> searchByClass(Classe cls);
     List<Subject> searchByStudent(Student stu);
