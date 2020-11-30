@@ -31,4 +31,9 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     public List<Exam> searchByClass(Subject Classe) {
         return null;
     }
+
+    @Override
+    public int getLargestExamId(Exam ex) {
+        return 0;
+    }
 }

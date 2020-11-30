@@ -6,5 +6,6 @@ public interface AccountDAO {
     Account searchByID(int id);
     void addAccount(Account act);
     void delAccount(Account act);
+    void updAccount(Account act, Account newAct);
     void changePassword(Account act);
 }

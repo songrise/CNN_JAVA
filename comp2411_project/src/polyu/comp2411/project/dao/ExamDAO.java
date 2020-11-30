@@ -14,4 +14,5 @@ public interface ExamDAO {
     void delExam(Exam ex);
     List<Exam> searchBySubject(Subject sub);
     List<Exam> searchByClass(Subject Classe);
+    int getLargestExamId(Exam ex);
 }
