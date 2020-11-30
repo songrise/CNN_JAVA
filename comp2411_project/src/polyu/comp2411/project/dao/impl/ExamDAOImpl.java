@@ -73,7 +73,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
 
     @Override
     public List<Exam> searchBySubject(Subject sub) {
-        String sql = "SELECT * FROM EXAM NATUAL JOIN STUDENT WHERE SUBJECT_ID = ?";
+        String sql = "SELECT * FROM EXAM WHERE SUBJECT_ID = ?";
         try{
             setPs(sql);
             getPs().setInt(1,sub.getSubId());
@@ -103,7 +103,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
 
     @Override
     public List<Exam> searchByClass(Classe classe) {
-        String sql = "SELECT * FROM EXAM NATUAL JOIN STUDENT WHERE CLASS_NO = ?";
+        String sql = "SELECT * FROM EXAM WHERE CLASS_NO = ?";
         try{
             setPs(sql);
             getPs().setInt(1,classe.getClassNo());
