@@ -9,3 +9,4 @@ public interface ScoreListDAO {
     void addScoreList(ScoreList sl);
     List<ScoreList> searchByStudent(Student stu);
 }
+;;;;;
