@@ -2,17 +2,19 @@ package polyu.comp2411.project.entity;
 
 
 // this means the answer a student made for any exams
-public class StudentAnswer {
+public class StudentAnswer implements Cloneable{
     private int stuId;
     private int testId;
     private int queNo;
     private String answer;
+    private int score;
 
-    public StudentAnswer(int stuId, int testId, int queNo, String answer) {
+    public StudentAnswer(int stuId, int testId, int queNo, String answer, int score) {
         this.stuId = stuId;
         this.testId = testId;
         this.queNo = queNo;
         this.answer = answer;
+        this.score = score;
     }
 
     public int getStuId() {
@@ -45,5 +47,18 @@ public class StudentAnswer {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(final int score) {
+        this.score = score;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

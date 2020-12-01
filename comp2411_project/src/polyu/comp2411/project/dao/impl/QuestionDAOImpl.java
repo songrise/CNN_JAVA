@@ -15,16 +15,17 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    QuestionDAOImpl(){
+    public QuestionDAOImpl(){
         super();
     }
 
     @Override
-    public Question searchByID(int id) {
-        String sql = "SELECT * FROM QUESTION WHERE QUESTION_NO = ?";
+    public Question searchByKey(int testId, int qNo) {
+        String sql = "SELECT * FROM QUESTION WHERE TEST_ID = ? AND QUESTION_NO = ?";
         try{
             setPs(sql);
-            getPs().setInt(1,id);
+            getPs().setInt(1,testId);
+            getPs().setInt(2,qNo);
             rs = getPs().executeQuery();
             while(rs.next()){
                 int testId=rs.getInt("TEST_ID");
@@ -33,7 +34,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
                 String type = rs.getString("TYPE");
                 String answer = rs.getString("ANSWER");
                 int score=rs.getInt("SCORE");
-                Question result = new Question(id,testId,description,compulsory,type,answer,score);
+                Question result = new Question(qNo,testId,description,compulsory,type,answer,score);
                 this.question= result; //set the teacher field as this.
                 return result;
             }

@@ -2,9 +2,11 @@ package polyu.comp2411.project.service;
 
 import polyu.comp2411.project.dao.ExamDAO;
 import polyu.comp2411.project.dao.ExamListDAO;
+import polyu.comp2411.project.dao.QuestionDAO;
 import polyu.comp2411.project.dao.StudentDAO;
 import polyu.comp2411.project.dao.impl.ExamDAOImpl;
 import polyu.comp2411.project.dao.impl.ExamListDAOImpl;
+import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentDAOImpl;
 import polyu.comp2411.project.entity.*;
 
@@ -28,27 +30,33 @@ public class TestDesigner {
      * @param startTime
      * @return id of the test
      */
-    public void createTest(Teacher arranger, Classe cls, Subject sub, BigInteger testDuration, Timestamp startTime){
+    public int createTest(Teacher arranger, Classe cls, Subject sub, BigInteger testDuration, Timestamp startTime){
         ExamDAO examDAO = new ExamDAOImpl();
         int testId = examDAO.getNextExamId();
         Exam newlyCreatedTest = new Exam(testId,testDuration,startTime,cls.getClassNo(),sub.getId(),arranger.getId());
         examDAO.addExam(newlyCreatedTest);
-        //next add add this exam to students' exam list
+        //next add this exam to students' exam list
         StudentDAO studentDAO = new StudentDAOImpl();
         ExamListDAO examListDAO = new ExamListDAOImpl();
         for (Student stu : studentDAO.searchByClass(cls)){ // for all student in that class
             ExamList el = new ExamList(stu.getId(),testId);
             examListDAO.addExamList(el);
         }
+        return testId;
     }
 
     /**
-     * add a question to an exam.
+     * create a question to an exam.
      * @param ex
-     * @param que
+     * @param qDesc: description of question
+     * @param answer: correct answer
+     * @return the No. of question
      */
-    public void addQuestion(Exam ex, Question que){
-        //todo
+    public int createQuestion(Exam ex,String qDesc, boolean isCompulsory, String type, String answer, int score){
+        QuestionDAO questionDAO = new QuestionDAOImpl();
+        int qNo = questionDAO.getNextQuestionNo(ex);
+        Question newQ = new Question(qNo, ex.getTestId(),qDesc,isCompulsory,type,answer,score);
+        questionDAO.addQuestion(newQ);
+        return qNo;
     }
-
 }

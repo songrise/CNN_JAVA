@@ -22,7 +22,7 @@ public class BaseDAO {
         //  Database credentials
         final String USER = "root";
         final String PASS = "";
-        this.conn = conn;
+        this.conn = conn; //? what
 
         try {
             //STEP 2: Register JDBC driver

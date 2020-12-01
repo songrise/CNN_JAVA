@@ -34,6 +34,7 @@ public class Account {
     public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
+
 }
 
 

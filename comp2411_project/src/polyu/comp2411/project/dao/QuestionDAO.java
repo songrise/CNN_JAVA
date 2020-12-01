@@ -6,7 +6,7 @@ import polyu.comp2411.project.entity.Question;
 import java.util.List;
 
 public interface QuestionDAO {
-    Question searchByID(int id);
+    Question searchByKey(int testId, int qNo);
 
     void delAllQuestionOfExam(Exam ex);
     void addQuestion(Question que);

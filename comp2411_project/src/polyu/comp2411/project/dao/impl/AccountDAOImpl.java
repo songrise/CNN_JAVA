@@ -2,10 +2,7 @@ package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.AccountDAO;
 import polyu.comp2411.project.entity.Account;
-import polyu.comp2411.project.entity.Student;
-import polyu.comp2411.project.entity.Teacher;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

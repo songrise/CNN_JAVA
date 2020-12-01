@@ -31,8 +31,8 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
         try {
             setPs(sql);
             //set parameter of sql
-            getPs().setInt(1, sl.getStu_id());
-            getPs().setInt(2,sl.getTest_id());
+            getPs().setInt(1, sl.getStuId());
+            getPs().setInt(2,sl.getTestId());
             getPs().setInt(3,sl.getScore());
             getPs().setString(4,sl.getFeedBack());
             getPs().execute();

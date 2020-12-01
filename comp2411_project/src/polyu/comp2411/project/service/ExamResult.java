@@ -2,6 +2,7 @@ package polyu.comp2411.project.service;
 
 
 import polyu.comp2411.project.entity.Exam;
+import polyu.comp2411.project.entity.StudentAnswer;
 
 /**
  * provide service for calculate and update exam result
@@ -25,4 +26,5 @@ public class ExamResult {
     public void calScoreOfExam(Exam ex){
 
     }
+
 }

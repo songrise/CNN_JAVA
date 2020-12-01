@@ -50,8 +50,8 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         try {
             setPs(sql);
             //set parameter of sql
-            getPs().setInt(1,sub.getSubId());
-            getPs().setString(2,sub.getSubName());
+            getPs().setInt(1,sub.getId());
+            getPs().setString(2,sub.getName());
             getPs().execute();
         }catch (SQLException e){
             e.printStackTrace();
