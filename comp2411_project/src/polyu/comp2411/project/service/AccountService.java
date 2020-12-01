@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * provide service for account management.
  */
-public class AccountManager {
+public class AccountService {
     static final int INVALID = -1;
     static final int MINLEN = 6;
 

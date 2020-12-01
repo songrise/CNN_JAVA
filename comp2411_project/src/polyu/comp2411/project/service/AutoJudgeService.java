@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * provide service for auto-judge multiple choice, fill-in-blank
  */
-public class AutoJudger {
+public class AutoJudgeService {
 
 
     /**

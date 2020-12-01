@@ -7,7 +7,7 @@ import polyu.comp2411.project.entity.StudentAnswer;
 /**
  * provide service for calculate and update exam result
  */
-public class ExamResult {
+public class ExamResultService {
 
 
     /**

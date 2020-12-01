@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 /**
  * provide service for teacher to Design a exam
  */
-public class TestDesigner {
+public class TestDesignerService {
 
 
     /**

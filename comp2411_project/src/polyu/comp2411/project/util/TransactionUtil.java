@@ -1,9 +1,8 @@
-package polyu.comp2411.project.misc;
+package polyu.comp2411.project.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * provide utility for transaction control. todo I will refactor DAO part,

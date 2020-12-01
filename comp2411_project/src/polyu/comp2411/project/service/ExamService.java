@@ -7,7 +7,7 @@ import polyu.comp2411.project.entity.Student;
 /**
  * provide service for student to have online test
  */
-public class ExamSystem {
+public class ExamService {
 
 
     /**
