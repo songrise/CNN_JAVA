@@ -61,7 +61,23 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
 
     @Override
     public void updExamList(ExamList oldEl, ExamList newEl) {
-
+        String sql = "UPDATE EXAMLIST SET STU_ID=?,TEST_ID=? WHERE TEST_ID = ?"; // parameter to be set later
+        try {
+            setPs(sql);
+            //set parameter of sql
+            getPs().setInt(1, newEl.getStuId());
+            getPs().setInt(2, newEl.getTestId());
+            getPs().setInt(3, oldEl.getTestId());
+            getPs().execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            // close resources used
+            closeConn();
+            closeStatement();
+            closePreparedStatement();
+        }
     }
 
     @Override
