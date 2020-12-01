@@ -42,7 +42,13 @@ public class TestDesigner {
         }
     }
 
-    public addQuestion(Exam ex, Question que){
+    /**
+     * add a question to an exam.
+     * @param ex
+     * @param que
+     */
+    public void addQuestion(Exam ex, Question que){
         //todo
     }
+
 }

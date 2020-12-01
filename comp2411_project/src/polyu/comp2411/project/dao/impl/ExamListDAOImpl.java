@@ -17,7 +17,8 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    public ExamListDAOImpl(){
+
+    public ExamListDAOImpl() {
         super();
     }
 
@@ -26,14 +27,13 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
         String sql = "INSERT INTO EXAM_LIST VALUES(?,?)"; // parameter to be set later
         try {
             setPs(sql);
-            //set parameter of sql
+            // set parameter of sql
             getPs().setInt(1, el.getStuId());
-            getPs().setInt(2,el.getTestId());
+            getPs().setInt(2, el.getTestId());
             getPs().execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeConn();
             closeStatement();
@@ -46,39 +46,44 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
         String sql = "DELETE FROM EXAM_LIST WHERE TEST_ID = ?"; // parameter to be set later
         try {
             setPs(sql);
-            //set parameter of sql
+            // set parameter of sql
             getPs().setInt(1, el.getTestId());
             getPs().execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeConn();
             closeStatement();
             closePreparedStatement();
         }
     }
+
+    @Override
+    public void updExamList(ExamList oldEl, ExamList newEl) {
+
+    }
+
     @Override
     public List<ExamList> searchByStudent(Student stu) {
         String sql = "SELECT * FROM EXAM_LIST WHERE STU_ID = ?";
-        try{
+        try {
             setPs(sql);
-            getPs().setInt(1,stu.getId());
+            getPs().setInt(1, stu.getId());
+            rs = getPs().executeQuery();
             List<ExamList> ans = new ArrayList<>();
-            while(rs.next()){
-                int stuId=rs.getInt("STU_ID");
-                int testId=rs.getInt("TEST_ID");
+            while (rs.next()) {
+                int stuId = rs.getInt("STU_ID");
+                int testId = rs.getInt("TEST_ID");
 
-                ExamList result=new ExamList(stuId,testId);
+                ExamList result = new ExamList(stuId, testId);
                 ans.add(result);
             }
             return ans;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeConn();
             closeStatement();

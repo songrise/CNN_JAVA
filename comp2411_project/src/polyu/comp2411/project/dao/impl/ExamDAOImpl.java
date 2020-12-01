@@ -77,6 +77,11 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     }
 
     @Override
+    public void updExam(Exam oldEx, Exam newEx) {
+
+    }
+
+    @Override
     public List<Exam> searchBySubject(Subject sub) {
         String sql = "SELECT * FROM EXAM WHERE SUBJECT_ID = ?";
         try{

@@ -11,6 +11,7 @@ public interface QuestionDAO {
     void delAllQuestionOfExam(Exam ex);
     void addQuestion(Question que);
     void delQuestion(Question que);
+    void updQuesiton(Question oldQue, Question newQue);
     List<Question> searchByExam(Exam ex);
     //get the next question number of an exam
     int getNextQuestionNo(Exam ex);

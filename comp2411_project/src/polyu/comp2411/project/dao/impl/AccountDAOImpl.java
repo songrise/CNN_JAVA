@@ -14,7 +14,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    AccountDAOImpl(){
+    public AccountDAOImpl(){
         super();
     }
 

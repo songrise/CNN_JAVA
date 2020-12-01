@@ -49,6 +49,11 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
     }
 
     @Override
+    public void delAllQuestionOfExam(Exam ex) {
+
+    }
+
+    @Override
     public void addQuestion(Question que) {
         String sql = "INSERT INTO QUESTION VALUES(?,?,?,?,?,?,?)"; // parameter to be set later
         try {
@@ -93,6 +98,11 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
     }
 
     @Override
+    public void updQuesiton(Question oldQue, Question newQue) {
+
+    }
+
+    @Override
     public List<Question> searchByExam(Exam ex) {
         String sql = "SELECT * FROM Question WHERE TEST_ID=?";
         try{
@@ -122,5 +132,10 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             closePreparedStatement();
         }
         return null;
+    }
+
+    @Override
+    public int getNextQuestionNo(Exam ex) {
+        return 0;
     }
 }

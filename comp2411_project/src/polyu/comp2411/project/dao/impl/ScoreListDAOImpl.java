@@ -1,6 +1,7 @@
 package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.ScoreListDAO;
+import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.ScoreList;
 import polyu.comp2411.project.entity.Student;
@@ -18,7 +19,12 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
     ScoreListDAOImpl(){
         super();
     }
-    
+
+    @Override
+    public ScoreList searchByKey(Student stu, Exam ex) {
+        return null;
+    }
+
     @Override
     public void addScoreList(ScoreList sl) {
         String sql = "INSERT INTO SCORE_LIST VALUES(?,?,?,?)"; // parameter to be set later
@@ -39,6 +45,16 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             closeStatement();
             closePreparedStatement();
         }
+    }
+
+    @Override
+    public void delScoreList(ScoreList sl) {
+
+    }
+
+    @Override
+    public void updScoreList(ScoreList oldSl, ScoreList newSl) {
+
     }
 
     @Override

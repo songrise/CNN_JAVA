@@ -8,7 +8,8 @@ import java.util.List;
 public interface ExamListDAO {
     void addExamList(ExamList el);
     void delExamList(ExamList el);
-    // An examList is just one record. it is pretty much like a list of exam
+    void updExamList(ExamList oldEl, ExamList newEl);
+    // An examList is just one record. return value of this is a list of exam
     List<ExamList> searchByStudent(Student stu);
 
 
