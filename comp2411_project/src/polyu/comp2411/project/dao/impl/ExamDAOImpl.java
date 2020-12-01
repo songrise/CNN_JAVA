@@ -73,12 +73,45 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
 
     @Override
     public void delExam(Exam ex) {
-
+        String sql = "DELETE FROM EXAM WHERE TEST_ID = ?"; // parameter to be set later
+        try {
+            setPs(sql);
+            // set parameter of sql
+            getPs().setInt(1, ex.getTestId());
+            getPs().execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // close resources used
+            closeConn();
+            closeStatement();
+            closePreparedStatement();
+        }
     }
 
     @Override
     public void updExam(Exam oldEx, Exam newEx) {
-
+        String sql = "UPDATE EXAM SET TEST_ID=?,TEST_DURATION=?,START_TIME=?,CLASS_NO=?,SUBJECT_ID=?,ARRANGER_ID=? WHERE TEST_ID = ?"; // parameter to be set later
+        try {
+            setPs(sql);
+            //set parameter of sql
+            getPs().setInt(1, newEx.getTestId());
+            getPs().setObject(2, newEx.getTestDuration());
+            getPs().setTimestamp(3, newEx.getStartTime());
+            getPs().setInt(4, newEx.getClassNo());
+            getPs().setInt(5, newEx.getSubjectId());
+            getPs().setInt(6, newEx.getArrangerId());
+            getPs().setInt(7, oldEx.getTestId());
+            getPs().execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            // close resources used
+            closeConn();
+            closeStatement();
+            closePreparedStatement();
+        }
     }
 
     @Override
