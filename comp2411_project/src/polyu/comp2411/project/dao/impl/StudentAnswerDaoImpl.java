@@ -6,9 +6,17 @@ import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.StudentAnswer;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
+    public StudentAnswerDaoImpl() {
+    }
+
+    public StudentAnswerDaoImpl(final Connection connection) {
+        super(connection);
+    }
+
     @Override
     public StudentAnswer searchByKey(Student stu, Exam ex, Question que) {
         return null;

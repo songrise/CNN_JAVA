@@ -3,6 +3,7 @@ package polyu.comp2411.project.dao.impl;
 import polyu.comp2411.project.dao.ExamDAO;
 import polyu.comp2411.project.entity.*;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     private ResultSet result;
     public ExamDAOImpl(){
         super();
+    }
+    public ExamDAOImpl(Connection connection){
+        super(connection);
     }
 
     @Override
@@ -40,7 +44,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             e.printStackTrace();
         }
         finally {
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -65,7 +68,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -83,7 +85,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             e.printStackTrace();
         } finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -108,7 +109,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -138,7 +138,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -170,7 +169,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -194,7 +192,6 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

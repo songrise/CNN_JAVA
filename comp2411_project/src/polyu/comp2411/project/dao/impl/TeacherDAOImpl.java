@@ -7,6 +7,7 @@ import polyu.comp2411.project.dao.impl.BaseDAO;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Teacher;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         super();
     }
 
+    public TeacherDAOImpl(final Connection connection ) {
+        super(connection);
+    }
 
     @Override
     public Teacher serchByID(int id) {
@@ -40,7 +44,6 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
             e.printStackTrace();
         }
         finally {
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }return null;
@@ -60,7 +63,6 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -87,7 +89,6 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -116,7 +117,6 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

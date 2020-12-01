@@ -3,6 +3,7 @@ package polyu.comp2411.project.dao.impl;
 import polyu.comp2411.project.dao.StudentDAO;
 import polyu.comp2411.project.entity.*;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,9 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
         super();
     }
 
-
+    public StudentDAOImpl(Connection connection) {
+        super(connection);
+    }
 
     @Override
     public Student searchByID(int id) {
@@ -39,7 +42,6 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             e.printStackTrace();
         }
         finally {
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -60,7 +62,6 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -84,7 +85,6 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -111,7 +111,6 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

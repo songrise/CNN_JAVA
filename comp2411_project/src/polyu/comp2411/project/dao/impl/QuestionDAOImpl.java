@@ -5,6 +5,7 @@ import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.Teacher;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
     private ResultSet result;
     public QuestionDAOImpl(){
         super();
+    }
+    public QuestionDAOImpl(Connection connection){
+        super(connection);
     }
 
     @Override
@@ -42,7 +46,6 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             e.printStackTrace();
         }
         finally {
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -73,7 +76,6 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -92,7 +94,6 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -128,7 +129,6 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

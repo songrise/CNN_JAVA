@@ -3,6 +3,7 @@ package polyu.comp2411.project.dao.impl;
 import polyu.comp2411.project.dao.AccountDAO;
 import polyu.comp2411.project.entity.Account;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,29 +12,33 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    public AccountDAOImpl(){
+
+    public AccountDAOImpl() {
         super();
+    }
+
+    public AccountDAOImpl(Connection connection) {
+        super(connection);
     }
 
     @Override
     public Account searchByID(int id) {
         String sql = "SELECT * FROM ACCOUNT WHERE USER_ID = ?";
-        try{
+        try {
             setPs(sql);
-            getPs().setInt(1,id);
+            getPs().setInt(1, id);
             rs = getPs().executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String password = rs.getString("PASSWORD");
-                int privilege=rs.getInt("PRIVILEGE");
-                Account result = new Account(id,password,privilege);
-                this.account= result; //set the teacher field as this.
+                int privilege = rs.getInt("PRIVILEGE");
+                Account result = new Account(id, password, privilege);
+                this.account = result; // set the teacher field as this.
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
-            closeConn();
+        } finally {
+
             closeStatement();
             closePreparedStatement();
         }
@@ -45,17 +50,16 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
         String sql = "INSERT INTO ACCOUNT VALUES(?,?,?)"; // parameter to be set later
         try {
             setPs(sql);
-            //set parameter of sql
-            getPs().setInt(1,act.getUid());
-            getPs().setString(2,act.getPassword());
-            getPs().setInt(3,act.getPrivilege());
+            // set parameter of sql
+            getPs().setInt(1, act.getUid());
+            getPs().setString(2, act.getPassword());
+            getPs().setInt(3, act.getPrivilege());
             getPs().execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
-            closeConn();
+
             closeStatement();
             closePreparedStatement();
         }
@@ -66,37 +70,36 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
         String sql = "DELETE FROM ACCOUNT WHERE USER_ID = ?"; // parameter to be set later
         try {
             setPs(sql);
-            //set parameter of sql
+            // set parameter of sql
             getPs().setInt(1, act.getUid());
             getPs().execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
-            closeConn();
+
             closeStatement();
             closePreparedStatement();
         }
     }
 
     @Override
-    public void updAccount(Account act, Account newAct){
-        String sql = "UPDATE ACCOUNT SET USER_ID=?,PASSWORD=?,PRIVILEGE=? WHERE USER_ID = ?"; // parameter to be set later
+    public void updAccount(Account act, Account newAct) {
+        String sql = "UPDATE ACCOUNT SET USER_ID=?,PASSWORD=?,PRIVILEGE=? WHERE USER_ID = ?"; // parameter to be set
+                                                                                              // later
         try {
             setPs(sql);
-            //set parameter of sql
+            // set parameter of sql
             getPs().setInt(1, newAct.getUid());
             getPs().setString(2, newAct.getPassword());
             getPs().setInt(3, newAct.getPrivilege());
             getPs().setInt(4, act.getUid());
             getPs().execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
-            closeConn();
+
             closeStatement();
             closePreparedStatement();
         }

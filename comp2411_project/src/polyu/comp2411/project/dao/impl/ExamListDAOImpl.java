@@ -6,6 +6,7 @@ import polyu.comp2411.project.entity.ExamList;
 import polyu.comp2411.project.entity.Student;
 
 import java.math.BigInteger;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -21,6 +22,9 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     public ExamListDAOImpl() {
         super();
     }
+    public ExamListDAOImpl(Connection connection){
+        super(connection);
+    }
 
     @Override
     public void addExamList(ExamList el) {
@@ -35,7 +39,6 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
             e.printStackTrace();
         } finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -53,7 +56,6 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
             e.printStackTrace();
         } finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -74,7 +76,6 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -101,7 +102,6 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
             e.printStackTrace();
         } finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

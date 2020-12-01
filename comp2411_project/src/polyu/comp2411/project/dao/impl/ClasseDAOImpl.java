@@ -5,6 +5,7 @@ import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.Teacher;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,6 +19,9 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
     private ResultSet result;
     ClasseDAOImpl(){
         super();
+    }
+    public ClasseDAOImpl(Connection connection){
+        super(connection);
     }
 
     @Override
@@ -38,7 +42,6 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
             e.printStackTrace();
         }
         finally {
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -64,7 +67,6 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

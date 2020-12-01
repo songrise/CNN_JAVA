@@ -6,6 +6,7 @@ import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.Subject;
 import polyu.comp2411.project.entity.Teacher;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
     private ResultSet result;
     SubjectDAOImpl(){
         super();
+    }
+
+    public SubjectDAOImpl(final Connection connection) {
+        super(connection);
     }
 
     @Override
@@ -37,7 +42,6 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             e.printStackTrace();
         }
         finally {
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -58,7 +62,6 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -85,7 +88,6 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -113,7 +115,6 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -141,7 +142,6 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }

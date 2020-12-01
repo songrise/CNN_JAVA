@@ -6,6 +6,7 @@ import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.ScoreList;
 import polyu.comp2411.project.entity.Student;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,8 +17,11 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    ScoreListDAOImpl(){
+    public ScoreListDAOImpl(){
         super();
+    }
+    public ScoreListDAOImpl(Connection connection){
+        super(connection);
     }
 
     @Override
@@ -41,7 +45,6 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
@@ -79,7 +82,6 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
         }
         finally {
             // close resources used
-            closeConn();
             closeStatement();
             closePreparedStatement();
         }
