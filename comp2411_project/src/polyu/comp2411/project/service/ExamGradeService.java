@@ -1,17 +1,10 @@
 package polyu.comp2411.project.service;
 
-
 import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.StudentAnswer;
 
-/**
- * provide service for calculate and update exam result
- */
-public class ExamResultService {
-
-
+public interface ExamGradeService {
     /**
-     * calculate score of exam. This means the score of
+     * calculate total score of exam. This means the score of
      * all the student participated in this exam will be
      * calculated. The score means original points, not
      * letter grade.
@@ -23,8 +16,5 @@ public class ExamResultService {
      * be judged.
      * @param ex
      */
-    public void calScoreOfExam(Exam ex){
-
-    }
-
+    void calScoreOfExam(Exam ex);
 }
