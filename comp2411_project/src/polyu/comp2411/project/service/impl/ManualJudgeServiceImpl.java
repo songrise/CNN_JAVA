@@ -6,6 +6,7 @@ import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentAnswerDaoImpl;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
+import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.StudentAnswer;
 import polyu.comp2411.project.service.ManualJudgeService;
 import polyu.comp2411.project.util.TransactionUtil;
@@ -23,9 +24,10 @@ public class ManualJudgeServiceImpl implements ManualJudgeService {
     /**
      * manual judge a particular exam for all student participated in it
      * @param ex the exam
+     * @return
      */
     @Override
-    public void judgeAnExam(Exam ex){//todo maybe add condition that only who arrange this test can manual judge this?
+    public List<StudentAnswer> fetchFLofAnExam(Exam ex){//todo maybe add condition that only who arrange this test can manual judge this?
         if (ex == null) {
             throw new IllegalArgumentException();
         }
@@ -44,20 +46,22 @@ public class ManualJudgeServiceImpl implements ManualJudgeService {
             }
 
             List<StudentAnswer> studentAnswers = studentAnswerDAO.searchByExam(ex);
+            List<StudentAnswer> studentAnswersToFullLength = new ArrayList<>(); // all the anwer to full-length question
             for (StudentAnswer sa : studentAnswers) { // for all the answers in this exam
                 if (qNoOfFullLen.contains(sa.getQueNo())){ // if this is an answer to a full-length question.
-                    judgeAQuestion(sa); // todo: still wandering how this could be interactive.
+                    studentAnswersToFullLength.add(sa);
                 }
             }
 
             TransactionUtil.commit();
+            return studentAnswersToFullLength;
         }catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
         }finally {
             TransactionUtil.closeConn();
         }
-
+        return null;
     }
 
     private void judgeAQuestion(StudentAnswer stuAns){
@@ -89,4 +93,33 @@ public class ManualJudgeServiceImpl implements ManualJudgeService {
 //        }
     }
 
+    @Override
+    public void manualJudgeAQuesion(StudentAnswer stuAns, int score) {
+        if (stuAns == null || score<0) {
+            throw new IllegalArgumentException();
+        }
+        try{
+            Connection conn =TransactionUtil.getConn();
+            TransactionUtil.startTransaction();
+            QuestionDAO questionDAO = new QuestionDAOImpl(conn);
+            StudentAnswerDAO studentAnswerDAO = new StudentAnswerDaoImpl(conn);
+
+            Question q = questionDAO.searchByKey(stuAns.getTestId(), stuAns.getQueNo());
+            if (score>q.getScore()){//if the score given is higher that points avaliable
+                throw new IllegalArgumentException("Score higher than avaliable!");
+            }
+
+            StudentAnswer gradedStuAns = (StudentAnswer) stuAns.clone();
+            gradedStuAns.setScore(score);
+            studentAnswerDAO.updStudentAnswer(stuAns,gradedStuAns);//update the score field of original record
+
+            TransactionUtil.commit();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            TransactionUtil.rollBack();
+        }finally {
+            TransactionUtil.closeConn();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package polyu.comp2411.project.service;
 
 import polyu.comp2411.project.entity.Exam;
+import polyu.comp2411.project.entity.ScoreList;
 
 public interface ExamGradeService {
     /**
@@ -17,4 +18,5 @@ public interface ExamGradeService {
      * @param ex
      */
     void calScoreOfExam(Exam ex);
+    void addComment(ScoreList sl, String commnet);
 }

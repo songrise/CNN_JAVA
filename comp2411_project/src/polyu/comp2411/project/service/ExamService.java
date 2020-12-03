@@ -1,7 +1,10 @@
 package polyu.comp2411.project.service;
 
 import polyu.comp2411.project.entity.Exam;
+import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.Student;
+
+import java.util.List;
 
 public interface ExamService {
     /**
@@ -9,21 +12,21 @@ public interface ExamService {
      * 1) check if student can enter that exam
      *
      * 2) if can, then insert all the question of this exam
-     * into the StudentTable table for this student, and the
+     * into the StudentAnswer table for this student, and the
      * answer is null(which means not answered at the very
      * begining of exam)
      *
-     * 3) pull all the quesions of this exam form Question table
-     *
-     * 4) let student answer the questions. to answer a question
-     * is to update the answer field in StudentAnswer DB with
-     * corresponding stuId.
-     *
-     * 5) terminate the exam if time up, or student anwered all quesions
-     * and confirm submit.
-     *
      * @param student the student who sit this exam
      * @param ex
+     * @return all the questions in this exam
      */
-    void sitExam(Student student, Exam ex);
+    List<Question> sitExam(Student student, Exam ex);
+
+    /**
+     * controller call this iterativly to answer questions
+     * @param que
+     * @param stu
+     * @param stuAnswerStr the answer that student made.
+     */
+    void answerAnQuestion(Question que, Student stu, String stuAnswerStr);
 }
