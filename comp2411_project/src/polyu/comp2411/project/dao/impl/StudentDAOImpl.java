@@ -34,7 +34,8 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             while(rs.next()){
 
                 String name = rs.getString("STU_NAME");
-                Student result = new Student(id,name);
+                int classNo=rs.getInt("CLASS_NO");
+                Student result = new Student(id,name,classNo);
                 this.stu = result; //set the stu field as this.
                 return result;
             }
@@ -77,7 +78,8 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             while(rs.next()){
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
-                ans.add(new Student(id,name));
+                int classNo=rs.getInt("CLASS_NO");
+                ans.add(new Student(id,name,classNo));
             }
             return ans;
         }catch (SQLException e){
@@ -102,7 +104,8 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             while(rs.next()){
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
-                ans.add(new Student(id,name));
+                int classNo=rs.getInt("CLASS_NO");
+                ans.add(new Student(id,name,classNo));
 
             }
             return ans;
