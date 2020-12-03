@@ -114,7 +114,6 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             List<Question> ans = new ArrayList<>();
             while(rs.next()){
                 int questionNo=rs.getInt("QUESTION_NO");
-                int testId=rs.getInt("TEST_ID");
                 String description = rs.getString("Q_DESCRIPTION");
                 boolean compulsory=rs.getBoolean("COMPULSORY");
                 String type = rs.getString("TYPE");
