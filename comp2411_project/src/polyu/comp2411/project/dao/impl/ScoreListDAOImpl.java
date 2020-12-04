@@ -87,4 +87,32 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
         }
         return null;
     }
+
+    @Override
+    public List<ScoreList> searchByExam(Exam ex) {
+        String sql = "SELECT * FROM SCORE_LIST WHERE TEST_ID = ?";
+        try{
+            setPs(sql);
+            getPs().setInt(1,ex.getTestId());
+            rs = getPs().executeQuery(sql);
+            List<ScoreList> ans = new ArrayList<>();
+            while(rs.next()){
+                int stuId=rs.getInt("STU_ID");
+                int testId=rs.getInt("TEST_ID");
+                int score=rs.getInt("SCORE");
+                String feedback=rs.getString("FEEDBACK");
+                ScoreList result = new ScoreList(stuId,testId,score,feedback);
+                ans.add(result);
+            }
+            return ans;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+        }
+        return null;
+    }
 }

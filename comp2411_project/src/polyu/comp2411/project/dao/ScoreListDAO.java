@@ -13,4 +13,5 @@ public interface ScoreListDAO {
     void delScoreList(ScoreList sl);
     void updScoreList(ScoreList oldSl,ScoreList newSl);
     List<ScoreList> searchByStudent(Student stu);
+    List<ScoreList> searchByExam(Exam ex);
 }

@@ -14,7 +14,7 @@ public interface ExamDAO {
     void delExam(Exam ex);
     void updExam(Exam oldEx, Exam newEx);
     List<Exam> searchBySubject(Subject sub);
-    List<Exam> searchByClass(Classe cls);
+    List<Exam> searchBySubAndClass(Subject sub, Classe cls);
     //get the next question number of an exam
     int getNextExamId();
 }

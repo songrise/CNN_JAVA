@@ -145,11 +145,12 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     }
 
     @Override
-    public List<Exam> searchByClass(Classe classe) {
-        String sql = "SELECT * FROM EXAM WHERE CLASS_NO = ?";
+    public List<Exam> searchBySubAndClass(Subject sub, Classe classe) {
+        String sql = "SELECT * FROM EXAM WHERE SUBJECT_ID = ? AND CLASS_NO = ?";
         try{
             setPs(sql);
-            getPs().setInt(1,classe.getClassNo());
+            getPs().setInt(1,sub.getId());
+            getPs().setInt(2,classe.getClassNo());
             rs = getPs().executeQuery();
             List<Exam> ans = new ArrayList<>();
             while(rs.next()){
