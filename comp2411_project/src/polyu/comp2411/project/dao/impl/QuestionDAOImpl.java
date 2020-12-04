@@ -32,14 +32,13 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             getPs().setInt(2,qNo);
             rs = getPs().executeQuery();
             while(rs.next()){
-                int testId=rs.getInt("TEST_ID");
                 String description = rs.getString("Q_DESCRIPTION");
                 boolean compulsory=rs.getBoolean("COMPULSORY");
                 String type = rs.getString("TYPE");
                 String answer = rs.getString("ANSWER");
                 int score=rs.getInt("SCORE");
                 Question result = new Question(qNo,testId,description,compulsory,type,answer,score);
-                this.question= result; //set the teacher field as this.
+                this.question= result;
                 return result;
             }
         }catch (SQLException e){
@@ -119,7 +118,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
                 String type = rs.getString("TYPE");
                 String answer = rs.getString("ANSWER");
                 int score=rs.getInt("SCORE");
-                Question result = new Question(questionNo,testId,description,compulsory,type,answer,score);
+                Question result = new Question(questionNo,ex.getTestId(),description,compulsory,type,answer,score);
                 ans.add(result);
             }
             return ans;

@@ -21,10 +21,12 @@ public class ExamSystem {
             System.out.println();//todo print a question
             String answer;
             // Scanner System.in TODO: get the student answer
-            service.answerAnQuestion(q,stu,answer);
+//            service.answerAnQuestion(q,stu,answer);
         }
     }
 
 
-    private boolean isTimeUp()
+    private boolean isTimeUp(){
+        return false;
+    }
 }

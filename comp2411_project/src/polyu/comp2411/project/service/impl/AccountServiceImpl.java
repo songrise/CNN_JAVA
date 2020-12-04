@@ -71,8 +71,12 @@ public class AccountServiceImpl implements AccountService {
     }
     //===========private===========
 
-
-    private static String stringToMD5(String plainText) { //encrypt password
+    /**
+     * reference: https://www.cnblogs.com/zhuyeshen/p/11424713.html
+     * @param plainText
+     * @return encryped text
+     */
+    private static String stringToMD5(String plainText) {
         byte[] secretBytes = null;
         try {
             secretBytes = MessageDigest.getInstance("md5").digest(plainText.getBytes());
