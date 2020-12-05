@@ -1,10 +1,10 @@
 package polyu.comp2411.project.service.impl;
 
-
 import polyu.comp2411.project.dao.AccountDAO;
 import polyu.comp2411.project.dao.impl.AccountDAOImpl;
 import polyu.comp2411.project.entity.Account;
 import polyu.comp2411.project.service.AccountService;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.math.BigInteger;
@@ -20,59 +20,58 @@ public class AccountServiceImpl implements AccountService {
     static final int MINLEN = 6;
 
     @Override
-    public int login(int uid, String inputPassword){
-        if (inputPassword==null || inputPassword.length()< AccountServiceImpl.MINLEN)
-            throw new IllegalStateException("Password must be no less than 6 bytes!");
-        try{
-            Connection conn =  TransactionUtil.getConn();
+    public int login(int uid, String inputPassword) {
+        if (inputPassword == null || inputPassword.length() < AccountServiceImpl.MINLEN)
+            throw new ServiceException("Password must be no less than 6 bytes!");
+        try {
+            Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
             AccountDAO dao = new AccountDAOImpl(conn);
-            Account acct = dao.searchByID(uid); //search that account in DB
+            Account acct = dao.searchByID(uid); // search that account in DB
             String encryptedInput = AccountServiceImpl.stringToMD5(inputPassword);
             TransactionUtil.commit();
-            if (encryptedInput.equals(acct.getPassword())){//check if password is right
+            if (encryptedInput.equals(acct.getPassword())) {// check if password is right
                 return acct.getPrivilege(); // succeccful log in
             }
-        }catch (Exception e){
+            return INVALID;
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
-        }
-        finally {
+        } finally {
             TransactionUtil.closeConn();
         }
         return AccountServiceImpl.INVALID;
     }
 
-
     @Override
-    public void register(int uid, String inputPassword, int priviledge){
-        if (inputPassword==null || inputPassword.length() < AccountServiceImpl.MINLEN)
-            throw new IllegalStateException("Password must be no less than 6 bytes!");
-        try{
-            Connection conn =  TransactionUtil.getConn();
+    public void register(int uid, String inputPassword, int priviledge) {
+        if (inputPassword == null || inputPassword.length() < AccountServiceImpl.MINLEN)
+            throw new ServiceException("Password must be no less than 6 bytes!");
+        try {
+            Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
             AccountDAO dao = new AccountDAOImpl(conn);
             String encryptedInput = AccountServiceImpl.stringToMD5(inputPassword);
-            Account acct = new Account(uid,encryptedInput,priviledge);
+            Account acct = new Account(uid, encryptedInput, priviledge);
             dao.addAccount(acct);
             TransactionUtil.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
-        }finally {
+        } finally {
             TransactionUtil.closeConn();
         }
     }
 
-
     @Override
-    public void changePassword(){
-        //TODO
+    public void changePassword() {
+        // TODO
     }
-    //===========private===========
+    // ===========private===========
 
     /**
      * reference: https://www.cnblogs.com/zhuyeshen/p/11424713.html
+     * 
      * @param plainText
      * @return encryped text
      */
