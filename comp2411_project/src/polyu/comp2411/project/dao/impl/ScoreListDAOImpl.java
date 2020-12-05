@@ -1,10 +1,7 @@
 package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.ScoreListDAO;
-import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.Question;
-import polyu.comp2411.project.entity.ScoreList;
-import polyu.comp2411.project.entity.Student;
+import polyu.comp2411.project.entity.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,6 +23,25 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
 
     @Override
     public ScoreList searchByKey(Student stu, Exam ex) {
+        String sql = "SELECT * FROM SCORELIST WHERE STU_ID = ? AND TEST_ID=?";
+        try{
+            setPs(sql);
+            getPs().setInt(1,stu.getId());
+            getPs().setInt(2,ex.getTestId());
+            rs = getPs().executeQuery();
+            while(rs.next()){
+                int score = rs.getInt("SCORE");
+                String feedback = rs.getString("FEEDBACK");
+                ScoreList result = new ScoreList(stu.getId(),ex.getTestId(),score,feedback);
+                return result;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            closeStatement();
+            closePreparedStatement();
+        }
         return null;
     }
 
@@ -52,12 +68,43 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
 
     @Override
     public void delScoreList(ScoreList sl) {
-
+        String sql = "DELETE FROM SCORE_LIST WHERE STU_ID = ? AND TEST_ID = ?"; // parameter to be set later
+        try {
+            setPs(sql);
+            // set parameter of sql
+            getPs().setInt(1, sl.getStuId());
+            getPs().setInt(2, sl.getTestId());
+            getPs().execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+        }
     }
 
     @Override
     public void updScoreList(ScoreList oldSl, ScoreList newSl) {
-
+        String sql = "UPDATE SCORE_LIST SET STU_ID = ?, TEST_ID = ?, SCORE = ?, FEEDBACK = ? WHERE STU_ID = ? AND TEST_ID = ?"; // parameter to be set later
+        try {
+            setPs(sql);
+            //set parameter of sql
+            getPs().setInt(1, newSl.getStuId());
+            getPs().setInt(2, newSl.getTestId());
+            getPs().setInt(3, newSl.getScore());
+            getPs().setString(4, newSl.getFeedBack());
+            getPs().setInt(5, oldSl.getStuId());
+            getPs().setInt(6, oldSl.getTestId());
+            getPs().execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+        }
     }
 
     @Override
