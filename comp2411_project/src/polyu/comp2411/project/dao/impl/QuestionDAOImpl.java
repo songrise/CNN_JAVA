@@ -44,12 +44,13 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             }
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -61,6 +62,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -85,6 +87,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
@@ -103,6 +106,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
@@ -128,6 +132,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
@@ -157,13 +162,14 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             return ans;
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override

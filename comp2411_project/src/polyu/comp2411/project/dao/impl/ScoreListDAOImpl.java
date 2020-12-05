@@ -38,12 +38,13 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             }
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -59,6 +60,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
@@ -78,6 +80,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -100,6 +103,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
@@ -127,13 +131,14 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             return ans;
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override
@@ -155,12 +160,13 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             return ans;
         }catch (SQLException e){
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
         finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 }

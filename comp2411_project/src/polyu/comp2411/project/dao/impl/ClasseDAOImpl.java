@@ -43,11 +43,12 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -66,11 +67,13 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
+            
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 }

@@ -3,12 +3,14 @@ package polyu.comp2411.project.service.impl;
 import polyu.comp2411.project.dao.*;
 import polyu.comp2411.project.dao.impl.*;
 import polyu.comp2411.project.entity.*;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.TestDesignerService;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Timestamp;
 
 /**
@@ -93,7 +95,12 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             questionDAO.addQuestion(newQ);
             TransactionUtil.commit();
             return qNo;
-        }catch (Exception e){
+        }
+        catch (DAOException de){
+            System.out.println("DAO failed because: "+ de.getMessage());
+            throw new ServiceException("A teacher cannot add one test in one class for one subject!");
+        }
+        catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
         }finally {
@@ -115,7 +122,7 @@ public class TestDesignerServiceImpl implements TestDesignerService {
 
     public static void main(String[] args) {
         TestDesignerService testDesignerService = new TestDesignerServiceImpl();
-        testDesignerService.createTest(1,1,1,30,"2020-12-08 00:00:01");
+        testDesignerService.createTest(1,1,1,30,"2020-12-08 00:30:01");
     }
 
 }

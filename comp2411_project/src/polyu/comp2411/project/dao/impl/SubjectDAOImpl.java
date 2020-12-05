@@ -7,6 +7,7 @@ import polyu.comp2411.project.entity.Subject;
 import polyu.comp2411.project.entity.Teacher;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,11 +42,12 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -59,6 +61,7 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -83,12 +86,13 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             return ans;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+
     }
 
     @Override
@@ -108,12 +112,13 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             return ans;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override
@@ -133,11 +138,12 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             return ans;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 }

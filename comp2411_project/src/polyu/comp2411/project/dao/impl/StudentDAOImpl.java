@@ -41,11 +41,12 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -59,6 +60,7 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -82,12 +84,13 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             return ans;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override
@@ -108,12 +111,13 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             return ans;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
 }

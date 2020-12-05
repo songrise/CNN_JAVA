@@ -17,35 +17,37 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    public TeacherDAOImpl(){
+
+    public TeacherDAOImpl() {
         super();
     }
 
-    public TeacherDAOImpl(final Connection connection ) {
+    public TeacherDAOImpl(final Connection connection) {
         super(connection);
     }
 
     @Override
     public Teacher serchByID(int id) {
         String sql = "SELECT * FROM TEACHER WHERE TEACHER_ID = ?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
 
                 String name = rs.getString("TEACHER_NAME");
-                Teacher result = new Teacher(id,name);
-                this.teacher= result; //set the teacher field as this.
+                Teacher result = new Teacher(id, name);
+                this.teacher = result; // set the teacher field as this.
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+            throw new DAOException(e.getMessage());
+        } finally {
             closeStatement();
             closePreparedStatement();
-        }return null;
+        }
+         return null;
     }
 
     @Override
@@ -53,14 +55,14 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         String sql = "INSERT INTO TEACHER VALUES(?,?)"; // parameter to be set later
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            //set parameter of sql
-            ps.setInt(1,tc.getId());
-            ps.setString(2,tc.getName());
+            // set parameter of sql
+            ps.setInt(1, tc.getId());
+            ps.setString(2, tc.getName());
             ps.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+            throw new DAOException(e.getMessage());
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -69,56 +71,54 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
 
     @Override
     public List<Teacher> searchByClass(Classe cls) {
-        String sql = "SELECT CLASS_NO,DISTINCT TEACHER_ID,TEACHER_NAME " +
-                "FROM TEACHER,TEACH_IN " +
-                "WHERE CLASS_NO = ? and TEACHER.TEACHER_ID=TEACH_IN.TEACHER_ID";
-        try{
+        String sql = "SELECT CLASS_NO,DISTINCT TEACHER_ID,TEACHER_NAME " + "FROM TEACHER,TEACH_IN "
+                + "WHERE CLASS_NO = ? and TEACHER.TEACHER_ID=TEACH_IN.TEACHER_ID";
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,cls.getClassNo());
+            ps.setInt(1, cls.getClassNo());
             rs = ps.executeQuery(sql);
             List<Teacher> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("TEACHER_ID");
                 String name = rs.getString("TEACHER_NAME");
-                ans.add(new Teacher(id,name));
+                ans.add(new Teacher(id, name));
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+            throw new DAOException(e.getMessage());
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override
     public Teacher searchByClassTeacherOf(Classe cls) {
 
-        String sql = "SELECT CLASS_NO,DISTINCT CLASS_TEACHER_ID,TEACHER_NAME " +
-                "FROM TEACHER,CLASS" +
-                "WHERE CLASS_NO = ? and TEACHER_ID=CLASS_TEACHER_ID";
-        try{
+        String sql = "SELECT CLASS_NO,DISTINCT CLASS_TEACHER_ID,TEACHER_NAME " + "FROM TEACHER,CLASS"
+                + "WHERE CLASS_NO = ? and TEACHER_ID=CLASS_TEACHER_ID";
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,cls.getClassNo());
+            ps.setInt(1, cls.getClassNo());
             rs = ps.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("TEACHER_ID");
                 String name = rs.getString("TEACHER_NAME");
-                Teacher ans=new Teacher(id,name);
-                this.teacher=ans;
+                Teacher ans = new Teacher(id, name);
+                this.teacher = ans;
                 return ans;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+            throw new DAOException(e.getMessage());
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 }

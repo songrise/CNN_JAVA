@@ -39,6 +39,7 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -56,6 +57,7 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -75,6 +77,7 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -101,11 +104,12 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 }

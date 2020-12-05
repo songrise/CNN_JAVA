@@ -37,12 +37,13 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
 
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -57,6 +58,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             getPs().execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
 
@@ -75,6 +77,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             getPs().execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
 
@@ -97,6 +100,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             getPs().execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
 

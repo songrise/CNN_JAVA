@@ -41,11 +41,12 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+         return null;
     }
 
     @Override
@@ -63,6 +64,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException("Integrity constrint violated");
         } finally {
             // close resources used
             closeStatement();
@@ -80,6 +82,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -104,6 +107,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -132,12 +136,13 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             return ans;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override
@@ -163,12 +168,13 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        // return null;
     }
 
     @Override
@@ -187,6 +193,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         } finally {
             // close resources used
             closeStatement();
@@ -212,6 +219,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new DAOException(e.getMessage());
         }
     }
 
