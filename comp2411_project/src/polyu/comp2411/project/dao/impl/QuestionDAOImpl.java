@@ -53,6 +53,18 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
 
     @Override
     public void delAllQuestionOfExam(Exam ex) {
+        String sql = "DELETE TABLE QUESTION"; // parameter to be set later
+        try {
+            setPs(sql);
+            // set parameter of sql
+            getPs().execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+        }
 
     }
 
@@ -100,7 +112,27 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
 
     @Override
     public void updQuesiton(Question oldQue, Question newQue) {
-
+        String sql = "UPDATE QUESTION SET QUESTION_NO = ?, TEST_ID = ?, Q.DESCRIPTION = ?, COMPULSORY = ?, TYPE = ?, ANSWER = ?, SCORE = ? WHERE QUESTION_NO = ?"; // parameter to be set later
+        try {
+            setPs(sql);
+            //set parameter of sql
+            getPs().setInt(1, newQue.getqNo());
+            getPs().setInt(2, newQue.getTestId());
+            getPs().setString(3, newQue.getqDescri());
+            getPs().setBoolean(4, newQue.getCompulsory());
+            getPs().setString(5, newQue.getType());
+            getPs().setString(6, newQue.getAns());
+            getPs().setInt(7, newQue.getScore());
+            getPs().setInt(8, oldQue.getqNo());
+            getPs().execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+        }
     }
 
     @Override
