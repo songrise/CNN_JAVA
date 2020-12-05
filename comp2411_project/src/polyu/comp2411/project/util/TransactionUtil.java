@@ -1,8 +1,6 @@
 package polyu.comp2411.project.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * provide utility for transaction control. todo I will refactor DAO part,
@@ -17,7 +15,7 @@ public class TransactionUtil {
             return conn;
         }
 
-        final String JDBC_DRIVER = "com.mysql.jdbc.cj.Driver";
+        final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost/test";
         // Database credentials
         final String USER = "root";
@@ -34,10 +32,7 @@ public class TransactionUtil {
         } catch (Exception se) {
             // Handle errors for JDBC
             se.printStackTrace();
-        } finally {
-            // finally block used to close resources
-            closeConn();
-        } // end try
+        }
         return null;
     }
 
@@ -84,6 +79,20 @@ public class TransactionUtil {
             }
         }catch (SQLException se){
             se.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            Connection connection = TransactionUtil.getConn();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM TEACHER");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                System.out.println(rs.getString("TEACHER_NAME"));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

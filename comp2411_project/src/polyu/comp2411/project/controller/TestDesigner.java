@@ -1,81 +1,95 @@
 package polyu.comp2411.project.controller;
 
+import polyu.comp2411.project.entity.Classe;
+import polyu.comp2411.project.entity.Exam;
+import polyu.comp2411.project.entity.Subject;
+import polyu.comp2411.project.entity.Teacher;
 import polyu.comp2411.project.service.TestDesignerService;
+import polyu.comp2411.project.service.impl.TestDesignerServiceImpl;
 
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util;
-import java.lang;
+import java.util.Scanner;
+
 
 /**
  * teacher use this to design a test.
  */
 public class TestDesigner {
-  int createTest(Teacher arranger, Classe cls, Subject sub, BigInteger testDuration, Timestamp startTime){
-    system.out.printf("Please input the teacher name: ");
+  void createTest(Teacher arranger){
     Scanner sc=new Scanner(System.in);
-    String arranger=new String();
-    arranger=sc.nextLine();
-    
-    system.out.printf("Please input the class id: ");
-    Scanner sc=new Scanner(System.in);
-    String cls=new String();
-    cls=sc.nextLine();
-    
-    system.out.printf("Please input the subject id: ");
-    Scanner sc=new Scanner(System.in);
-    String sub=new String();
-    sub=sc.nextLine();
-    
-    system.out.printf("Please input the test duration: ");
-		Scanner sc=new Scanner(System.in);
-    BigInteger testDuration=sc.nextInt();
-    
-    system.out.printf("Please input the test start time: ");
-		Scanner sc=new Scanner(System.in);
-    Timestamp startTime=new Timestamp();
-    
-    return testId;
-  
+    TestDesignerService testDesignerService = new TestDesignerServiceImpl();
+    int clsId, subId,duration;
+    String startTime;
+
+
+    System.out.printf("Please input the class id: ");
+    clsId = sc.nextInt();
+    sc.nextLine();
+
+    System.out.printf("Please input the subject id: ");
+    subId = sc.nextInt();
+    sc.nextLine();
+
+    System.out.printf("Please input the test duration in minutes: ");
+    duration = sc.nextInt();
+    sc.nextLine();
+
+    System.out.printf("Please input the test start time format:yyyy-[m]m-[d]d hh:mm:ss[.f...] : ");
+    startTime = sc.nextLine();
+    int examId = testDesignerService.createTest(arranger.getId(),clsId,subId,duration,startTime);
+    System.out.printf("Successfully created test with id = "+examId);
   }
   
   
   
   
-  int createQuestion(Exam ex, String qDesc, boolean isCompulsory, String type, String answer, int score){
-    system.out.printf("Please input the description of the question: ");
+  public void createQuestions(){
     Scanner sc=new Scanner(System.in);
-    String qDesc=new String();
-    qDesc=sc.nextLine();
-    
-    system.out.printf("Please input whether this question is compulsory: (yes/no)");
-    Scanner sc=new Scanner(System.in);
-    String a=new String();
-    a=sc.nextLine();
-    
-    if (a.equals("yes")){
-      isCompulsory=true;
+    TestDesignerService testDesignerService = new TestDesignerServiceImpl();
+    int qCount = 0;
+    System.out.printf("Please input the ID of exam: ");
+    int examId = sc.nextInt();
+
+    while (true){
+      String description,type,answer;
+      boolean isCompulsory;
+      int score;
+
+      System.out.printf("Please input the description of the question: ");
+//      if (sc.hasNextLine())
+        description = sc.nextLine();
+
+      System.out.printf("Please input whether this question is compulsory: (yes/no)");
+      isCompulsory = sc.nextBoolean();
+
+
+      System.out.printf("Please input this question's type, it is multiple choice, fill in the blank, or standard full-length test question: (MC/FB/FL)");
+      type=sc.nextLine().toUpperCase();
+
+      System.out.printf("Please input the answer of the question: ");
+
+      answer=sc.nextLine();
+
+      System.out.printf("Please input the score of the question: ");
+      score = sc.nextInt();
+      testDesignerService.createQuestion(examId,description,isCompulsory,type,answer,score);
+
+      System.out.println("You have added "+qCount+ " questions, continue? (y/N): ");
+      if (sc.nextByte() == 'N'){
+        System.out.printf("Exited.");
+        sc.close();
+        break;
+      }
     }
-    if (a.equals("no")){
-      isCompulsory=false;
-    }
-    
-    system.out.printf("Please input this question's type, it is multiple choice, fill in the blank, or standard full-length test question: (MC/FB/FL)");
-    Scanner sc=new Scanner(System.in);
-    String type=new String();
-    type=sc.nextLine();
-    
-    system.out.printf("Please input the answer of the question: ");
-    Scanner sc=new Scanner(System.in);
-    String answer=new String();
-    answer=sc.nextLine();
-    
-    system.out.printf("Please input the score of the question: ");
-    Scanner sc=new Scanner(System.in);
-    int answer=sc.nextInt();
-    
-    return qNo;
   }
-    
+
+
+  public static void main(String[] args) {
+    Teacher test = new Teacher(000001,"Test");
+    TestDesigner testDesigner = new TestDesigner();
+    testDesigner.createTest(test);
+    testDesigner.createQuestions();
+  }
 }

@@ -2,6 +2,7 @@ package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.ExamDAO;
 import polyu.comp2411.project.entity.*;
+import polyu.comp2411.project.util.TransactionUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -181,12 +182,11 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
         String sql = "SELECT MAX(TEST_ID) FROM EXAM";
         try{
             setPs(sql);
-
             rs = getPs().executeQuery();
+
             while(rs.next()){
-                return rs.getInt("TEST_ID")+1;
+                return rs.getInt("MAX(TEST_ID)")+1;
             }
-            return 0;
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -195,9 +195,27 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             // close resources used
             closeStatement();
             closePreparedStatement();
+
+//            rs.close();
         }
         return -1;
     }
 
+
+    public static void main(String[] args) {
+        try {
+            Connection connection = TransactionUtil.getConn();
+            ExamDAO examDAO = new ExamDAOImpl(connection);
+            System.out.println(examDAO.getNextExamId());
+//            ResultSet rs = examDAO.getPs().executeQuery();
+//
+//            while (rs.next()){
+//                System.out.println(rs.getString("TEACHER_NAME"));
+//            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

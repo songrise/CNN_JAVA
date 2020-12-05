@@ -8,6 +8,7 @@ public class BaseDAO {
     private Connection conn;
     private Statement stmt;
     private PreparedStatement ps;
+//    private ResultSet rs;
 
     BaseDAO(){
         conn = TransactionUtil.getConn();
@@ -30,10 +31,7 @@ public class BaseDAO {
         catch (SQLException e){
             e.printStackTrace();
         }
-        finally {
-            closeStatement();
-            closePreparedStatement();
-        }
+
     }
     public void setPs(String sql){
         try {
@@ -42,10 +40,7 @@ public class BaseDAO {
         }catch (SQLException e){
             e.printStackTrace();
         }
-        finally {
-            closeStatement();
-            closePreparedStatement();
-        }
+
     }
     public PreparedStatement getPs(){
         return ps;
@@ -74,6 +69,22 @@ public class BaseDAO {
             catch (SQLException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            Connection connection = TransactionUtil.getConn();
+            BaseDAO baseDAO = new BaseDAO(connection);
+            baseDAO.setPs("SELECT * FROM TEACHER");
+            ResultSet rs = baseDAO.getPs().executeQuery();
+
+            while (rs.next()){
+                System.out.println(rs.getString("TEACHER_NAME"));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
