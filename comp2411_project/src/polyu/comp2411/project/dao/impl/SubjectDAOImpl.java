@@ -17,7 +17,8 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    SubjectDAOImpl(){
+
+    SubjectDAOImpl() {
         super();
     }
 
@@ -28,20 +29,19 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
     @Override
     public Subject searchByID(int id) {
         String sql = "SELECT * FROM SUBJECT WHERE SUBJECT_ID = ?";
-        try{
-            setPs(sql);
-            getPs().setInt(1,id);
-            rs = getPs().executeQuery();
-            while(rs.next()){
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 String name = rs.getString("SUBJECT_NAME");
-                Subject result = new Subject(id,name);
-                this.subject= result; //set the teacher field as this.
+                Subject result = new Subject(id, name);
+                this.subject = result; // set the teacher field as this.
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             closeStatement();
             closePreparedStatement();
         }
@@ -52,15 +52,14 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
     public void addSubject(Subject sub) {
         String sql = "INSERT INTO SUBJECT VALUES(?,?)"; // parameter to be set later
         try {
-            setPs(sql);
-            //set parameter of sql
-            getPs().setInt(1,sub.getId());
-            getPs().setString(2,sub.getName());
-            getPs().execute();
-        }catch (SQLException e){
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            // set parameter of sql
+            ps.setInt(1, sub.getId());
+            ps.setString(2, sub.getName());
+            ps.execute();
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -69,24 +68,22 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
 
     @Override
     public List<Subject> searchByClass(Classe cls) {
-        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " +
-                "FROM SUBJECT,OFFERED_IN " +
-                "WHERE CLASS_NO = ? and SUBJECT.SUBJECT_ID=OFFERED_IN.SUBJECT_ID";
-        try{
-            setPs(sql);
-            getPs().setInt(1,cls.getClassNo());
-            rs = getPs().executeQuery(sql);
+        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " + "FROM SUBJECT,OFFERED_IN "
+                + "WHERE CLASS_NO = ? and SUBJECT.SUBJECT_ID=OFFERED_IN.SUBJECT_ID";
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, cls.getClassNo());
+            rs = ps.executeQuery(sql);
             List<Subject> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("SUBJECT_ID");
                 String name = rs.getString("SUBJECT_NAME");
-                ans.add(new Subject(id,name));
+                ans.add(new Subject(id, name));
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -96,24 +93,22 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
 
     @Override
     public List<Subject> searchByTeacher(Teacher tc) {
-        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " +
-                "FROM SUBJECT,TEACH_FOR " +
-                "WHERE TEACHER_ID = ? and SUBJECT.SUBJECT_ID=TEACH_FOR.SUBJECT_ID";
-        try{
-            setPs(sql);
-            getPs().setInt(1,tc.getId());
-            rs = getPs().executeQuery(sql);
+        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " + "FROM SUBJECT,TEACH_FOR "
+                + "WHERE TEACHER_ID = ? and SUBJECT.SUBJECT_ID=TEACH_FOR.SUBJECT_ID";
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, tc.getId());
+            rs = ps.executeQuery(sql);
             List<Subject> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("SUBJECT_ID");
                 String name = rs.getString("SUBJECT_NAME");
-                ans.add(new Subject(id,name));
+                ans.add(new Subject(id, name));
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -123,24 +118,22 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
 
     @Override
     public List<Subject> searchByStudent(Student stu) {
-        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " +
-                "FROM SUBJECT,OFFERED_IN " +
-                "WHERE CLASS_NO = ? and SUBJECT.SUBJECT_ID=OFFERED_IN.SUBJECT_ID";
-        try{
-            setPs(sql);
-            getPs().setInt(1,stu.getClassNo());
-            rs = getPs().executeQuery(sql);
+        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " + "FROM SUBJECT,OFFERED_IN "
+                + "WHERE CLASS_NO = ? and SUBJECT.SUBJECT_ID=OFFERED_IN.SUBJECT_ID";
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, stu.getClassNo());
+            rs = ps.executeQuery(sql);
             List<Subject> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("SUBJECT_ID");
                 String name = rs.getString("SUBJECT_NAME");
-                ans.add(new Subject(id,name));
+                ans.add(new Subject(id, name));
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();

@@ -46,10 +46,7 @@ public class TransactionUtil {
         }
         catch (SQLException se){
             se.printStackTrace();
-        }finally {
-            closeConn();
         }
-
     }
 
     public static void rollBack(){

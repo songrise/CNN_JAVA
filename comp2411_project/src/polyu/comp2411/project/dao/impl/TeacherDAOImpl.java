@@ -1,12 +1,12 @@
 package polyu.comp2411.project.dao.impl;
 
-
 import polyu.comp2411.project.dao.TeacherDAO;
 import polyu.comp2411.project.dao.impl.BaseDAO;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Teacher;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
     public Teacher serchByID(int id) {
         String sql = "SELECT * FROM TEACHER WHERE TEACHER_ID = ?";
         try{
-            setPs(sql);
-            getPs().setInt(1,id);
-            rs = getPs().executeQuery();
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
             while(rs.next()){
 
                 String name = rs.getString("TEACHER_NAME");
@@ -52,11 +52,11 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
     public void addTeacher(Teacher tc) {
         String sql = "INSERT INTO TEACHER VALUES(?,?)"; // parameter to be set later
         try {
-            setPs(sql);
+            PreparedStatement ps = getConn().prepareStatement(sql);
             //set parameter of sql
-            getPs().setInt(1,tc.getId());
-            getPs().setString(2,tc.getName());
-            getPs().execute();
+            ps.setInt(1,tc.getId());
+            ps.setString(2,tc.getName());
+            ps.execute();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -73,9 +73,9 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
                 "FROM TEACHER,TEACH_IN " +
                 "WHERE CLASS_NO = ? and TEACHER.TEACHER_ID=TEACH_IN.TEACHER_ID";
         try{
-            setPs(sql);
-            getPs().setInt(1,cls.getClassNo());
-            rs = getPs().executeQuery(sql);
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1,cls.getClassNo());
+            rs = ps.executeQuery(sql);
             List<Teacher> ans = new ArrayList<>();
             while(rs.next()){
                 int id = rs.getInt("TEACHER_ID");
@@ -101,9 +101,9 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
                 "FROM TEACHER,CLASS" +
                 "WHERE CLASS_NO = ? and TEACHER_ID=CLASS_TEACHER_ID";
         try{
-            setPs(sql);
-            getPs().setInt(1,cls.getClassNo());
-            rs = getPs().executeQuery(sql);
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1,cls.getClassNo());
+            rs = ps.executeQuery(sql);
             while(rs.next()){
                 int id = rs.getInt("TEACHER_ID");
                 String name = rs.getString("TEACHER_NAME");

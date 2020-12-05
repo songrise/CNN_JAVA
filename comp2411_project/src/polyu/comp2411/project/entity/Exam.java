@@ -1,16 +1,17 @@
 package polyu.comp2411.project.entity;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
 public class Exam {
     private int testId;
-    private BigInteger testDuration;
+    private BigDecimal testDuration;
     private Timestamp startTime;
     private int classNo;
     private int subjectId;
 
-    public Exam(int testId, BigInteger testDuration, Timestamp startTime, int classNo, int subjectId, int arrangerId) {
+    public Exam(int testId, BigDecimal testDuration, Timestamp startTime, int classNo, int subjectId, int arrangerId) {
         this.testId = testId;
         this.testDuration = testDuration;
         this.startTime = startTime;
@@ -29,11 +30,11 @@ public class Exam {
         this.testId = testId;
     }
 
-    public BigInteger getTestDuration() {
+    public BigDecimal getTestDuration() {
         return testDuration;
     }
 
-    public void setTestDuration(BigInteger testDuration) {
+    public void setTestDuration(BigDecimal testDuration) {
         this.testDuration = testDuration;
     }
 

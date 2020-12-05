@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class StudentDAOImpl extends BaseDAO implements StudentDAO {
     private Student stu;
     private ResultSet rs;
 
     private ResultSet result;
-    public StudentDAOImpl(){
+
+    public StudentDAOImpl() {
         super();
     }
 
@@ -27,22 +27,21 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
     @Override
     public Student searchByID(int id) {
         String sql = "SELECT * FROM STUDENT WHERE STU_ID = ?";
-        try{
-            setPs(sql);
-            getPs().setInt(1,id);
-            rs = getPs().executeQuery();
-            while(rs.next()){
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
 
                 String name = rs.getString("STU_NAME");
-                int classNo=rs.getInt("CLASS_NO");
-                Student result = new Student(id,name,classNo);
-                this.stu = result; //set the stu field as this.
+                int classNo = rs.getInt("CLASS_NO");
+                Student result = new Student(id, name, classNo);
+                this.stu = result; // set the stu field as this.
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             closeStatement();
             closePreparedStatement();
         }
@@ -53,15 +52,14 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
     public void addStudent(Student stu) {
         String sql = "INSERT INTO STUDENT VALUES(?,?)"; // parameter to be set later
         try {
-            setPs(sql);
-            //set parameter of sql
-            getPs().setInt(1,stu.getId());
-            getPs().setString(2,stu.getName());
-            getPs().execute();
-        }catch (SQLException e){
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            // set parameter of sql
+            ps.setInt(1, stu.getId());
+            ps.setString(2, stu.getName());
+            ps.execute();
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -71,21 +69,20 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
     @Override
     public List<Student> searchByExam(Exam ex) {
         String sql = "SELECT * FROM EXAM_LIST NATUAL JOIN STUDENT WHERE TEST_ID = ?";
-        try{
-            setPs(sql);
-            getPs().setInt(1,ex.getTestId());
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, ex.getTestId());
             List<Student> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
-                int classNo=rs.getInt("CLASS_NO");
-                ans.add(new Student(id,name,classNo));
+                int classNo = rs.getInt("CLASS_NO");
+                ans.add(new Student(id, name, classNo));
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -95,30 +92,28 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
 
     @Override
     public List<Student> searchByClass(Classe cls) {
-        String sql = "SELECT * FROM STUDENT WHERE CLASS_NO = ?";
-        try{
-            setPs(sql);
-            getPs().setInt(1,cls.getClassNo());
-            rs = getPs().executeQuery(sql);
+        String sql = "SELECT * FROM STUDENT WHERE CLASS_NO=?";
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, cls.getClassNo());
+            rs = ps.executeQuery();
             List<Student> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
-                int classNo=rs.getInt("CLASS_NO");
-                ans.add(new Student(id,name,classNo));
+                int classNo = rs.getInt("CLASS_NO");
+                ans.add(new Student(id, name, classNo));
 
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
         return null;
     }
-
 
 }

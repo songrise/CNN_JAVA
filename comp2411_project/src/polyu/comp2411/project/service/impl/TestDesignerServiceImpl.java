@@ -6,6 +6,7 @@ import polyu.comp2411.project.entity.*;
 import polyu.comp2411.project.service.TestDesignerService;
 import polyu.comp2411.project.util.TransactionUtil;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.Timestamp;
@@ -43,15 +44,17 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             TransactionUtil.startTransaction();
             ExamDAO examDAO = new ExamDAOImpl(conn);
             ClasseDAO classeDAO = new ClasseDAOImpl(conn);
+            StudentDAO studentDAO = new StudentDAOImpl(conn);
+            ExamListDAO examListDAO = new ExamListDAOImpl(conn);
+
 
             int testId = examDAO.getNextExamId();
-            BigInteger durationInMs = convertToMs(testDuration);
+            BigDecimal durationInMs = convertToMs(testDuration);
             Timestamp startTime = convertToTimestamp(startTimeStr);
             Exam newlyCreatedTest = new Exam(testId,durationInMs,startTime,clsID,subID, arrangerID);
             examDAO.addExam(newlyCreatedTest);
+
             //next add this exam to students' exam list
-            StudentDAO studentDAO = new StudentDAOImpl(conn);
-            ExamListDAO examListDAO = new ExamListDAOImpl(conn);
             Classe cls = classeDAO.searchById(clsID);
             for (Student stu : studentDAO.searchByClass(cls)){ // for all student in that class
                 ExamList el = new ExamList(stu.getId(),testId);
@@ -99,15 +102,20 @@ public class TestDesignerServiceImpl implements TestDesignerService {
         return -1;
     }
 
-    private BigInteger convertToMs(int duration){
-        BigInteger durationInMs =BigInteger.valueOf(duration);
-        durationInMs = durationInMs.multiply(BigInteger.valueOf(60000));
+    private BigDecimal convertToMs(int duration){
+        BigDecimal durationInMs =BigDecimal.valueOf(duration);
+        durationInMs = durationInMs.multiply(BigDecimal.valueOf(60000));
         return durationInMs;
     }
 
     private Timestamp convertToTimestamp(String dateStr){
         Timestamp tm = Timestamp.valueOf(dateStr);
         return tm;
+    }
+
+    public static void main(String[] args) {
+        TestDesignerService testDesignerService = new TestDesignerServiceImpl();
+        testDesignerService.createTest(1,1,1,30,"2020-12-08 00:00:01");
     }
 
 }

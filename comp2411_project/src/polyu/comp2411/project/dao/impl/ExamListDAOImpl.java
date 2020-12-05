@@ -7,6 +7,7 @@ import polyu.comp2411.project.entity.Student;
 
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,7 +23,8 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     public ExamListDAOImpl() {
         super();
     }
-    public ExamListDAOImpl(Connection connection){
+
+    public ExamListDAOImpl(Connection connection) {
         super(connection);
     }
 
@@ -30,11 +32,11 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     public void addExamList(ExamList el) {
         String sql = "INSERT INTO EXAM_LIST VALUES(?,?)"; // parameter to be set later
         try {
-            setPs(sql);
+            PreparedStatement ps = getConn().prepareStatement(sql);
             // set parameter of sql
-            getPs().setInt(1, el.getStuId());
-            getPs().setInt(2, el.getTestId());
-            getPs().execute();
+            ps.setInt(1, el.getStuId());
+            ps.setInt(2, el.getTestId());
+            ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -48,10 +50,10 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     public void delExamList(ExamList el) {
         String sql = "DELETE FROM EXAM_LIST WHERE TEST_ID = ?"; // parameter to be set later
         try {
-            setPs(sql);
+            PreparedStatement ps = getConn().prepareStatement(sql);
             // set parameter of sql
-            getPs().setInt(1, el.getTestId());
-            getPs().execute();
+            ps.setInt(1, el.getTestId());
+            ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -65,16 +67,15 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     public void updExamList(ExamList oldEl, ExamList newEl) {
         String sql = "UPDATE EXAMLIST SET STU_ID=?,TEST_ID=? WHERE TEST_ID = ?"; // parameter to be set later
         try {
-            setPs(sql);
-            //set parameter of sql
-            getPs().setInt(1, newEl.getStuId());
-            getPs().setInt(2, newEl.getTestId());
-            getPs().setInt(3, oldEl.getTestId());
-            getPs().execute();
-        }catch (SQLException e){
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            // set parameter of sql
+            ps.setInt(1, newEl.getStuId());
+            ps.setInt(2, newEl.getTestId());
+            ps.setInt(3, oldEl.getTestId());
+            ps.execute();
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -85,9 +86,9 @@ public class ExamListDAOImpl extends BaseDAO implements ExamListDAO {
     public List<ExamList> searchByStudent(Student stu) {
         String sql = "SELECT * FROM EXAM_LIST WHERE STU_ID = ?";
         try {
-            setPs(sql);
-            getPs().setInt(1, stu.getId());
-            rs = getPs().executeQuery();
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, stu.getId());
+            rs = ps.executeQuery();
             List<ExamList> ans = new ArrayList<>();
             while (rs.next()) {
                 int stuId = rs.getInt("STU_ID");
