@@ -73,4 +73,8 @@ public class TeacherView {
             System.out.println("Error: "+e+"please contact admin!");
         }
     }
+    public static void main(String[] args) {
+        TeacherView teacherView = new TeacherView();
+        teacherView.teacherView();
+    }
 }
