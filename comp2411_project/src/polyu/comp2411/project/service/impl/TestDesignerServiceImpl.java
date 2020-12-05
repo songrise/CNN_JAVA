@@ -65,7 +65,10 @@ public class TestDesignerServiceImpl implements TestDesignerService {
 
             TransactionUtil.commit();
             return testId;
-        }catch (Exception e){
+        } catch (DAOException de){
+            System.out.println("DAO failed because: "+ de.getMessage());
+        }
+        catch (Exception e){
             TransactionUtil.rollBack();
             e.printStackTrace();
         }finally {
@@ -96,10 +99,7 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             TransactionUtil.commit();
             return qNo;
         }
-        catch (DAOException de){
-            System.out.println("DAO failed because: "+ de.getMessage());
-            throw new ServiceException("A teacher cannot add one test in one class for one subject!");
-        }
+
         catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
@@ -122,7 +122,9 @@ public class TestDesignerServiceImpl implements TestDesignerService {
 
     public static void main(String[] args) {
         TestDesignerService testDesignerService = new TestDesignerServiceImpl();
-        testDesignerService.createTest(1,1,1,30,"2020-12-08 00:30:01");
+//        testDesignerService.createTest(1,1,1,30,"2020-12-08 00:30:01");
+        testDesignerService.createQuestion(1,"1+2=",true,"FB","3",20);
+        testDesignerService.createQuestion(1,"2*2=",true,"FB","4",20);
     }
 
 }

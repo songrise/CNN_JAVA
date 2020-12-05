@@ -51,10 +51,11 @@ public class TestDesigner {
     int qCount = 0;
     System.out.printf("Please input the ID of exam: ");
     int examId = sc.nextInt();
+    sc.nextLine();
 
     while (true){
       String description,type,answer;
-      boolean isCompulsory;
+      boolean isCompulsory = false;
       int score;
 
       System.out.printf("Please input the description of the question: ");
@@ -62,7 +63,10 @@ public class TestDesigner {
         description = sc.nextLine();
 
       System.out.printf("Please input whether this question is compulsory: (yes/no)");
-      isCompulsory = sc.nextBoolean();
+      String s = sc.nextLine();
+      if(s.toUpperCase() == "YES")
+        isCompulsory = true;
+
 
 
       System.out.printf("Please input this question's type, it is multiple choice, fill in the blank, or standard full-length test question: (MC/FB/FL)");
@@ -74,13 +78,17 @@ public class TestDesigner {
 
       System.out.printf("Please input the score of the question: ");
       score = sc.nextInt();
+      sc.nextLine();
       testDesignerService.createQuestion(examId,description,isCompulsory,type,answer,score);
 
       System.out.println("You have added "+qCount+ " questions, continue? (y/N): ");
-      if (sc.nextByte() == 'N'){
+      String ifContinue = sc.nextLine();
+      if (ifContinue.toUpperCase().equals("N")){
         System.out.printf("Exited.");
         sc.close();
         break;
+      }else {
+        sc.nextLine();
       }
     }
   }
@@ -89,7 +97,7 @@ public class TestDesigner {
   public static void main(String[] args) {
     Teacher test = new Teacher(000001,"Test");
     TestDesigner testDesigner = new TestDesigner();
-    testDesigner.createTest(test);
+//  testDesigner.createTest(test);
     testDesigner.createQuestions();
   }
 }

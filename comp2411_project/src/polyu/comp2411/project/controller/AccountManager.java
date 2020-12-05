@@ -69,7 +69,7 @@ public class AccountManager {
 
             sc.close();
 
-        }catch (ServiceException| DAOException e){
+        }catch (ServiceException | DAOException e){
             System.out.println("Error: "+e);
 
         }

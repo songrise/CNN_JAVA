@@ -174,6 +174,29 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
 
     @Override
     public int getNextQuestionNo(Exam ex) {
-        return 0;
-    }
+            String sql = "SELECT MAX(Question_No) FROM QUESTION WHERE TEST_ID = ?";
+            try {
+                PreparedStatement ps = getConn().prepareStatement(sql);
+                ps.setInt(1,ex.getTestId());
+                // PreparedStatement ps = getConn().prepareStatement(sql);
+                // rs = ps.executeQuery();
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    return rs.getInt("MAX(Question_No)") + 1;
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DAOException(e.getMessage());
+            } finally {
+                // close resources used
+                closeStatement();
+                closePreparedStatement();
+
+                // rs.close();
+            }
+            return -1;
+        }
+
 }

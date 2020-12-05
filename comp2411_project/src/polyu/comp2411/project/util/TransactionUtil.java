@@ -73,6 +73,7 @@ public class TransactionUtil {
         try {
             if (conn!= null){
                 conn.close();
+                conn = null;
             }
         }catch (SQLException se){
             se.printStackTrace();
