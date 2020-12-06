@@ -16,7 +16,7 @@ public class LoginView {
         System.out.println("**********************************");
         int op = -1;
         while (op !=1 && op !=2){
-            System.out.println("please indecate your option: ");
+            System.out.print("please indecate your option: ");
             op = Integer.parseInt(sc.nextLine());
         }
         try {

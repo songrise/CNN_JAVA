@@ -68,7 +68,7 @@ public class TestDesigner {
 
 
 
-      System.out.printf("Please input this question's type, it is multiple choice, fill in the blank, or standard full-length test question (MC/FB/FL): ");
+      System.out.printf("Please input this question's type, it is multiple choice, \nfill in the blank, or standard full-length test question (MC/FB/FL): ");
       type=sc.nextLine().toUpperCase();
 
       System.out.printf("Please input the answer of the question: ");
@@ -80,14 +80,11 @@ public class TestDesigner {
       sc.nextLine();
       testDesignerService.createQuestion(examId,description,isCompulsory,type,answer,score);
       qCount+=1;
-      System.out.println("You have added "+qCount+ " questions, continue? (y/N): ");
+      System.out.print("You have added "+qCount+ " questions, continue? (y/N): ");
       String ifContinue = sc.nextLine();
       if (ifContinue.toUpperCase().equals("N")){
-        System.out.printf("Exited.");
-        // sc.close();
+        System.out.printf("Exited.\n");
         break;
-      }else {
-        sc.nextLine();
       }
     }
   }

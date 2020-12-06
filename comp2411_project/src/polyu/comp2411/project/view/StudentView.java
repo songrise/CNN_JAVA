@@ -33,7 +33,7 @@ public class StudentView {
         System.out.println("********************************");
         int op = -1;
         while (op !=1 && op !=2 && op !=3){
-            System.out.println("Please input your option:");
+            System.out.print("Please input your option:");
             op = sc.nextInt();
             sc.nextLine();
         }

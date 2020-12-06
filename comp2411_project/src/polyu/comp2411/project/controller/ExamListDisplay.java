@@ -20,7 +20,7 @@ public class ExamListDisplay {
             ExamListService examListService = new ExamListServiceImpl();
             Map<Integer, String> schedule = examListService.getUpcomingTest(stuid);
             if (schedule.isEmpty()) {
-                System.out.println("Seems you have no upcoming exam\n");
+                System.out.println("Seems you have no upcoming exam\n\n");
             } else {
                 System.out.print("Test ID\t\t\tStart Time\n");
                 for (Integer recordID : schedule.keySet()) {

@@ -115,20 +115,4 @@ public class ExamServiceImpl implements ExamService {
     }
 
 
-    /**
-     *  insert all the question of this exam
-     *  into the StudentTable table for this student, and the
-     *  answer is null(which means not answered at the very
-     *  begining of exam)
-     * @param ex
-     * @param stu
-     */
-    private void initStudentAnswer(Exam ex, Student stu){
-        //todo
-    }
-
-    private boolean timeUp(Exam ex){
-        //todo
-        return false;
-    }
 }

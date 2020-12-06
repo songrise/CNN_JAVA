@@ -43,11 +43,14 @@ public class ExamGradeServiceImpl implements ExamGradeService {
             Exam ex = examDAO.searchByID(testId);
             List<StudentAnswer> allAnswers = studentAnswerDAO.searchByExam(ex);//get all answer of this exam
             List<Student> studentsInThisExam = studentDAO.searchByExam(ex);
+            TransactionUtil.commit();
+            TransactionUtil.closeConn();
 
             int fullMark = getFullMarkOfExam(ex);
 
+            conn = TransactionUtil.getConn();
             for (Student stu:studentsInThisExam){//grade all student in this exam
-                ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
+
                 int score = 0; //score that this student got in this exam
                 for(StudentAnswer ans:allAnswers){
                     if(ans.getStuId() == stu.getId()){//if this ans is made by this student.
@@ -56,6 +59,7 @@ public class ExamGradeServiceImpl implements ExamGradeService {
                 }
                 int normalizedScore = (score*100/fullMark);
                 ScoreList sl = new ScoreList(stu.getId(), testId,normalizedScore,null);
+                ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
                 scoreListDAO.addScoreList(sl);//todo bug
             }
 
@@ -69,8 +73,30 @@ public class ExamGradeServiceImpl implements ExamGradeService {
     }
 
     @Override
-    public void addComment(ScoreList sl, String commnet) {
-        //todo
+    public void addFeedback(int testId, int stuId, String fdbk) {
+
+        try{
+            Connection conn = TransactionUtil.getConn();
+            TransactionUtil.startTransaction();
+            ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
+            StudentDAO studentDAO = new StudentDAOImpl(conn);
+            ExamDAO examDAO = new ExamDAOImpl(conn);
+            Student student = studentDAO.searchByID(stuId);
+            Exam exam = examDAO.searchByID(testId);
+            ScoreList sl = scoreListDAO.searchByKey(student,exam);
+            ScoreList newSl = (ScoreList) sl.clone();
+            newSl.setFeedBack(fdbk);
+
+            scoreListDAO.updScoreList(sl,newSl);
+
+            TransactionUtil.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+
+            TransactionUtil.rollBack();
+        }finally {
+            TransactionUtil.closeConn();
+        }
     }
 
     private int getFullMarkOfExam(Exam ex){
@@ -98,4 +124,8 @@ public class ExamGradeServiceImpl implements ExamGradeService {
         return -1;
     }
 
+    public static void main(String[] args) {
+        ExamGradeService examGradeService = new ExamGradeServiceImpl();
+        examGradeService.calScoreOfExam(1);
+    }
 }

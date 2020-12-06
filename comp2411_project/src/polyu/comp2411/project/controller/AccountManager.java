@@ -12,12 +12,12 @@ public class AccountManager {
         final int MAX_ATTEMPT = 3;
         int uid;
         Scanner sc=new Scanner(System.in);
-        System.out.println("Please input your id number(6 digits): ");
+        System.out.print("Please input your id number(6 digits): ");
         uid = sc.nextInt();
         sc.nextLine();
         for (int i = 0;i<MAX_ATTEMPT;i++){
             try {
-                System.out.println("Please input your password: ");
+                System.out.print("Please input your password: ");
                 String pswd = sc.nextLine();
                 AccountService accountService = new AccountServiceImpl();
                 int pri = accountService.login(uid,pswd);

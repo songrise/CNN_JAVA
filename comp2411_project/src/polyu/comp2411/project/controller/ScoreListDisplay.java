@@ -25,7 +25,7 @@ public class ScoreListDisplay {
         ScoreListService scoreListService = new ScoreListServiceImpl();
         List<ScoreList> sl = scoreListService.getScoreList(stuid);
         if (sl.isEmpty()){
-            System.out.printf("Seems you have no exam record\n");
+            System.out.printf("Seems you have no exam record\n\n");
         }
         else {
 

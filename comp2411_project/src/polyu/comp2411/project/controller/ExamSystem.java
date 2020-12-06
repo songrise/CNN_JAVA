@@ -1,63 +1,78 @@
 package polyu.comp2411.project.controller;
 
+import polyu.comp2411.project.dao.ExamDAO;
+import polyu.comp2411.project.dao.impl.ExamDAOImpl;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.Student;
-import polyu.comp2411.project.entity.ExamList;
+import polyu.comp2411.project.service.AutoJudgeService;
 import polyu.comp2411.project.service.ExamService;
+import polyu.comp2411.project.service.impl.AutoJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.ExamServiceImpl;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 public class ExamSystem {
     /**
      * a student use this to sit an exam
-     * @param stu
+     * 
+     * @param stuId
+     *
      */
 
+    public static void sitExam(int stuId) {
 
-    public void sitExam(Student stu, Exam ex){
-        if(!stu.ExamList.testId.contains(ex.testId)){
-            exit;
-        }
+        ExamService examService = new ExamServiceImpl();
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Please input the test ID: ");
+        int testId = sc.nextInt();
+        sc.nextLine();
 
-        ExamService service = new ExamServiceImpl();
-        List<Question> allQuestion = service.sitExam(stu, ex);
-        for (Question q:allQuestion){
-            if(isTimeUp==true){
+        List<Question> allQuestion = examService.sitExam(stuId, testId);
+        for (Question q : allQuestion) {
+            if (isTimeUp(testId) == true) {
+                System.out.println("Exam ended, please wait us upload your answer...");
+                AutoJudgeService autoJudgeService = new AutoJudgeServiceImpl();
+                autoJudgeService.judgeAnExam(testId);
                 break;
             }
-            System.out.printf("QNo:%d Type:%s, Compulsory:%s Score:%d \n",q.getqNo(),q.getType(),q.getCompulsory()?"y":"n",q.getScore());
+            System.out.printf("QNo:%d Type:%s, Complsory:%s Score:%d \n", q.getqNo(), q.getType(), q.getCompulsory(),
+                    q.getScore());
             System.out.println("****************************************");
             System.out.println(q.getqDescri());
             System.out.println("****************************************");
-            System.out.print("Input your answer(in one line, \"skip\" to skip): ");
+            System.out.printf("Input your answer(in one line): ");
 
             String answer;
 
-            answer= sc.nextLine();
-            if (answer.equals("skip")){
-                if (!q.getCompulsory())
-                    answer=null;
-                else{
-                    System.out.print("This question is compulsory, please input your answer: ");
-                    answer= sc.nextLine();
-                }
-            }
-            examService.answerAnQuestion(q, stuId,answer);
+            answer = sc.nextLine();
+            examService.answerAnQuestion(q, stuId, answer);
         }
         System.out.println("You have answered all question, submit now?(Y/n)");
         String op = sc.nextLine();
-        if(op.equals("Y")){
+        if (op.equals("Y")) {
             AutoJudgeService autoJudgeService = new AutoJudgeServiceImpl();
             autoJudgeService.judgeAnExam(testId);
         }
     }
 
-    private boolean isTimeUp(int testId);
+    private static boolean isTimeUp(int testId) {
+        ExamDAO examDAO = new ExamDAOImpl();
+        Exam ex = examDAO.searchByID(testId);
+        Timestamp startTime = ex.getStartTime();
+        long endTime = startTime.getTime() + ex.getTestDuration().longValue();
+        LocalDate timer = LocalDate.now();
+        long now = timer.toEpochDay();
+        if (now > endTime) {
+            return true;
+        }
+        return false;
+    }
 
     public void answerAnQuestion(Question que, Student stu, String stuAnswerStr) {
-        Scanner sc = new Scanner(System.in);
     }
+
 }

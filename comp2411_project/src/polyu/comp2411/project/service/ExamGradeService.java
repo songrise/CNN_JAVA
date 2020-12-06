@@ -1,7 +1,5 @@
 package polyu.comp2411.project.service;
 
-import polyu.comp2411.project.entity.ScoreList;
-
 public interface ExamGradeService {
     /**
      * calculate total score of exam. This means the score of
@@ -17,5 +15,5 @@ public interface ExamGradeService {
      * @param testId
      */
     void calScoreOfExam(int testId);
-    void addComment(ScoreList sl, String commnet);
+    void addFeedback(int testId, int stuId, String commnet);
 }

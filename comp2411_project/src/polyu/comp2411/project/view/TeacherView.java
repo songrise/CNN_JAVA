@@ -24,16 +24,17 @@ public class TeacherView {
     }
 
     public void teacherView(){
-        System.out.println("**Welcome to Teacher interface System!**");
+        System.out.println("**Welcome to Teacher System!**");
         System.out.println("******************************");
         System.out.println("1: Arrange New Exam");
         System.out.println("2: Manual Judge");
         System.out.println("3: Release Exam Result");
         System.out.println("4: Performance Analysis");
+        System.out.println("5: Give Feedback");
         Scanner sc = new Scanner(System.in);
         System.out.println("******************************");
         int op = -1;
-        while (op !=1 && op !=2 && op !=3){
+        while (op !=1 && op !=2 && op !=3 && op !=4 && op!=5){
             System.out.println("Please input your option:");
             op = Integer.parseInt(sc.nextLine());
         }
@@ -47,13 +48,13 @@ public class TeacherView {
                 System.out.println("********************************");
                 op = -1;
                 while (op !=1 && op !=2 && op !=3){
-                    System.out.println("Please input your option:");
+                    System.out.print("Please input your option:");
                     op = sc.nextInt();
                     sc.nextLine();
                 }
                 if (op == 1){
                     testDesigner.createTest(uid);
-                    System.out.println("Would you like to add question now? (Y/n): ");
+                    System.out.print("\nWould you like to add question now? (Y/n): ");
                     String option = sc.nextLine();
                     if (option.equals("Y"))
                         testDesigner.createQuestions();
@@ -91,16 +92,16 @@ public class TeacherView {
                 teacherView();
             }
             else if(op == 3){
-                System.out.println("Please enter the id of the exam, \nmake sure that you have manual judged all FL question: ");
+                System.out.print("Please enter the id of the exam, make sure that \nyou have manual judged all FL question: ");
                 int id = sc.nextInt();
                 sc.nextLine();
                 ExamGradeService examGradeService =new ExamGradeServiceImpl();
                 examGradeService.calScoreOfExam(id);
-                System.out.println("The results has been released to students.");
+                System.out.println("The results has been released to students.\n");
                 teacherView();
             }
             else if(op == 4){
-                System.out.println("Please enter the id of the class you want to see the report:");
+                System.out.print("Please enter the id of the class you want to see the report: ");
                 int id=sc.nextInt();
                 sc.nextLine();
                 System.out.println("********************************");
@@ -110,6 +111,22 @@ public class TeacherView {
                 Map<String, Double> subjectAvgs=performanceAnalysisService.subjectAvgs(cls);
                 System.out.println("Below are the preformance analysis of the class:");
                 System.out.println(subjectAvgs);
+                teacherView();
+            }else if(op == 5){
+                System.out.print("Please enter the id of exam that you want to give feedback: ");
+                int tid=sc.nextInt();
+                sc.nextLine();
+                System.out.print("Please enter the id of student that you want to give feedback: ");
+                int sid=sc.nextInt();
+                sc.nextLine();
+                String fdbk;
+                System.out.print("Please input your feedback(in one line): ");
+                fdbk = sc.nextLine();
+                ExamGradeService examGradeService = new ExamGradeServiceImpl();
+                examGradeService.addFeedback(tid,sid,fdbk);
+
+                System.out.println("Successfully added feedback!");
+                System.out.println("******************************");
                 teacherView();
             }
             

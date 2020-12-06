@@ -24,7 +24,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
 
     @Override
     public ScoreList searchByKey(Student stu, Exam ex) {
-        String sql = "SELECT * FROM SCORELIST WHERE STU_ID = ? AND TEST_ID=?";
+        String sql = "SELECT * FROM SCORE_LIST WHERE STU_ID = ? AND TEST_ID=?";
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,stu.getId());
@@ -49,7 +49,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
 
     @Override
     public void addScoreList(ScoreList sl) {
-        String sql = "INSERT INTO SCORE_LIST VALUES(?,?,?,?)"; // parameter to be set later
+        String sql = "INSERT INTO SCORE_LIST VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             //set parameter of sql

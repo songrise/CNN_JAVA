@@ -1,6 +1,6 @@
 package polyu.comp2411.project.entity;
 
-public class ScoreList {
+public class ScoreList implements Cloneable{
 
     private int stuId;
     private int testId;
@@ -47,5 +47,8 @@ public class ScoreList {
         return feedBack;
     }
 
-
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
