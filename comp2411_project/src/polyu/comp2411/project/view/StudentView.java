@@ -1,5 +1,6 @@
 package polyu.comp2411.project.view;
 
+//import polyu.comp2411.project.controller.ExamSystem;
 import polyu.comp2411.project.controller.ExamSystem;
 import polyu.comp2411.project.controller.TestDesigner;
 import polyu.comp2411.project.dao.impl.*;
@@ -13,6 +14,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class StudentView {
+    private int uid;
+
+    public StudentView(final int uid) {
+        this.uid = uid;
+    }
+
     public void stuView(){
         System.out.println("**Welcome to Student System!**");
         System.out.println("********************************");
@@ -60,13 +67,21 @@ public class StudentView {
             }
 
         }catch (Exception e){
-            System.out.println("Error: "+e+"please contact admin!");
+            System.out.println("Error: "+e+" please contact admin!");
         }
     }
 
 
     public static void main(String[] args) {
-        StudentView studentView = new StudentView();
+        StudentView studentView = new StudentView(1);
         studentView.stuView();
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }

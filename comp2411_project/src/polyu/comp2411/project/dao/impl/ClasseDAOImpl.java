@@ -19,7 +19,7 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
 
     private ResultSet result;
 
-    ClasseDAOImpl() {
+    public ClasseDAOImpl() {
         super();
     }
 

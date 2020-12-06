@@ -25,7 +25,7 @@ public class AccountManager {
                     System.out.println("Wrong password, "+(MAX_ATTEMPT - i)+" times left!");
                     continue;
                 }
-                return pri;
+                return uid;
             }catch (ServiceException| DAOException se){
                 System.out.println("Error: "+se);
             }

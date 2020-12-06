@@ -17,45 +17,43 @@ public class ExamSystem {
      * a student use this to sit an exam
      * @param stu
      */
-
-
-    public void sitExam(Student stu, Exam ex){
-        if(!stu.ExamList.testId.contains(ex.testId)){
-            exit;
-        }
-
-        ExamService service = new ExamServiceImpl();
-        List<Question> allQuestion = service.sitExam(stu, ex);
-        for (Question q:allQuestion){
-            if(isTimeUp==true){
-                break;
-            }
-            System.out.println(q.qNo);
-            System.out.println(q.qDescri);
-            System.out.println(q.type);
-            System.out.println(q.score);
-            if(q.compulsory==true){
-                System.out.println("Compulsory");
-            }
-            else{
-                System.out.println("Elective");
-            }
-
-            String answer;
-            Scanner sc= new Scanner(System.in);
-            answer= sc.nextline();
-
-
-            // Scanner System.in TODO: get the student answer
-//            service.answerAnQuestion(q,stu,answer);
-        }
-    }
-
-
-    private boolean isTimeUp(){
-        return false;
-    }
-
-    public void answerAnQuestion(Question que, Student stu, String stuAnswerStr){
-   }
+//
+//
+//    public void sitExam(Student stu, Exam ex){
+//
+//
+//        ExamService examService = new ExamServiceImpl();
+//        List<Question> allQuestion = examService.sitExam(stu, ex);
+//        for (Question q:allQuestion){
+//            if(isTimeUp==true){
+//                break;
+//            }
+//            System.out.println(q.qNo);
+//            System.out.println(q.qDescri);
+//            System.out.println(q.type);
+//            System.out.println(q.score);
+//            if(q.compulsory==true){
+//                System.out.println("Compulsory");
+//            }
+//            else{
+//                System.out.println("Elective");
+//            }
+//
+//            String answer;
+//            Scanner sc= new Scanner(System.in);
+//            answer= sc.nextline();
+//
+//
+//            // Scanner System.in TODO: get the student answer
+////            service.answerAnQuestion(q,stu,answer);
+//        }
+//    }
+//
+//
+//    private boolean isTimeUp(){
+//        return false;
+//    }
+//
+//    public void answerAnQuestion(Question que, Student stu, String stuAnswerStr){
+//   }
 }

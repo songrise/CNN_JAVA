@@ -16,24 +16,53 @@ import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
 import java.util.*;
 
 public class TeacherView {
+    private int uid;
+    public TeacherView(int uid){
+        this.uid = uid;
+    }
+
     public void teacherView(){
         System.out.println("**Welcome to Teacher System!**");
         System.out.println("********************************");
         System.out.println("1: Arrange New Exam");
-        System.out.println("2: Manually Judgement");
-        System.out.println("3: Students' Grades");
+        System.out.println("2: Manual Judge");
+        System.out.println("3: Performance Analysis");
         Scanner sc = new Scanner(System.in);
         System.out.println("********************************");
         int op = -1;
         while (op !=1 && op !=2 && op !=3){
-            System.out.println("Please input again:");
+            System.out.println("Please input your option:");
             op = sc.nextInt();
             sc.nextLine();
         }
         try {
             if (op == 1){
                 TestDesigner testDesigner=new TestDesigner();
-                testDesigner.createQuestions();
+                System.out.println("********************************");
+                System.out.println("1: Create New Exam");
+                System.out.println("2: Add question to existing exam");
+                System.out.println("3: Back to previous");
+                System.out.println("********************************");
+                op = -1;
+                while (op !=1 && op !=2 && op !=3){
+                    System.out.println("Please input your option:");
+                    op = sc.nextInt();
+                    sc.nextLine();
+                }
+                if (op == 1){
+                    testDesigner.createTest(uid);
+                    System.out.println("Would you like to add question now? (Y/n): ");
+                    String option = sc.nextLine();
+                    if (option.equals("Y"))
+                        testDesigner.createQuestions();
+                }
+                else if(op == 2){
+                    testDesigner.createQuestions();
+                }
+                else if(op == 3){
+                    teacherView();
+                }
+
             }
                 //accountManager.login();
             else if(op == 2){
@@ -74,7 +103,7 @@ public class TeacherView {
         }
     }
     public static void main(String[] args) {
-        TeacherView teacherView = new TeacherView();
+        TeacherView teacherView = new TeacherView(1);
         teacherView.teacherView();
     }
 }

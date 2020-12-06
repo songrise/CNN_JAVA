@@ -1,15 +1,11 @@
 package polyu.comp2411.project.controller;
 
-import polyu.comp2411.project.entity.Classe;
-import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.Subject;
 import polyu.comp2411.project.entity.Teacher;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.TestDesignerService;
 import polyu.comp2411.project.service.impl.TestDesignerServiceImpl;
 
 
-import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.Scanner;
 
 
@@ -17,7 +13,7 @@ import java.util.Scanner;
  * teacher use this to design a test.
  */
 public class TestDesigner {
-  void createTest(Teacher arranger){
+  public void createTest(int arrangerId){
     Scanner sc=new Scanner(System.in);
     TestDesignerService testDesignerService = new TestDesignerServiceImpl();
     int clsId, subId,duration;
@@ -38,7 +34,10 @@ public class TestDesigner {
 
     System.out.printf("Please input the test start time format:yyyy-[m]m-[d]d hh:mm:ss[.f...] : ");
     startTime = sc.nextLine();
-    int examId = testDesignerService.createTest(arranger.getId(),clsId,subId,duration,startTime);
+    int examId = testDesignerService.createTest(arrangerId,clsId,subId,duration,startTime);
+    if (examId == -1){
+      throw new ServiceException("You cannot create this exam!");
+    }
     System.out.printf("Successfully created test with id = "+examId);
   }
   
@@ -69,7 +68,7 @@ public class TestDesigner {
 
 
 
-      System.out.printf("Please input this question's type, it is multiple choice, fill in the blank, or standard full-length test question: (MC/FB/FL)");
+      System.out.printf("Please input this question's type, it is multiple choice, fill in the blank, or standard full-length test question (MC/FB/FL): ");
       type=sc.nextLine().toUpperCase();
 
       System.out.printf("Please input the answer of the question: ");

@@ -5,6 +5,7 @@ import polyu.comp2411.project.controller.AccountManager;
 import java.util.Scanner;
 
 public class LoginView {
+    private int uid = -1;
     public void view(){
         System.out.println("**Welcome to Automated Exam System!**");
         AccountManager accountManager = new AccountManager();
@@ -21,16 +22,35 @@ public class LoginView {
         }
         try {
             if (op == 1)
-                accountManager.login();
+                uid = accountManager.login();
             else if(op == 2)
                 accountManager.register();
         }catch (Exception e){
-            System.out.println("Error: "+e+"please contact admin!");
+            System.out.println("Error: "+e +"please contact admin!");
         }
     }
 
     public static void main(String[] args) {
         LoginView login = new LoginView();
         login.view();
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public int getPriviledge(){
+        if (uid>=0){
+            if (uid<100000){
+                return 0;
+            }
+            if (uid<300000){
+                return 1;
+            }
+            if(uid<999999){
+                return 2;
+            }
+        }
+        return -1;
     }
 }
