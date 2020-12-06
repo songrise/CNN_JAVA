@@ -33,13 +33,6 @@ public class TestDesignerServiceImpl implements TestDesignerService {
     @Override
     public int createTest(int arrangerID, int clsID, int subID, int testDuration, String startTimeStr){
 
-//        Classe cls;
-//        Subject sub;
-//        try {
-//            Connection conn = TransactionUtil.getConn();
-//            TransactionUtil.startTransaction();
-//
-//        }
 
         try{
             Connection conn = TransactionUtil.getConn();
@@ -71,6 +64,7 @@ public class TestDesignerServiceImpl implements TestDesignerService {
         catch (Exception e){
             TransactionUtil.rollBack();
             e.printStackTrace();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
@@ -103,21 +97,31 @@ public class TestDesignerServiceImpl implements TestDesignerService {
         catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
-        return -1;
+
     }
 
     private BigDecimal convertToMs(int duration){
+        try {
         BigDecimal durationInMs =BigDecimal.valueOf(duration);
         durationInMs = durationInMs.multiply(BigDecimal.valueOf(60000));
-        return durationInMs;
+            return durationInMs;
+        }
+        catch (Exception e){
+                throw new ServiceException(e.getMessage());
+        }
     }
 
     private Timestamp convertToTimestamp(String dateStr){
-        Timestamp tm = Timestamp.valueOf(dateStr);
-        return tm;
+        try {
+            Timestamp tm = Timestamp.valueOf(dateStr);
+            return tm;
+        }catch (Exception e){
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

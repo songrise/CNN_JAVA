@@ -47,10 +47,10 @@ public class ExamListServiceImpl implements ExamListService {
         }catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
-        return null;
+
     }
 }
-

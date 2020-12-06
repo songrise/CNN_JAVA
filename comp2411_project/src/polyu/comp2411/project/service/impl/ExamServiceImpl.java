@@ -13,6 +13,7 @@ import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.StudentAnswer;
 import polyu.comp2411.project.service.ExamService;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.sql.Connection;
@@ -23,96 +24,102 @@ import java.util.List;
  */
 public class ExamServiceImpl implements ExamService {
 
-
     /**
-     * sit in an exam with steps.
-     * 1) check if student can enter that exam
+     * sit in an exam with steps. 1) check if student can enter that exam
      *
-     * 2) if can, then insert all the question of this exam
-     * into the StudentAnswer table for this student, and the
-     * answer is null(which means not answered at the very
-     * begining of exam)
+     * 2) if can, then insert all the question of this exam into the StudentAnswer
+     * table for this student, and the answer is null(which means not answered at
+     * the very begining of exam)
      *
-     *  @param stuId
+     * @param stuId
      * @param testId
      * @return
      */
     @Override
-    public List<Question> sitExam(int stuId, int testId){
+    public List<Question> sitExam(int stuId, int testId) {
 
-        try{
-            if(!canEnterExam(stuId, testId)){
-                throw new IllegalAccessError("Student " + stuId +" has no access to "+ testId +" now!");
+        try {
+            if (!canEnterExam(stuId, testId)) {
+                throw new IllegalAccessError("Student " + stuId + " has no access to " + testId + " now!");
             }
-            //else that student can
+            // else that student can
             Connection conn = TransactionUtil.getConn();
+
             TransactionUtil.startTransaction();
+
             StudentAnswerDAO studentAnswerDAO = new StudentAnswerDaoImpl(conn);
             QuestionDAO questionDAO = new QuestionDAOImpl(conn);
             ExamDAO examDAO = new ExamDAOImpl(conn);
 
-            List<Question> questionsInThisExam = questionDAO.searchByExam(examDAO.searchByID(testId));//all questions in this exam
-            for (Question q : questionsInThisExam){
-                //create an empty record for each question, and append that to student answer
-                StudentAnswer emptyAnswer = new StudentAnswer(stuId, testId,q.getqNo(),null,0);
+            List<Question> questionsInThisExam = questionDAO.searchByExam(examDAO.searchByID(testId));// all questions
+                                                                                                      // in this exam
+            for (Question q : questionsInThisExam) {
+                // create an empty record for each question, and append that to student answer
+                StudentAnswer emptyAnswer = new StudentAnswer(stuId, testId, q.getqNo(), null, 0);
                 studentAnswerDAO.addStudentAnswer(emptyAnswer);
             }
             TransactionUtil.commit();
-            //return the question list for student;
+
+            // return the question list for student;
 
             return questionsInThisExam;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
-        }finally {
+            throw new ServiceException(e.getMessage());
+
+        } finally {
             TransactionUtil.closeConn();
+
         }
-        return null;
+       
     }
-
-
 
     @Override
     public void answerAnQuestion(Question que, int stuId, String stuAnsStr) {
-        if (que == null||stuAnsStr==null) {
+        if (que == null || stuAnsStr == null) {
             throw new IllegalArgumentException();
         }
-        try{
+        try {
             Connection conn = TransactionUtil.getConn();
+
             TransactionUtil.startTransaction();
+
             StudentAnswerDAO studentAnswerDAO = new StudentAnswerDaoImpl(conn);
             StudentDAO studentDAO = new StudentDAOImpl(conn);
             ExamDAO examDAO = new ExamDAOImpl(conn);
             Student student = studentDAO.searchByID(stuId);
             Exam exam = examDAO.searchByID(que.getTestId());
 
-            StudentAnswer studentAnswer = studentAnswerDAO.searchByKey(student,exam,que);
+            StudentAnswer studentAnswer = studentAnswerDAO.searchByKey(student, exam, que);
             StudentAnswer newAnswer = (StudentAnswer) studentAnswer.clone();
             newAnswer.setAnswer(stuAnsStr);
-            studentAnswerDAO.updStudentAnswer(studentAnswer,newAnswer);
+            studentAnswerDAO.updStudentAnswer(studentAnswer, newAnswer);
 
             TransactionUtil.commit();
-        }catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
-        }finally {
+            throw new ServiceException(e.getMessage());
+
+        } finally {
             TransactionUtil.closeConn();
+
         }
     }
 
-
     /**
-     * judge wheather a student can enter an exam.
-     * A student can enter if he has that exam in his exam list
-     * and current time is examination period.
+     * judge wheather a student can enter an exam. A student can enter if he has
+     * that exam in his exam list and current time is examination period.
+     * 
      * @param stu
      * @param ex
      * @return
      */
-    private boolean canEnterExam(int stuId, int testId){
-        //todo
+    private boolean canEnterExam(int stuId, int testId) {
+        // todo
         return true;
     }
-
 
 }

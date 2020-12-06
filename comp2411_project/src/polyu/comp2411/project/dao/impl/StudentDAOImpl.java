@@ -46,7 +46,7 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+         throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -91,7 +91,7 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -118,7 +118,7 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // throw new DAOException("Specified entity not found!");
     }
 
 }

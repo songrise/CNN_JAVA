@@ -46,7 +46,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // thw newo, DAOException("Specified entity not found");
     }
 
     @Override
@@ -174,7 +174,7 @@ public class ExamDAOImpl extends BaseDAO implements ExamDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // thw newo, DAOException("Specified entity not found");
     }
 
     @Override

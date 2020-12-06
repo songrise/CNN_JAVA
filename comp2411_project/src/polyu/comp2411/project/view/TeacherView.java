@@ -5,12 +5,14 @@ import polyu.comp2411.project.controller.PerformanceAnalysis;
 import polyu.comp2411.project.controller.TestDesigner;
 import polyu.comp2411.project.dao.ClasseDAO;
 import polyu.comp2411.project.dao.impl.ClasseDAOImpl;
+import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.dao.impl.ExamDAOImpl;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.StudentAnswer;
 import polyu.comp2411.project.service.ExamGradeService;
 import polyu.comp2411.project.service.ManualJudgeService;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.impl.ExamGradeServiceImpl;
 import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
@@ -35,7 +37,7 @@ public class TeacherView {
         System.out.println("******************************");
         int op = -1;
         while (op !=1 && op !=2 && op !=3 && op !=4 && op!=5){
-            System.out.println("Please input your option:");
+            System.out.print("Please input your option:");
             op = Integer.parseInt(sc.nextLine());
         }
         try {
@@ -48,7 +50,7 @@ public class TeacherView {
                 System.out.println("********************************");
                 op = -1;
                 while (op !=1 && op !=2 && op !=3){
-                    System.out.print("Please input your option:");
+                    System.out.print("Please input your option: ");
                     op = sc.nextInt();
                     sc.nextLine();
                 }
@@ -73,20 +75,24 @@ public class TeacherView {
             else if(op == 2){
                 ManualJudgeService manualJudge=new ManualJudgeServiceImpl();
                 int testId;
-                System.out.println("Please input the test id you would like judge:");
+                System.out.print("\nPlease input the test id you would like judge: ");
                 testId = sc.nextInt();
                 sc.nextLine();
+
                 ExamDAOImpl examDAO=new ExamDAOImpl();
                 Exam ex= examDAO.searchByID(testId);
                 List<StudentAnswer> studentAnswerList=manualJudge.fetchFLofAnExam(ex);
-                for(StudentAnswer studentAnswer:studentAnswerList){
-                    System.out.println("********************************");
-                    System.out.println("Below is the student's answer of question "+ studentAnswer.getQueNo()+":");
-                    System.out.println(studentAnswer.getAnswer());
-                    System.out.println("Please enter the score of this answer");
-                    int score = sc.nextInt();
-                    sc.nextLine();
-                    manualJudge.manualJudgeAQuesion(studentAnswer,score);
+                if(!studentAnswerList.isEmpty()){
+                    for(StudentAnswer studentAnswer:studentAnswerList){
+                        System.out.println("\n********************************");
+                        System.out.println("Below is the student's answer of question "+ studentAnswer.getQueNo()+": ");
+                        System.out.println(studentAnswer.getAnswer());
+                        System.out.print("Please enter the score of this answer: ");
+                        int score = sc.nextInt();
+                        sc.nextLine();
+                        manualJudge.manualJudgeAQuesion(studentAnswer,score);
+                }}else{
+                        System.out.println("\nThere is no question in this exam to manual judge.\n You may release the result now.");
                 }
                 System.out.println("********************************");
                 teacherView();
@@ -130,8 +136,11 @@ public class TeacherView {
                 teacherView();
             }
             
+        }catch (DAOException | ServiceException e){
+            System.out.println("Error: "+e +" please contact admin!");
+            teacherView();
         }catch (Exception e){
-            System.out.println("Error: "+e+"please contact admin!");
+            System.out.println("Unexpected error: "+e +", program terminated, please contact admin!");
         }
     }
     public static void main(String[] args) {

@@ -44,7 +44,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+         throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -138,7 +138,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -167,6 +167,6 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // throw new DAOException("Specified entity not found!");
     }
 }

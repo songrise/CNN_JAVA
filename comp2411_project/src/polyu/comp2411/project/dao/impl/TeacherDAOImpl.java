@@ -47,7 +47,7 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -92,7 +92,7 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -119,6 +119,6 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
             closeStatement();
             closePreparedStatement();
         }
-        return null;
+        throw new DAOException("Specified entity not found!");
     }
 }

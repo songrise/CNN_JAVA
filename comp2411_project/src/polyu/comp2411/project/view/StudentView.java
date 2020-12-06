@@ -5,11 +5,13 @@ package polyu.comp2411.project.view;
 import polyu.comp2411.project.controller.ExamListDisplay;
 import polyu.comp2411.project.controller.ExamSystem;
 import polyu.comp2411.project.controller.ScoreListDisplay;
+import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.dao.impl.ExamListDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentDAOImpl;
 import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.service.ExamListService;
 import polyu.comp2411.project.service.ExamService;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.impl.ExamListServiceImpl;
 
 import java.util.List;
@@ -52,8 +54,11 @@ public class StudentView {
                 stuView();
             }
 
+        }catch (DAOException | ServiceException e){
+            System.out.println("Error: "+e +" please contact admin!");
+            stuView();
         }catch (Exception e){
-            System.out.println("Error: "+e+" please contact admin!");
+            System.out.println("Unexpected error: "+e +", program terminated, please contact admin!");
         }
     }
 

@@ -50,7 +50,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+         throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -169,7 +169,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             closeStatement();
             closePreparedStatement();
         }
-        // return null;
+        // throw new DAOException("Specified entity not found!");
     }
 
     @Override

@@ -34,9 +34,10 @@ public class ScoreListServiceImpl implements ScoreListService {
         }catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
-        return null;
+
     }
 }

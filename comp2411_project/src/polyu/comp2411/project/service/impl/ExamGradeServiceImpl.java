@@ -1,10 +1,10 @@
 package polyu.comp2411.project.service.impl;
 
-
 import polyu.comp2411.project.dao.*;
 import polyu.comp2411.project.dao.impl.*;
 import polyu.comp2411.project.entity.*;
 import polyu.comp2411.project.service.ExamGradeService;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.sql.Connection;
@@ -64,9 +64,10 @@ public class ExamGradeServiceImpl implements ExamGradeService {
             }
 
             TransactionUtil.commit();
-        }catch (Exception e){
+        }catch (DAOException e){
             e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
@@ -94,6 +95,7 @@ public class ExamGradeServiceImpl implements ExamGradeService {
             e.printStackTrace();
 
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
@@ -118,10 +120,10 @@ public class ExamGradeServiceImpl implements ExamGradeService {
         }catch (Exception e){
             e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         }finally {
             TransactionUtil.closeConn();
         }
-        return -1;
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,10 @@
 package polyu.comp2411.project.view;
 
 import polyu.comp2411.project.controller.AccountManager;
+import polyu.comp2411.project.dao.impl.DAOException;
+import polyu.comp2411.project.service.ServiceException;
 
+import javax.sql.rowset.serial.SerialException;
 import java.util.Scanner;
 
 public class LoginView {
@@ -27,9 +30,13 @@ public class LoginView {
                 System.out.println("Successfully registered.");
                 view();
             }
+        }catch (DAOException| ServiceException e){
+            System.out.println("Error: "+e +" please contact admin!");
+            view();
         }catch (Exception e){
-            System.out.println("Error: "+e +"please contact admin!");
+            System.out.println("Unexpected error: "+e +", program terminated, please contact admin!");
         }
+
 //        finally {
 //            sc.close();
 //        }

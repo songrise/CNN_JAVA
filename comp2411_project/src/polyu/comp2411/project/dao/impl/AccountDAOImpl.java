@@ -43,7 +43,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+         throw new DAOException("Specified entity not found!");
     }
 
     @Override
