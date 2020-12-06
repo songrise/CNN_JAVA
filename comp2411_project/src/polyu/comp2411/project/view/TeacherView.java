@@ -24,7 +24,7 @@ public class TeacherView {
     }
 
     public void teacherView(){
-        System.out.println("**Welcome to Teacher System!**");
+        System.out.println("**Welcome to Teacher interface System!**");
         System.out.println("******************************");
         System.out.println("1: Arrange New Exam");
         System.out.println("2: Manual Judge");
