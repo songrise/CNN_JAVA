@@ -31,7 +31,7 @@ public class ScoreListDisplay {
 
             System.out.printf("Test ID\t\tGrade\t\tFeedback\n");
             for (ScoreList record: sl){
-                System.out.printf("%d\t\t\t\t%s\n",record.getTestId(),convertToLetterGrade(record.getScore()),record.getFeedBack());
+                System.out.printf("%06d\t\t%s\t\t%s\n",record.getTestId(),convertToLetterGrade(record.getScore()),record.getFeedBack());
             }
         }
     }

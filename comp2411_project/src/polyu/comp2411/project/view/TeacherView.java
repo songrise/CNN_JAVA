@@ -100,7 +100,7 @@ public class TeacherView {
                 System.out.println("The results has been released to students.\n");
                 teacherView();
             }
-            else if(op == 4){
+            else if(op == 4){ //TODO
                 System.out.print("Please enter the id of the class you want to see the report: ");
                 int id=sc.nextInt();
                 sc.nextLine();

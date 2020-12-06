@@ -71,8 +71,8 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
 
     @Override
     public List<Subject> searchByClass(Classe cls) {
-        String sql = "SELECT DISTINCT SUBJECT_ID,SUBJECT_NAME " + "FROM SUBJECT,OFFERED_IN "
-                + "WHERE CLASS_NO = ? and SUBJECT.SUBJECT_ID=OFFERED_IN.SUBJECT_ID";
+        String sql = "SELECT DISTINCT SUBJECT.SUBJECT_ID,SUBJECT_NAME " + "FROM SUBJECT,OFFERED_IN "
+                + "WHERE CLASS_NO = ? AND SUBJECT.SUBJECT_ID=OFFERED_IN.SUBJECT_ID";
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, cls.getClassNo());

@@ -15,14 +15,14 @@ public class TransactionUtil {
             return conn;
         }
 
-        final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
         final String DB_URL = "jdbc:mysql://localhost/test";
         // Database credentials
         final String USER = "root";
         final String PASS = "";
         try {
             // STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(JDBC_DRIVER);
 
             // STEP 3: Open a connection
             System.out.println("Connecting to database...");
