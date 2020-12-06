@@ -24,7 +24,7 @@ public class ExamListDisplay {
             } else {
                 System.out.print("Test ID\t\t\tStart Time\n");
                 for (Integer recordID : schedule.keySet()) {
-                    System.out.printf("%d\t\t\t\t%s\n", recordID, schedule.get(recordID));
+                    System.out.printf("%06d\t\t\t\t%s\n", recordID, schedule.get(recordID));
                 }
             }
         }

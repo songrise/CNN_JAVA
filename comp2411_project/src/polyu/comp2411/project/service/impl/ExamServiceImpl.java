@@ -1,22 +1,15 @@
 package polyu.comp2411.project.service.impl;
 
-import polyu.comp2411.project.dao.ExamDAO;
-import polyu.comp2411.project.dao.QuestionDAO;
-import polyu.comp2411.project.dao.StudentAnswerDAO;
-import polyu.comp2411.project.dao.StudentDAO;
-import polyu.comp2411.project.dao.impl.ExamDAOImpl;
-import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
-import polyu.comp2411.project.dao.impl.StudentAnswerDaoImpl;
-import polyu.comp2411.project.dao.impl.StudentDAOImpl;
-import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.Question;
-import polyu.comp2411.project.entity.Student;
-import polyu.comp2411.project.entity.StudentAnswer;
+import polyu.comp2411.project.dao.*;
+import polyu.comp2411.project.dao.impl.*;
+import polyu.comp2411.project.entity.*;
 import polyu.comp2411.project.service.ExamService;
 import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -117,9 +110,68 @@ public class ExamServiceImpl implements ExamService {
      * @param ex
      * @return
      */
-    private boolean canEnterExam(int stuId, int testId) {
-        // todo
-        return true;
+    private boolean canEnterExam(int stuId, int testId) {//todo
+        try {
+            Connection conn = TransactionUtil.getConn();
+
+            TransactionUtil.startTransaction();
+
+            StudentDAO studentDAO = new StudentDAOImpl(conn);
+            ExamListDAO examListDAO = new ExamListDAOImpl(conn);
+            ExamDAO examDAO = new ExamDAOImpl(conn);
+            Student student = studentDAO.searchByID(stuId);
+            Exam exam = examDAO.searchByID(testId);
+            List<ExamList> examList = examListDAO.searchByStudent(student);
+            for (ExamList el : examList){
+                if (el.getTestId() == testId) {
+                    if (hasStarted(testId)){
+                        if(!isTimeUp(testId))
+                            return true;
+                        else throw new ServiceException("The test has already ended!");
+                    }
+
+                    else throw new ServiceException("The test has not yet started!");
+                }
+            }
+            TransactionUtil.commit();
+
+            return false;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
+
+        } finally {
+            TransactionUtil.closeConn();
+
+        }
+    }
+
+    private static boolean hasStarted(int testId) {
+        ExamDAO examDAO = new ExamDAOImpl();
+        Exam ex = examDAO.searchByID(testId);
+        long startTime = ex.getStartTime().getTime();
+        LocalDate timer = LocalDate.now();
+        long now = timer.toEpochDay();
+        if (now >= startTime) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isTimeUp(int testId) {
+        ExamDAO examDAO = new ExamDAOImpl();
+        Exam ex = examDAO.searchByID(testId);
+        Timestamp startTime = ex.getStartTime();
+        long endTime = startTime.getTime() + ex.getTestDuration().longValue();
+        LocalDate timer = LocalDate.now();
+        long now = timer.toEpochDay();
+        if (now > endTime) {
+            return true;
+        }
+        return false;
     }
 
 }

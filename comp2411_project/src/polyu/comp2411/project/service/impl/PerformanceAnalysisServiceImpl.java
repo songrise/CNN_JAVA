@@ -58,6 +58,7 @@ public class PerformanceAnalysisServiceImpl implements PerformanceAnalysisServic
             return avgScoreMap;
         }catch (Exception e){
             e.printStackTrace();
+
             TransactionUtil.rollBack();
             throw new ServiceException(e.getMessage());
         }finally {
