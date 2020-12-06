@@ -1,20 +1,23 @@
 package polyu.comp2411.project.view;
 
 //import polyu.comp2411.project.controller.ExamSystem;
+
+import polyu.comp2411.project.controller.ExamListDisplay;
 import polyu.comp2411.project.controller.ExamSystem;
-import polyu.comp2411.project.controller.TestDesigner;
-import polyu.comp2411.project.dao.impl.*;
-import polyu.comp2411.project.entity.*;
-import polyu.comp2411.project.service.ManualJudgeService;
-import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
-import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
+import polyu.comp2411.project.controller.ScoreListDisplay;
+import polyu.comp2411.project.dao.impl.ExamListDAOImpl;
+import polyu.comp2411.project.dao.impl.StudentDAOImpl;
+import polyu.comp2411.project.entity.Student;
+import polyu.comp2411.project.service.ExamListService;
+import polyu.comp2411.project.service.ExamService;
+import polyu.comp2411.project.service.impl.ExamListServiceImpl;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class StudentView {
-    private int uid;
+    private int uid = 100001; //todo testing, letter remove = 1000001
 
     public StudentView(final int uid) {
         this.uid = uid;
@@ -30,40 +33,23 @@ public class StudentView {
         System.out.println("********************************");
         int op = -1;
         while (op !=1 && op !=2 && op !=3){
-            System.out.println("Please input again:");
+            System.out.println("Please input your option:");
             op = sc.nextInt();
             sc.nextLine();
         }
         try {
             if (op == 1){
-                ExamListDAOImpl examListDAO=new ExamListDAOImpl();
-                System.out.println("Please input your student id:");
-                int stuId = sc.nextInt();
-                sc.nextLine();
-                StudentDAOImpl studentDAO=new StudentDAOImpl();
-                Student stu=studentDAO.searchByID(stuId);
-                List examList=examListDAO.searchByStudent(stu);
-                System.out.println("********************************");
-                System.out.println("Below are the coming exams:");
-                System.out.println(examList);
+                ExamListDisplay.showExamList(uid);
+                stuView();
             }
             
             else if(op == 2){
-                ExamSystem examSystem=new ExamSystem();
+                ExamSystem.sitExam(uid);
+                stuView();
             }
             else if(op == 3){
-                System.out.println("Please enter your student id:");
-                int id=sc.nextInt();
-                sc.nextLine();
-                System.out.println("********************************");
-                int stuId = sc.nextInt();
-                sc.nextLine();
-                StudentDAOImpl studentDAO=new StudentDAOImpl();
-                Student stu=studentDAO.searchByID(stuId);
-                ScoreListDAOImpl scoreListDAO=new ScoreListDAOImpl();
-                List scoreList=scoreListDAO.searchByStudent(stu);
-                System.out.println("Below are your grdes");
-                System.out.println(scoreList);
+                ScoreListDisplay.showScoreList(uid);
+                stuView();
             }
 
         }catch (Exception e){

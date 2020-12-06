@@ -57,7 +57,7 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, tc.getId());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 int classNo = rs.getInt("CLASS_NO");
                 int classTeacherId = rs.getInt("CLASS_TEACHER_ID");

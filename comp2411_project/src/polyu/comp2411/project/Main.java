@@ -16,12 +16,15 @@ public class Main {
         switch (priviledge){
             case 0:
                 AdminView adminView = new AdminView(uid);
+
                 break;
             case 1:
                 TeacherView teacherView = new TeacherView(uid);
+                teacherView.teacherView();
                 break;
             case 2:
                 StudentView studentView = new StudentView(uid);
+                studentView.stuView();
                 break;
 
         }

@@ -23,7 +23,32 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
 
     @Override
     public StudentAnswer searchByKey(Student stu, Exam ex, Question que) {
-        return null;
+        String sql = "SELECT * FROM STUDENT_ANSWER WHERE STU_ID = ? AND TEST_ID = ? AND QUESTION_NO = ?"; // parameter to be set later
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            // set parameter of sql
+            ps.setInt(1, stu.getId());
+            ps.setInt(2, ex.getTestId());
+            ps.setInt(3, que.getqNo());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int stuId = rs.getInt("STU_ID");
+                int testId = rs.getInt("TEST_ID");
+                int questionNo=rs.getInt("QUESTION_NO");
+                String stuAns = rs.getString("ANSWER");
+                int score=rs.getInt("SCORE");
+                return new StudentAnswer(stuId,testId,questionNo,stuAns,score);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException(e.getMessage());
+        } finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+        }
+        return  null;
     }
 
     @Override
@@ -55,7 +80,7 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
 
     @Override
     public void updStudentAnswer(StudentAnswer oldStuAns, StudentAnswer newStudentAns) {
-        String sql = "UPDATE STUDENT_ANSWER SET ANSWER = ? SCORE = ? WHERE STU_ID = ? AND TEST_ID = ? AND QUESTION_NO = ?"; // parameter to be set later
+        String sql = "UPDATE STUDENT_ANSWER SET ANSWER = ?, SCORE = ? WHERE STU_ID = ? AND TEST_ID = ? AND QUESTION_NO = ?"; // parameter to be set later
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             // set parameter of sql
@@ -81,7 +106,7 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,stu.getId());
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
             List<StudentAnswer> ans = new ArrayList<>();
             while(rs.next()){
                 int stuId = rs.getInt("STU_ID");
@@ -107,11 +132,11 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
 
     @Override
     public List<StudentAnswer> searchByExam(Exam ex) {
-        String sql = "SELECT * FROM Question WHERE TEST_ID=?";
+        String sql = "SELECT * FROM STUDENT_ANSWER WHERE TEST_ID=?";
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,ex.getTestId());
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
             List<StudentAnswer> ans = new ArrayList<>();
             while(rs.next()){
                 int stuId = rs.getInt("STU_ID");
@@ -137,12 +162,12 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
 
     @Override
     public List<StudentAnswer> searchByQuestion(Question que) {
-        String sql = "SELECT * FROM Question WHERE TEST_ID=? AND QUESTION_NO = ?";
+        String sql = "SELECT * FROM STUDENT_ANSWER WHERE TEST_ID=? AND QUESTION_NO = ?";
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,que.getTestId());
             ps.setInt(2,que.getqNo());
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
             List<StudentAnswer> ans = new ArrayList<>();
             while(rs.next()){
                 int stuId = rs.getInt("STU_ID");

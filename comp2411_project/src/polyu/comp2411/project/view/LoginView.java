@@ -9,25 +9,30 @@ public class LoginView {
     public void view(){
         System.out.println("**Welcome to Automated Exam System!**");
         AccountManager accountManager = new AccountManager();
-        System.out.println("********************************");
+        System.out.println("**********************************");
         System.out.println("1: Login");
         System.out.println("2: Register");
         Scanner sc = new Scanner(System.in);
-        System.out.println("********************************");
+        System.out.println("**********************************");
         int op = -1;
         while (op !=1 && op !=2){
             System.out.println("please indecate your option: ");
-            op = sc.nextInt();
-            sc.nextLine();
+            op = Integer.parseInt(sc.nextLine());
         }
         try {
             if (op == 1)
                 uid = accountManager.login();
-            else if(op == 2)
+            else if(op == 2){
                 accountManager.register();
+                System.out.println("Successfully registered.");
+                view();
+            }
         }catch (Exception e){
             System.out.println("Error: "+e +"please contact admin!");
         }
+//        finally {
+//            sc.close();
+//        }
     }
 
     public static void main(String[] args) {

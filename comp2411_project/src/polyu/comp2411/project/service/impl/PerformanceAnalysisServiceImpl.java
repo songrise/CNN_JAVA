@@ -10,6 +10,7 @@ import polyu.comp2411.project.dao.impl.ScoreListDAOImpl;
 import polyu.comp2411.project.dao.impl.SubjectDAOImpl;
 import polyu.comp2411.project.entity.*;
 import polyu.comp2411.project.service.PerformanceAnalysisService;
+import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class PerformanceAnalysisServiceImpl implements PerformanceAnalysisServic
     @Override
     public Map<String, Double> subjectAvgs(Classe cls) {
         if (cls == null) {
-            throw new IllegalArgumentException();
+            throw new ServiceException();
         }
         try{
             Connection conn = TransactionUtil.getConn();

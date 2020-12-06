@@ -1,7 +1,9 @@
 package polyu.comp2411.project.service.impl;
 
+import polyu.comp2411.project.dao.ExamDAO;
 import polyu.comp2411.project.dao.QuestionDAO;
 import polyu.comp2411.project.dao.StudentAnswerDAO;
+import polyu.comp2411.project.dao.impl.ExamDAOImpl;
 import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentAnswerDaoImpl;
 import polyu.comp2411.project.entity.Exam;
@@ -22,17 +24,17 @@ public class AutoJudgeServiceImpl implements AutoJudgeService {
     /**
      * auto judge a particular exam, all student participated in this exam
      * will be judged.
-     * @param ex the exam
+     * @param testId the exam
      */
     @Override
-    public void judgeAnExam(Exam ex){
-        if (ex == null) {
-            throw new IllegalArgumentException();
-        }
+    public void judgeAnExam(int testId){
+
         try {
             Connection conn =TransactionUtil.getConn();
             TransactionUtil.startTransaction();
+            ExamDAO examDAO = new ExamDAOImpl(conn);
             StudentAnswerDAO studentAnswerDAO = new StudentAnswerDaoImpl(conn);
+            Exam ex =examDAO.searchByID(testId);
             List<StudentAnswer> studentAnswers = studentAnswerDAO.searchByExam(ex);
             for (StudentAnswer sa : studentAnswers) { // for all the answers in this exam
                 judgeAQuestion(sa);

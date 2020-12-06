@@ -54,7 +54,7 @@ public class AccountManager {
             if (uid>0){
                 if (uid<NBR_ADMIN)
                     priviledge = 0;
-                else if(uid<NBR_ADMIN)
+                else if(uid<NBR_TEACHER)
                     priviledge = 1;
                 else
                     priviledge = 2;
@@ -67,7 +67,7 @@ public class AccountManager {
             }
 
 
-            sc.close();
+            // sc.close();
 
         }catch (ServiceException | DAOException e){
             System.out.println("Error: "+e);

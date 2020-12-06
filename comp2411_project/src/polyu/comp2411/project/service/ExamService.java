@@ -1,8 +1,6 @@
 package polyu.comp2411.project.service;
 
-import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
-import polyu.comp2411.project.entity.Student;
 
 import java.util.List;
 
@@ -16,17 +14,17 @@ public interface ExamService {
      * answer is null(which means not answered at the very
      * begining of exam)
      *
-     * @param student the student who sit this exam
-     * @param ex
+     * @param stuId the student who sit this exam
+     * @param testId
      * @return all the questions in this exam
      */
-    List<Question> sitExam(Student student, Exam ex);
+    List<Question> sitExam(int stuId, int testId);
 
     /**
      * controller call this iterativly to answer questions
      * @param que
-     * @param stu
+     * @param stuId
      * @param stuAnswerStr the answer that student made.
      */
-    void answerAnQuestion(Question que, Student stu, String stuAnswerStr);
+    void answerAnQuestion(Question que, int stuId, String stuAnswerStr);
 }

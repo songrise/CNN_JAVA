@@ -147,7 +147,7 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,ex.getTestId());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<Question> ans = new ArrayList<>();
             while(rs.next()){
                 int questionNo=rs.getInt("QUESTION_NO");

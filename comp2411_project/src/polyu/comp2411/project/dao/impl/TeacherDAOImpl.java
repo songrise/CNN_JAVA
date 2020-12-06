@@ -47,7 +47,7 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+        return null;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, cls.getClassNo());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<Teacher> ans = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("TEACHER_ID");
@@ -103,7 +103,7 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, cls.getClassNo());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("TEACHER_ID");
                 String name = rs.getString("TEACHER_NAME");
@@ -119,6 +119,6 @@ public class TeacherDAOImpl extends BaseDAO implements TeacherDAO {
             closeStatement();
             closePreparedStatement();
         }
-         return null;
+        return null;
     }
 }

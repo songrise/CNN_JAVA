@@ -118,7 +118,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,stu.getId());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<ScoreList> ans = new ArrayList<>();
             while(rs.next()){
                 int stuId=rs.getInt("STU_ID");
@@ -147,7 +147,7 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
         try{
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1,ex.getTestId());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<ScoreList> ans = new ArrayList<>();
             while(rs.next()){
                 int stuId=rs.getInt("STU_ID");

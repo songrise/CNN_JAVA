@@ -9,7 +9,9 @@ import polyu.comp2411.project.dao.impl.ExamDAOImpl;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.StudentAnswer;
+import polyu.comp2411.project.service.ExamGradeService;
 import polyu.comp2411.project.service.ManualJudgeService;
+import polyu.comp2411.project.service.impl.ExamGradeServiceImpl;
 import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
 
@@ -23,17 +25,17 @@ public class TeacherView {
 
     public void teacherView(){
         System.out.println("**Welcome to Teacher System!**");
-        System.out.println("********************************");
+        System.out.println("******************************");
         System.out.println("1: Arrange New Exam");
         System.out.println("2: Manual Judge");
-        System.out.println("3: Performance Analysis");
+        System.out.println("3: Release Exam Result");
+        System.out.println("4: Performance Analysis");
         Scanner sc = new Scanner(System.in);
-        System.out.println("********************************");
+        System.out.println("******************************");
         int op = -1;
         while (op !=1 && op !=2 && op !=3){
             System.out.println("Please input your option:");
-            op = sc.nextInt();
-            sc.nextLine();
+            op = Integer.parseInt(sc.nextLine());
         }
         try {
             if (op == 1){
@@ -55,9 +57,11 @@ public class TeacherView {
                     String option = sc.nextLine();
                     if (option.equals("Y"))
                         testDesigner.createQuestions();
+                    teacherView();
                 }
                 else if(op == 2){
                     testDesigner.createQuestions();
+                    teacherView();
                 }
                 else if(op == 3){
                     teacherView();
@@ -84,9 +88,19 @@ public class TeacherView {
                     manualJudge.manualJudgeAQuesion(studentAnswer,score);
                 }
                 System.out.println("********************************");
+                teacherView();
             }
             else if(op == 3){
-                System.out.println("Please enter the id of the class you want to see:");
+                System.out.println("Please enter the id of the exam, \nmake sure that you have manual judged all FL question: ");
+                int id = sc.nextInt();
+                sc.nextLine();
+                ExamGradeService examGradeService =new ExamGradeServiceImpl();
+                examGradeService.calScoreOfExam(id);
+                System.out.println("The results has been released to students.");
+                teacherView();
+            }
+            else if(op == 4){
+                System.out.println("Please enter the id of the class you want to see the report:");
                 int id=sc.nextInt();
                 sc.nextLine();
                 System.out.println("********************************");
@@ -96,6 +110,7 @@ public class TeacherView {
                 Map<String, Double> subjectAvgs=performanceAnalysisService.subjectAvgs(cls);
                 System.out.println("Below are the preformance analysis of the class:");
                 System.out.println(subjectAvgs);
+                teacherView();
             }
             
         }catch (Exception e){

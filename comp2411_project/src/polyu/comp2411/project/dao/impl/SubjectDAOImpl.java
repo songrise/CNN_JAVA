@@ -19,7 +19,7 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
 
     private ResultSet result;
 
-    SubjectDAOImpl() {
+    public SubjectDAOImpl() {
         super();
     }
 
@@ -76,7 +76,7 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, cls.getClassNo());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<Subject> ans = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("SUBJECT_ID");
@@ -102,7 +102,7 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, tc.getId());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<Subject> ans = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("SUBJECT_ID");
@@ -128,7 +128,7 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, stu.getClassNo());
-            rs = ps.executeQuery(sql);
+            rs = ps.executeQuery();
             List<Subject> ans = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("SUBJECT_ID");

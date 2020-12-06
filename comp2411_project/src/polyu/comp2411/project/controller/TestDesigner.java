@@ -61,7 +61,7 @@ public class TestDesigner {
 //      if (sc.hasNextLine())
         description = sc.nextLine();
 
-      System.out.printf("Please input whether this question is compulsory: (yes/no)");
+      System.out.printf("Please input whether this question is compulsory(yes/no): ");
       String s = sc.nextLine();
       if(s.toUpperCase() == "YES")
         isCompulsory = true;
@@ -79,12 +79,12 @@ public class TestDesigner {
       score = sc.nextInt();
       sc.nextLine();
       testDesignerService.createQuestion(examId,description,isCompulsory,type,answer,score);
-
+      qCount+=1;
       System.out.println("You have added "+qCount+ " questions, continue? (y/N): ");
       String ifContinue = sc.nextLine();
       if (ifContinue.toUpperCase().equals("N")){
         System.out.printf("Exited.");
-        sc.close();
+        // sc.close();
         break;
       }else {
         sc.nextLine();

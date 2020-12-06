@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.util.NoSuchElementException;
 
 /**
  * provide service for account management.
@@ -34,7 +35,10 @@ public class AccountServiceImpl implements AccountService {
                 return acct.getPrivilege(); // succeccful log in
             }
             return INVALID;
-        } catch (Exception e) {
+        }catch (NoSuchElementException e){
+            throw new ServiceException(uid+ " did not registered");
+        }
+        catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
         } finally {

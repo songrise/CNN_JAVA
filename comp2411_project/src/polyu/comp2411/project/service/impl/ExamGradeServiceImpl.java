@@ -1,14 +1,8 @@
 package polyu.comp2411.project.service.impl;
 
 
-import polyu.comp2411.project.dao.QuestionDAO;
-import polyu.comp2411.project.dao.ScoreListDAO;
-import polyu.comp2411.project.dao.StudentAnswerDAO;
-import polyu.comp2411.project.dao.StudentDAO;
-import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
-import polyu.comp2411.project.dao.impl.ScoreListDAOImpl;
-import polyu.comp2411.project.dao.impl.StudentAnswerDaoImpl;
-import polyu.comp2411.project.dao.impl.StudentDAOImpl;
+import polyu.comp2411.project.dao.*;
+import polyu.comp2411.project.dao.impl.*;
 import polyu.comp2411.project.entity.*;
 import polyu.comp2411.project.service.ExamGradeService;
 import polyu.comp2411.project.util.TransactionUtil;
@@ -33,25 +27,27 @@ public class ExamGradeServiceImpl implements ExamGradeService {
      *
      * When this method are called, all question shall already
      * be judged.
-     * @param ex
+     * @param testId
      */
     @Override
-    public void calScoreOfExam(Exam ex){
-        if (ex == null) {
-            throw new IllegalArgumentException();
-        }
+    public void calScoreOfExam(int testId){
+
         try{
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
             StudentAnswerDAO studentAnswerDAO = new StudentAnswerDaoImpl(conn);
             StudentDAO studentDAO = new StudentDAOImpl(conn);
-            ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
 
+            ExamDAO examDAO = new ExamDAOImpl(conn);
+
+            Exam ex = examDAO.searchByID(testId);
             List<StudentAnswer> allAnswers = studentAnswerDAO.searchByExam(ex);//get all answer of this exam
             List<Student> studentsInThisExam = studentDAO.searchByExam(ex);
+
             int fullMark = getFullMarkOfExam(ex);
 
             for (Student stu:studentsInThisExam){//grade all student in this exam
+                ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
                 int score = 0; //score that this student got in this exam
                 for(StudentAnswer ans:allAnswers){
                     if(ans.getStuId() == stu.getId()){//if this ans is made by this student.
@@ -59,8 +55,8 @@ public class ExamGradeServiceImpl implements ExamGradeService {
                     }
                 }
                 int normalizedScore = (score*100/fullMark);
-                ScoreList sl = new ScoreList(stu.getId(),ex.getTestId(),normalizedScore,null);
-                scoreListDAO.addScoreList(sl);
+                ScoreList sl = new ScoreList(stu.getId(), testId,normalizedScore,null);
+                scoreListDAO.addScoreList(sl);//todo bug
             }
 
             TransactionUtil.commit();
@@ -74,7 +70,7 @@ public class ExamGradeServiceImpl implements ExamGradeService {
 
     @Override
     public void addComment(ScoreList sl, String commnet) {
-
+        //todo
     }
 
     private int getFullMarkOfExam(Exam ex){

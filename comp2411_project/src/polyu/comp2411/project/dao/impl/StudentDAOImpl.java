@@ -70,12 +70,13 @@ public class StudentDAOImpl extends BaseDAO implements StudentDAO {
 
     @Override
     public List<Student> searchByExam(Exam ex) {
-        String sql = "SELECT * FROM EXAM_LIST NATUAL JOIN STUDENT WHERE TEST_ID = ?";
+        String sql = "SELECT * FROM EXAM_LIST NATURAL JOIN STUDENT WHERE TEST_ID = ?";
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             ps.setInt(1, ex.getTestId());
             List<Student> ans = new ArrayList<>();
-            while (rs.next()) {
+            rs = ps.executeQuery();
+            while (rs.next()) {//todo bug?
                 int id = rs.getInt("STU_ID");
                 String name = rs.getString("STU_NAME");
                 int classNo = rs.getInt("CLASS_NO");
