@@ -42,13 +42,13 @@ public class AccountManager {
             Scanner sc=new Scanner(System.in);
             int priviledge = -1;
             final int NBR_ADMIN = 100000, NBR_TEACHER = 300000, NBR_STUDENT = 999999;
-            System.out.println("Please input your id number(6 digits): ");
+            System.out.print("Please input your id number(6 digits): ");
             uid = sc.nextInt();
             sc.nextLine();
 
-            System.out.println("Please input your password (at least 6 letters): ");
+            System.out.print("Please input your password (at least 6 letters): ");
             pswd = sc.nextLine();
-            System.out.println("Please input your password again (at least 6 letters): ");
+            System.out.print("Please input your password again (at least 6 letters): ");
             rePswd = sc.nextLine();
 
             if (uid>0){

@@ -41,15 +41,23 @@ public class ExamSystem {
                 autoJudgeService.judgeAnExam(testId);
                 break;
             }
-            System.out.printf("QNo:%d Type:%s, Complsory:%s Score:%d \n",q.getqNo(),q.getType(),q.getCompulsory(),q.getScore());
+            System.out.printf("QNo:%d Type:%s, Complsory:%s Score:%d \n",q.getqNo(),q.getType(),q.getCompulsory()?"y":"n",q.getScore());
             System.out.println("****************************************");
             System.out.println(q.getqDescri());
             System.out.println("****************************************");
-            System.out.printf("Input your answer(in one line): ");
+            System.out.print("Input your answer(in one line, \"skip\" to skip): ");
 
             String answer;
 
             answer= sc.nextLine();
+            if (answer.equals("skip")){
+                if (!q.getCompulsory())
+                    answer=null;
+                else{
+                    System.out.print("This question is compulsory, please input your answer: ");
+                    answer= sc.nextLine();
+                }
+            }
             examService.answerAnQuestion(q, stuId,answer);
         }
         System.out.println("You have answered all question, submit now?(Y/n)");

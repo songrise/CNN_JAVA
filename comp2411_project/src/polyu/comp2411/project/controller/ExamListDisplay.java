@@ -22,7 +22,7 @@ public class ExamListDisplay {
             if (schedule.isEmpty()) {
                 System.out.println("Seems you have no upcoming exam\n");
             } else {
-                System.out.printf("Test ID\t\t\tStart Time\n");
+                System.out.print("Test ID\t\t\tStart Time\n");
                 for (Integer recordID : schedule.keySet()) {
                     System.out.printf("%d\t\t\t\t%s\n", recordID, schedule.get(recordID));
                 }
