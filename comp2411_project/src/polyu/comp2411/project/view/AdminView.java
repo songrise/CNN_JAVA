@@ -18,59 +18,69 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AdminView {
-    int uid;
+    private int uid;
 
     public AdminView(final int uid) {
         this.uid = uid;
-        LoggerUtil.addLog("[Admin "+uid+"] log in system");
+        LoggerUtil.addLog("[Admin " + uid + "] log in system");
     }
 
-    public void view(){
+    public void view() {
         System.out.println("**Welcome to Admin System!**");
         System.out.println("****************************");
         System.out.println("1: Change User password");
         System.out.println("2: View system log");
-
         System.out.println("****************************");
+
         Scanner sc = new Scanner(System.in);
         int op = -1;
-        while (op !=1 && op !=2){
-            System.out.print("Please input your option:");
-            op = sc.nextInt();
-            sc.nextLine();
-        }
+        do {
+            System.out.print("please indicate your option: ");
+            try {
+                op = Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("please enter an integer");
+            }
+        } while (op != 1 && op != 2);
+
         try {
-            if (op == 1){
+            if (op == 1) {
                 AccountManager accountManager = new AccountManager();
                 accountManager.changePsw();
-                view();
-            }
-
-            else if(op == 2){
+            } else {
                 LoggerDAO loggerDAO = new LoggerDAOImpl();
                 List<String> logs = loggerDAO.getAll();
                 int count = 0;
+
                 System.out.println("*************Logs************");
-                for (String info :logs){
+                for (String info : logs) {
                     System.out.println(info);
-                    if (++count == 10){
-                        System.out.print("See more? (y/n): ");
-                        if (sc.nextLine().toUpperCase().equals("N")){
+                    if (++count == 10) {
+                        boolean readmore = false;
+
+                        while (true) {
+                            System.out.print("See more? (y/n): ");
+                            String input = sc.nextLine().trim().toUpperCase();
+                            if (input.equals("Y"))
+                                readmore = true;
+                            else if (!input.equals("N")) {
+                                continue;
+                            }
+                            break;
+                        }
+
+                        if (!readmore) {
                             break;
                         }
                     }
                 }
                 System.out.println("****************************");
-
-                view();
             }
-
-        }catch (DAOException | ServiceException e){
-            System.out.println("Error: "+e +" please contact admin!");
-            view();
+        } catch (DAOException | ServiceException e) {
+            System.out.println("Error: " + e + " please contact admin!");
         }
+        view();
     }
-
 
     public int getUid() {
         return uid;
