@@ -16,40 +16,41 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    public QuestionDAOImpl(){
+
+    public QuestionDAOImpl() {
         super();
     }
-    public QuestionDAOImpl(Connection connection){
+
+    public QuestionDAOImpl(Connection connection) {
         super(connection);
     }
 
     @Override
     public Question searchByKey(int testId, int qNo) {
         String sql = "SELECT * FROM QUESTION WHERE TEST_ID = ? AND QUESTION_NO = ?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,testId);
-            ps.setInt(2,qNo);
+            ps.setInt(1, testId);
+            ps.setInt(2, qNo);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String description = rs.getString("Q_DESCRIPTION");
-                boolean compulsory=rs.getBoolean("COMPULSORY");
+                boolean compulsory = rs.getBoolean("COMPULSORY");
                 String type = rs.getString("TYPE");
                 String answer = rs.getString("ANSWER");
-                int score=rs.getInt("SCORE");
-                Question result = new Question(qNo,testId,description,compulsory,type,answer,score);
-                this.question= result;
+                int score = rs.getInt("SCORE");
+                Question result = new Question(qNo, testId, description, compulsory, type, answer, score);
+                this.question = result;
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             closeStatement();
             closePreparedStatement();
         }
-         throw new DAOException("Specified entity not found!");
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -76,19 +77,18 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             //set parameter of sql
-            ps.setInt(1,que.getqNo());
-            ps.setInt(2,que.getTestId());
-            ps.setString(3,que.getqDescri());
-            ps.setBoolean(4,que.getCompulsory());
-            ps.setString(5,que.getType());
-            ps.setString(6,que.getAns());
-            ps.setInt(7,que.getScore());
+            ps.setInt(1, que.getqNo());
+            ps.setInt(2, que.getTestId());
+            ps.setString(3, que.getqDescri());
+            ps.setBoolean(4, que.getCompulsory());
+            ps.setString(5, que.getType());
+            ps.setString(6, que.getAns());
+            ps.setInt(7, que.getScore());
             ps.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -103,11 +103,10 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             //set parameter of sql
             ps.setInt(1, que.getqNo());
             ps.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -129,11 +128,10 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
             ps.setInt(7, newQue.getScore());
             ps.setInt(8, oldQue.getqNo());
             ps.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -143,27 +141,26 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
     @Override
     public List<Question> searchByExam(Exam ex) {
         String sql = "SELECT * FROM Question WHERE TEST_ID=?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,ex.getTestId());
+            ps.setInt(1, ex.getTestId());
             rs = ps.executeQuery();
             List<Question> ans = new ArrayList<>();
-            while(rs.next()){
-                int questionNo=rs.getInt("QUESTION_NO");
+            while (rs.next()) {
+                int questionNo = rs.getInt("QUESTION_NO");
                 String description = rs.getString("Q_DESCRIPTION");
-                boolean compulsory=rs.getBoolean("COMPULSORY");
+                boolean compulsory = rs.getBoolean("COMPULSORY");
                 String type = rs.getString("TYPE");
                 String answer = rs.getString("ANSWER");
-                int score=rs.getInt("SCORE");
-                Question result = new Question(questionNo,ex.getTestId(),description,compulsory,type,answer,score);
+                int score = rs.getInt("SCORE");
+                Question result = new Question(questionNo, ex.getTestId(), description, compulsory, type, answer, score);
                 ans.add(result);
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -173,29 +170,29 @@ public class QuestionDAOImpl extends BaseDAO implements QuestionDAO {
 
     @Override
     public int getNextQuestionNo(Exam ex) {
-            String sql = "SELECT MAX(Question_No) FROM QUESTION WHERE TEST_ID = ?";
-            try {
-                PreparedStatement ps = getConn().prepareStatement(sql);
-                ps.setInt(1,ex.getTestId());
-                // PreparedStatement ps = getConn().prepareStatement(sql);
-                // rs = ps.executeQuery();
-                rs = ps.executeQuery();
+        String sql = "SELECT MAX(Question_No) FROM QUESTION WHERE TEST_ID = ?";
+        try {
+            PreparedStatement ps = getConn().prepareStatement(sql);
+            ps.setInt(1, ex.getTestId());
+            // PreparedStatement ps = getConn().prepareStatement(sql);
+            // rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
-                while (rs.next()) {
-                    return rs.getInt("MAX(Question_No)") + 1;
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw new DAOException(e.getMessage());
-            } finally {
-                // close resources used
-                closeStatement();
-                closePreparedStatement();
-
-                // rs.close();
+            while (rs.next()) {
+                return rs.getInt("MAX(Question_No)") + 1;
             }
-            return -1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException(e.getMessage());
+        } finally {
+            // close resources used
+            closeStatement();
+            closePreparedStatement();
+
+            // rs.close();
         }
+        return -1;
+    }
 
 }
