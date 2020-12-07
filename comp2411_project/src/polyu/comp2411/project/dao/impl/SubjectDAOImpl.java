@@ -47,7 +47,7 @@ public class SubjectDAOImpl extends BaseDAO implements SubjectDAO {
             closeStatement();
             closePreparedStatement();
         }
-         throw new DAOException("Specified entity not found!");
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
