@@ -1,6 +1,6 @@
 package polyu.comp2411.project.entity;
 
-public class ScoreList implements Cloneable{
+public class ScoreList implements Cloneable {
 
     private int stuId;
     private int testId;
