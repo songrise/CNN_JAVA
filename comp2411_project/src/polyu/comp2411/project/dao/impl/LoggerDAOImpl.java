@@ -24,15 +24,14 @@ public class LoggerDAOImpl extends BaseDAO implements LoggerDAO {
         super(connection);
     }
 
-
     @Override
     public void addLog(String info) {
         String sql = "INSERT INTO LOGGER VALUES(?,?)";
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             int id = getNextId();
-            ps.setInt(1,id);
-            ps.setString(2,info);
+            ps.setInt(1, id);
+            ps.setString(2, info);
             ps.execute();
 
         } catch (SQLException e) {
@@ -57,7 +56,6 @@ public class LoggerDAOImpl extends BaseDAO implements LoggerDAO {
             while (rs.next()) {
                 result.add(rs.getString("EVENT"));
             }
-
             return result;
 
         } catch (SQLException e) {
@@ -71,7 +69,6 @@ public class LoggerDAOImpl extends BaseDAO implements LoggerDAO {
         }
     }
 
-
     private int getNextId() {
         String sql = "SELECT MAX(LOG_ID) FROM LOGGER";
         try {
@@ -81,7 +78,6 @@ public class LoggerDAOImpl extends BaseDAO implements LoggerDAO {
             while (rs.next()) {
                 return rs.getInt("MAX(LOG_ID)") + 1;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
@@ -94,5 +90,4 @@ public class LoggerDAOImpl extends BaseDAO implements LoggerDAO {
         }
         return -1;
     }
-
 }
