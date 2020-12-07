@@ -22,10 +22,10 @@ public class StudentView {
 
     public StudentView(final int uid) {
         this.uid = uid;
-        LoggerUtil.addLog("[Student "+uid+"] log in system");
+        LoggerUtil.addLog("[Student " + uid + "] log in system");
     }
 
-    public void stuView(){
+    public void stuView() {
         System.out.println("**Welcome to Student System!**");
         System.out.println("******************************");
         System.out.println("1: Check the coming exam");
@@ -33,39 +33,35 @@ public class StudentView {
         System.out.println("3: My Grades");
         Scanner sc = new Scanner(System.in);
         System.out.println("******************************");
+
         int op = -1;
-        while (op !=1 && op !=2 && op !=3){
+        do {
             System.out.print("Please input your option:");
-            op = sc.nextInt();
-            sc.nextLine();
-        }
+            try {
+                op = Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("please enter an integer");
+            }
+        } while (op < 1 || op > 3);
+
         try {
-            if (op == 1){
+            if (op == 1) {
                 ExamListDisplay.showExamList(uid);
                 stuView();
-            }
-            
-            else if(op == 2){
+            } else if (op == 2) {
                 ExamSystem.sitExam(uid);
                 stuView();
-            }
-            else if(op == 3){
+            } else if (op == 3) {
                 ScoreListDisplay.showScoreList(uid);
                 stuView();
             }
 
-        }catch (DAOException | ServiceException e){
-            System.out.println("Error: "+e +" please contact admin!");
+        } catch (DAOException | ServiceException e) {
+            System.out.println("Error: " + e + " please contact admin!");
             stuView();
-        }catch (Exception e){
-            System.out.println("Unexpected error: "+e +", program terminated, please contact admin!");
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e + ", program terminated, please contact admin!");
         }
-    }
-
-
-    public static void main(String[] args) {
-        StudentView studentView = new StudentView(1);
-        studentView.stuView();
     }
 
     public int getUid() {
@@ -74,5 +70,10 @@ public class StudentView {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public static void main(String[] args) {
+        StudentView studentView = new StudentView(1);
+        studentView.stuView();
     }
 }
