@@ -1,19 +1,12 @@
 package polyu.comp2411.project.view;
 
 import polyu.comp2411.project.controller.AccountManager;
-import polyu.comp2411.project.controller.ExamListDisplay;
-import polyu.comp2411.project.controller.ExamSystem;
-import polyu.comp2411.project.controller.ScoreListDisplay;
 import polyu.comp2411.project.dao.LoggerDAO;
 import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.dao.impl.LoggerDAOImpl;
 import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.LoggerUtil;
-import polyu.comp2411.project.util.TransactionUtil;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
