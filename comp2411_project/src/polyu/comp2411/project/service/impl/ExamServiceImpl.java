@@ -19,7 +19,7 @@ public class ExamServiceImpl implements ExamService {
 
     /**
      * sit in an exam with steps. 1) check if student can enter that exam
-     *
+     * <p>
      * 2) if can, then insert all the question of this exam into the StudentAnswer
      * table for this student, and the answer is null(which means not answered at
      * the very begining of exam)
@@ -45,7 +45,7 @@ public class ExamServiceImpl implements ExamService {
             ExamDAO examDAO = new ExamDAOImpl(conn);
 
             List<Question> questionsInThisExam = questionDAO.searchByExam(examDAO.searchByID(testId));// all questions
-                                                                                                      // in this exam
+            // in this exam
             for (Question q : questionsInThisExam) {
                 // create an empty record for each question, and append that to student answer
                 StudentAnswer emptyAnswer = new StudentAnswer(stuId, testId, q.getqNo(), null, 0);
@@ -65,7 +65,7 @@ public class ExamServiceImpl implements ExamService {
             TransactionUtil.closeConn();
 
         }
-       
+
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ExamServiceImpl implements ExamService {
     /**
      * judge wheather a student can enter an exam. A student can enter if he has
      * that exam in his exam list and current time is examination period.
-     * 
+     *
      * @param stu
      * @param ex
      * @return
@@ -122,15 +122,13 @@ public class ExamServiceImpl implements ExamService {
             Student student = studentDAO.searchByID(stuId);
             Exam exam = examDAO.searchByID(testId);
             List<ExamList> examList = examListDAO.searchByStudent(student);
-            for (ExamList el : examList){
+            for (ExamList el : examList) {
                 if (el.getTestId() == testId) {
-                    if (hasStarted(testId)){
-                        if(!isTimeUp(testId))
+                    if (hasStarted(testId)) {
+                        if (!isTimeUp(testId))
                             return true;
                         else throw new ServiceException("The test has already ended!");
-                    }
-
-                    else throw new ServiceException("The test has not yet started!");
+                    } else throw new ServiceException("The test has not yet started!");
                 }
             }
             TransactionUtil.commit();
