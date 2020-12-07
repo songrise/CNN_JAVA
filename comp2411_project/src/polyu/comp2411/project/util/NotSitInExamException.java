@@ -1,11 +1,12 @@
 package polyu.comp2411.project.util;
 
 @Deprecated
-public class NotSitInExamException extends RuntimeException{
-    NotSitInExamException(){
+public class NotSitInExamException extends RuntimeException {
+    NotSitInExamException() {
         super();
     }
-    NotSitInExamException(String msg){
+
+    NotSitInExamException(String msg) {
         super(msg);
     }
 }
