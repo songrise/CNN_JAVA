@@ -16,12 +16,11 @@ import java.sql.Timestamp;
  * provide service for teacher to Design a exam
  */
 public class TestDesignerServiceImpl implements TestDesignerService {
-
-
     /**
      * create test has following to steps: create a new Test entity and write it to DB.
      * for all student in that class, add this exam to their exam list. This method only
      * create a empty exam with no questions.
+     *
      * @param arrangerID
      * @param clsID
      * @param subID
@@ -30,10 +29,8 @@ public class TestDesignerServiceImpl implements TestDesignerService {
      * @return id of the test
      */
     @Override
-    public int createTest(int arrangerID, int clsID, int subID, int testDuration, String startTimeStr){
-
-
-        try{
+    public int createTest(int arrangerID, int clsID, int subID, int testDuration, String startTimeStr) {
+        try {
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
             ExamDAO examDAO = new ExamDAOImpl(conn);
@@ -41,32 +38,30 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             StudentDAO studentDAO = new StudentDAOImpl(conn);
             ExamListDAO examListDAO = new ExamListDAOImpl(conn);
 
-
             int testId = examDAO.getNextExamId();
             BigDecimal durationInMs = convertToMs(testDuration);
             Timestamp startTime = convertToTimestamp(startTimeStr);
-            Exam newlyCreatedTest = new Exam(testId,durationInMs,startTime,clsID,subID, arrangerID);
+            Exam newlyCreatedTest = new Exam(testId, durationInMs, startTime, clsID, subID, arrangerID);
             examDAO.addExam(newlyCreatedTest);
 
             //next add this exam to students' exam list
             Classe cls = classeDAO.searchById(clsID);
-            for (Student stu : studentDAO.searchByClass(cls)){ // for all student in that class
-                ExamList el = new ExamList(stu.getId(),testId);
+            for (Student stu : studentDAO.searchByClass(cls)) { // for all student in that class
+                ExamList el = new ExamList(stu.getId(), testId);
                 examListDAO.addExamList(el);
             }
 
             TransactionUtil.commit();
-            LoggerUtil.addLog("[Teacher "+arrangerID+"] arranged exam "+ testId);
+            LoggerUtil.addLog("[Teacher " + arrangerID + "] arranged exam " + testId);
             return testId;
-        } catch (DAOException de){
-            System.out.println("DAO failed because: "+ de.getMessage());
-        }
-        catch (Exception e){
+        } catch (DAOException de) {
+            System.out.println("DAO failed because: " + de.getMessage());
+        } catch (Exception e) {
             TransactionUtil.rollBack();
             e.printStackTrace();
             throw new ServiceException(e.getMessage());
-        }finally {
 
+        } finally {
             TransactionUtil.closeConn();
         }
         return -1;
@@ -74,13 +69,14 @@ public class TestDesignerServiceImpl implements TestDesignerService {
 
     /**
      * create a question and add it to an exam.
+     *
      * @param ex
-     * @param qDesc: description of question
+     * @param qDesc:  description of question
      * @param answer: correct answer
      * @return the No. of question
      */
     @Override
-    public int createQuestion(int examID, String qDesc, boolean isCompulsory, String type, String answer, int score){
+    public int createQuestion(int examID, String qDesc, boolean isCompulsory, String type, String answer, int score) {
         try {
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
@@ -89,38 +85,34 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             Exam ex = examDAO.searchByID(examID);
 
             int qNo = questionDAO.getNextQuestionNo(ex);
-            Question newQ = new Question(qNo, ex.getTestId(),qDesc,isCompulsory,type,answer,score);
+            Question newQ = new Question(qNo, ex.getTestId(), qDesc, isCompulsory, type, answer, score);
             questionDAO.addQuestion(newQ);
             TransactionUtil.commit();
             return qNo;
-        }
-
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
             throw new ServiceException(e.getMessage());
-        }finally {
+        } finally {
             TransactionUtil.closeConn();
         }
-
     }
 
-    private BigDecimal convertToMs(int duration){
+    private BigDecimal convertToMs(int duration) {
         try {
-        BigDecimal durationInMs =BigDecimal.valueOf(duration);
-        durationInMs = durationInMs.multiply(BigDecimal.valueOf(60000));
+            BigDecimal durationInMs = BigDecimal.valueOf(duration);
+            durationInMs = durationInMs.multiply(BigDecimal.valueOf(60000));
             return durationInMs;
-        }
-        catch (Exception e){
-                throw new ServiceException(e.getMessage());
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
         }
     }
 
-    private Timestamp convertToTimestamp(String dateStr){
+    private Timestamp convertToTimestamp(String dateStr) {
         try {
             Timestamp tm = Timestamp.valueOf(dateStr);
             return tm;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
     }
@@ -128,8 +120,7 @@ public class TestDesignerServiceImpl implements TestDesignerService {
     public static void main(String[] args) {
         TestDesignerService testDesignerService = new TestDesignerServiceImpl();
 //        testDesignerService.createTest(1,1,1,30,"2020-12-08 00:30:01");
-        testDesignerService.createQuestion(1,"1+2=",true,"FB","3",20);
-        testDesignerService.createQuestion(1,"2*2=",true,"FB","4",20);
+        testDesignerService.createQuestion(1, "1+2=", true, "FB", "3", 20);
+        testDesignerService.createQuestion(1, "2*2=", true, "FB", "4", 20);
     }
-
 }
