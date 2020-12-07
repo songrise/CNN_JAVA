@@ -17,7 +17,7 @@ public class TransactionUtil {
     private static Connection conn;
 
     public static Connection getConn() {
-        if (conn!= null){// if it is connected
+        if (conn != null) {// if it is connected
             return conn;
         }
 
@@ -26,6 +26,7 @@ public class TransactionUtil {
         // Database credentials
         final String USER = "root";
         final String PASS = "";
+
         try {
             // STEP 2: Register JDBC driver
             Class.forName(JDBC_DRIVER);
@@ -42,53 +43,53 @@ public class TransactionUtil {
         return null;
     }
 
-    public static void startTransaction(){
+    public static void startTransaction() {
         if (conn == null) {
             getConn();
         }
 
         try {
             conn.setAutoCommit(false);
-        }
-        catch (SQLException se){
+        } catch (SQLException se) {
             se.printStackTrace();
         }
     }
 
-    public static void rollBack(){
+    public static void rollBack() {
         try {
-            if (conn!=null){
+            if (conn != null) {
                 conn.rollback();
                 long l = System.currentTimeMillis();
                 java.util.Date d = new Date(l);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String info = "[Info] System rolledback at: "+ simpleDateFormat.format(d);
+
+                String info = "[Info] System rolledback at: " + simpleDateFormat.format(d);
                 LoggerDAO loggerDAO = new LoggerDAOImpl();
                 loggerDAO.addLog(info);
                 TransactionUtil.commit();
             }
-        }catch (SQLException se){
+        } catch (SQLException se) {
             se.printStackTrace();
         }
     }
 
-    public static void commit(){
+    public static void commit() {
         try {
-            if (conn!= null){
+            if (conn != null) {
                 conn.commit();
             }
-        }catch(SQLException se){
+        } catch (SQLException se) {
             se.printStackTrace();
         }
     }
 
     public static void closeConn() {
         try {
-            if (conn!= null){
+            if (conn != null) {
                 conn.close();
                 conn = null;
             }
-        }catch (SQLException se){
+        } catch (SQLException se) {
             se.printStackTrace();
         }
     }
@@ -98,11 +99,10 @@ public class TransactionUtil {
             Connection connection = TransactionUtil.getConn();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM TEACHER");
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("TEACHER_NAME"));
             }
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
