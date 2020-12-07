@@ -1,15 +1,15 @@
 package polyu.comp2411.project.entity;
 
 public class Account {
+    private int uid;
+    private String password;
+    private int privilege;
+
     public Account(int uid, String password, int privilege) {
         this.uid = uid;
         this.password = password;
         this.privilege = privilege;
     }
-
-    private int uid;
-    private String password;
-    private int privilege;
 
     public int getUid() {
         return uid;
@@ -34,7 +34,4 @@ public class Account {
     public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
-
 }
-
-
