@@ -17,36 +17,37 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
     private ResultSet rs;
 
     private ResultSet result;
-    public ScoreListDAOImpl(){
+
+    public ScoreListDAOImpl() {
         super();
     }
-    public ScoreListDAOImpl(Connection connection){
+
+    public ScoreListDAOImpl(Connection connection) {
         super(connection);
     }
 
     @Override
     public ScoreList searchByKey(Student stu, Exam ex) {
         String sql = "SELECT * FROM SCORE_LIST WHERE STU_ID = ? AND TEST_ID=?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,stu.getId());
-            ps.setInt(2,ex.getTestId());
+            ps.setInt(1, stu.getId());
+            ps.setInt(2, ex.getTestId());
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int score = rs.getInt("SCORE");
                 String feedback = rs.getString("FEEDBACK");
-                ScoreList result = new ScoreList(stu.getId(),ex.getTestId(),score,feedback);
+                ScoreList result = new ScoreList(stu.getId(), ex.getTestId(), score, feedback);
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             closeStatement();
             closePreparedStatement();
         }
-         throw new DAOException("Specified entity not found!");
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -56,15 +57,14 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             PreparedStatement ps = getConn().prepareStatement(sql);
             //set parameter of sql
             ps.setInt(1, sl.getStuId());
-            ps.setInt(2,sl.getTestId());
-            ps.setInt(3,sl.getScore());
-            ps.setString(4,sl.getFeedBack());
+            ps.setInt(2, sl.getTestId());
+            ps.setInt(3, sl.getScore());
+            ps.setString(4, sl.getFeedBack());
             ps.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -103,11 +103,10 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
             ps.setInt(5, oldSl.getStuId());
             ps.setInt(6, oldSl.getTestId());
             ps.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -117,25 +116,24 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
     @Override
     public List<ScoreList> searchByStudent(Student stu) {
         String sql = "SELECT * FROM SCORE_LIST WHERE STU_ID=?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,stu.getId());
+            ps.setInt(1, stu.getId());
             rs = ps.executeQuery();
             List<ScoreList> ans = new ArrayList<>();
-            while(rs.next()){
-                int stuId=rs.getInt("STU_ID");
-                int testId=rs.getInt("TEST_ID");
-                int score=rs.getInt("SCORE");
-                String feedback=rs.getString("FEEDBACK");
-                ScoreList result = new ScoreList(stuId,testId,score,feedback);
+            while (rs.next()) {
+                int stuId = rs.getInt("STU_ID");
+                int testId = rs.getInt("TEST_ID");
+                int score = rs.getInt("SCORE");
+                String feedback = rs.getString("FEEDBACK");
+                ScoreList result = new ScoreList(stuId, testId, score, feedback);
                 ans.add(result);
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -146,25 +144,24 @@ public class ScoreListDAOImpl extends BaseDAO implements ScoreListDAO {
     @Override
     public List<ScoreList> searchByExam(Exam ex) {
         String sql = "SELECT * FROM SCORE_LIST WHERE TEST_ID = ?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,ex.getTestId());
+            ps.setInt(1, ex.getTestId());
             rs = ps.executeQuery();
             List<ScoreList> ans = new ArrayList<>();
-            while(rs.next()){
-                int stuId=rs.getInt("STU_ID");
-                int testId=rs.getInt("TEST_ID");
-                int score=rs.getInt("SCORE");
-                String feedback=rs.getString("FEEDBACK");
-                ScoreList result = new ScoreList(stuId,testId,score,feedback);
+            while (rs.next()) {
+                int stuId = rs.getInt("STU_ID");
+                int testId = rs.getInt("TEST_ID");
+                int score = rs.getInt("SCORE");
+                String feedback = rs.getString("FEEDBACK");
+                ScoreList result = new ScoreList(stuId, testId, score, feedback);
                 ans.add(result);
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
