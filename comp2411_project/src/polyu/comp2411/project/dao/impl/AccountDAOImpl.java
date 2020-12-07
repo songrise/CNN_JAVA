@@ -43,7 +43,7 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             closeStatement();
             closePreparedStatement();
         }
-         throw new DAOException("Specified entity not found!");
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -61,7 +61,6 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             throw new DAOException(e.getMessage());
         } finally {
             // close resources used
-
             closeStatement();
             closePreparedStatement();
         }
@@ -80,7 +79,6 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             throw new DAOException(e.getMessage());
         } finally {
             // close resources used
-
             closeStatement();
             closePreparedStatement();
         }
@@ -88,8 +86,9 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
 
     @Override
     public void updAccount(Account act, Account newAct) {
-        String sql = "UPDATE ACCOUNT SET USER_ID=?,PASSWORD=?,PRIVILEGE=? WHERE USER_ID = ?"; // parameter to be set
-                                                                                              // later
+        String sql = "UPDATE ACCOUNT SET USER_ID=?,PASSWORD=?,PRIVILEGE=? WHERE USER_ID = ?";
+        // parameter to be set later
+
         try {
             setPs(sql);
             // set parameter of sql
@@ -103,7 +102,6 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             throw new DAOException(e.getMessage());
         } finally {
             // close resources used
-
             closeStatement();
             closePreparedStatement();
         }
