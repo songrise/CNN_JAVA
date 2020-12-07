@@ -1,8 +1,6 @@
 package polyu.comp2411.project.service;
 
 import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.Question;
-import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.StudentAnswer;
 
 import java.util.List;

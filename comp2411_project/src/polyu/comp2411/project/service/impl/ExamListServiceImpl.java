@@ -2,15 +2,12 @@ package polyu.comp2411.project.service.impl;
 
 import polyu.comp2411.project.dao.ExamDAO;
 import polyu.comp2411.project.dao.ExamListDAO;
-import polyu.comp2411.project.dao.QuestionDAO;
 import polyu.comp2411.project.dao.StudentDAO;
 import polyu.comp2411.project.dao.impl.ExamDAOImpl;
 import polyu.comp2411.project.dao.impl.ExamListDAOImpl;
-import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentDAOImpl;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.ExamList;
-import polyu.comp2411.project.entity.Question;
 import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.service.ExamListService;
 import polyu.comp2411.project.service.ServiceException;

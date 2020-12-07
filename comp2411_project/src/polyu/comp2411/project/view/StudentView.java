@@ -6,16 +6,8 @@ import polyu.comp2411.project.controller.ExamListDisplay;
 import polyu.comp2411.project.controller.ExamSystem;
 import polyu.comp2411.project.controller.ScoreListDisplay;
 import polyu.comp2411.project.dao.impl.DAOException;
-import polyu.comp2411.project.dao.impl.ExamListDAOImpl;
-import polyu.comp2411.project.dao.impl.StudentDAOImpl;
-import polyu.comp2411.project.entity.Student;
-import polyu.comp2411.project.service.ExamListService;
-import polyu.comp2411.project.service.ExamService;
 import polyu.comp2411.project.service.ServiceException;
-import polyu.comp2411.project.service.impl.ExamListServiceImpl;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class StudentView {

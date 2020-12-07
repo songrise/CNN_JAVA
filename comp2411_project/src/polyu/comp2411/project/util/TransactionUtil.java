@@ -16,7 +16,7 @@ public class TransactionUtil {
         }
 
         final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        final String DB_URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        final String DB_URL = "jdbc:mysql://localhost:3306/AESGRP4?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         // Database credentials
         final String USER = "root";
         final String PASS = "";
@@ -53,6 +53,7 @@ public class TransactionUtil {
         try {
             if (conn!=null){
                 conn.rollback();
+                System.out.println("Uncommited transaction(s) has been rollback.");
             }
         }catch (SQLException se){
             se.printStackTrace();

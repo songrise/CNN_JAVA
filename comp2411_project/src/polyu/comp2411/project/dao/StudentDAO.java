@@ -2,7 +2,6 @@ package polyu.comp2411.project.dao;
 
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Exam;
-import polyu.comp2411.project.entity.ScoreList;
 import polyu.comp2411.project.entity.Student;
 
 import java.util.List;

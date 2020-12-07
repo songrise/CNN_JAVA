@@ -1,12 +1,9 @@
 package polyu.comp2411.project.controller;
 
 import polyu.comp2411.project.dao.StudentDAO;
-import polyu.comp2411.project.dao.SubjectDAO;
-import polyu.comp2411.project.dao.impl.SubjectDAOImpl;
-import polyu.comp2411.project.entity.*;
-import polyu.comp2411.project.dao.impl.ScoreListDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentDAOImpl;
-import polyu.comp2411.project.dao.ScoreListDAO;
+import polyu.comp2411.project.entity.ScoreList;
+import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.service.ScoreListService;
 import polyu.comp2411.project.service.impl.ScoreListServiceImpl;
 

@@ -4,7 +4,6 @@ import polyu.comp2411.project.controller.AccountManager;
 import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.service.ServiceException;
 
-import javax.sql.rowset.serial.SerialException;
 import java.util.Scanner;
 
 public class LoginView {

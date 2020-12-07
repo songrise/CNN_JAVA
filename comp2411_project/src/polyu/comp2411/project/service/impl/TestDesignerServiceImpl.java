@@ -8,9 +8,7 @@ import polyu.comp2411.project.service.TestDesignerService;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Timestamp;
 
 /**

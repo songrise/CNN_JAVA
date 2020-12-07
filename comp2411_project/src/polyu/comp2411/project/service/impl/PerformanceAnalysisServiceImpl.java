@@ -1,20 +1,20 @@
 package polyu.comp2411.project.service.impl;
 
 import polyu.comp2411.project.dao.ExamDAO;
-import polyu.comp2411.project.dao.ExamListDAO;
 import polyu.comp2411.project.dao.ScoreListDAO;
 import polyu.comp2411.project.dao.SubjectDAO;
 import polyu.comp2411.project.dao.impl.ExamDAOImpl;
-import polyu.comp2411.project.dao.impl.ExamListDAOImpl;
 import polyu.comp2411.project.dao.impl.ScoreListDAOImpl;
 import polyu.comp2411.project.dao.impl.SubjectDAOImpl;
-import polyu.comp2411.project.entity.*;
+import polyu.comp2411.project.entity.Classe;
+import polyu.comp2411.project.entity.Exam;
+import polyu.comp2411.project.entity.ScoreList;
+import polyu.comp2411.project.entity.Subject;
 import polyu.comp2411.project.service.PerformanceAnalysisService;
 import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

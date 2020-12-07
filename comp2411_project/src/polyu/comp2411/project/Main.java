@@ -1,6 +1,5 @@
 package polyu.comp2411.project;
 
-import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.view.AdminView;
 import polyu.comp2411.project.view.LoginView;
 import polyu.comp2411.project.view.StudentView;

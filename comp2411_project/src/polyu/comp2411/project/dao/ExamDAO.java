@@ -4,7 +4,6 @@ import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Subject;
 
-import java.sql.*;
 import java.util.List;
 
 public interface ExamDAO {

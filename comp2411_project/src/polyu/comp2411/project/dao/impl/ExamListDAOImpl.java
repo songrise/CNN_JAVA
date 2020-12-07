@@ -1,16 +1,13 @@
 package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.ExamListDAO;
-import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.ExamList;
 import polyu.comp2411.project.entity.Student;
 
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 

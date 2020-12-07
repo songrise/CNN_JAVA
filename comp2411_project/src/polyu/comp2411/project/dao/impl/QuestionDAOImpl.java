@@ -3,7 +3,6 @@ package polyu.comp2411.project.dao.impl;
 import polyu.comp2411.project.dao.QuestionDAO;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
-import polyu.comp2411.project.entity.Teacher;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

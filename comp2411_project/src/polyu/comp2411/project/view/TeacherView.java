@@ -1,9 +1,6 @@
 package polyu.comp2411.project.view;
 
-import polyu.comp2411.project.controller.AccountManager;
-import polyu.comp2411.project.controller.PerformanceAnalysis;
 import polyu.comp2411.project.controller.TestDesigner;
-import polyu.comp2411.project.dao.ClasseDAO;
 import polyu.comp2411.project.dao.impl.ClasseDAOImpl;
 import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.dao.impl.ExamDAOImpl;
@@ -17,7 +14,9 @@ import polyu.comp2411.project.service.impl.ExamGradeServiceImpl;
 import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class TeacherView {
     private int uid;

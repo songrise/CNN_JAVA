@@ -1,7 +1,5 @@
 package polyu.comp2411.project.service;
 
-import polyu.comp2411.project.entity.Exam;
-
 public interface TestDesignerService {
     /**
      * create test has following to steps: create a new Test entity and write it to DB.

@@ -6,7 +6,6 @@ import polyu.comp2411.project.dao.impl.QuestionDAOImpl;
 import polyu.comp2411.project.dao.impl.StudentAnswerDaoImpl;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.Question;
-import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.StudentAnswer;
 import polyu.comp2411.project.service.ManualJudgeService;
 import polyu.comp2411.project.service.ServiceException;

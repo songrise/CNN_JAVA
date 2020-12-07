@@ -1,7 +1,6 @@
 package polyu.comp2411.project.entity;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 public class Exam {

@@ -1,14 +1,15 @@
 package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.ExamDAO;
-import polyu.comp2411.project.entity.*;
+import polyu.comp2411.project.entity.Classe;
+import polyu.comp2411.project.entity.Exam;
+import polyu.comp2411.project.entity.Subject;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.math.BigInteger;
 
 public class ExamDAOImpl extends BaseDAO implements ExamDAO {
     private Exam exam;

@@ -2,7 +2,6 @@ package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.ClasseDAO;
 import polyu.comp2411.project.entity.Classe;
-import polyu.comp2411.project.entity.Student;
 import polyu.comp2411.project.entity.Teacher;
 
 import java.sql.Connection;

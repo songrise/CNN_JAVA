@@ -1,13 +1,5 @@
 package polyu.comp2411.project.service;
 
-import polyu.comp2411.project.dao.AccountDAO;
-import polyu.comp2411.project.dao.impl.AccountDAOImpl;
-import polyu.comp2411.project.entity.Account;
-import polyu.comp2411.project.service.impl.AccountServiceImpl;
-import polyu.comp2411.project.util.TransactionUtil;
-
-import java.sql.Connection;
-
 public interface AccountService {
     //===========public===========
 

@@ -1,7 +1,6 @@
 package polyu.comp2411.project.dao.impl;
 
 import polyu.comp2411.project.dao.TeacherDAO;
-import polyu.comp2411.project.dao.impl.BaseDAO;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Teacher;
 
