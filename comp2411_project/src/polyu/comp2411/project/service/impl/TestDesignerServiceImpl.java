@@ -5,6 +5,7 @@ import polyu.comp2411.project.dao.impl.*;
 import polyu.comp2411.project.entity.*;
 import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.TestDesignerService;
+import polyu.comp2411.project.util.LoggerUtil;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.math.BigDecimal;
@@ -55,6 +56,7 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             }
 
             TransactionUtil.commit();
+            LoggerUtil.addLog("[Teacher "+arrangerID+"] arranged exam "+ testId);
             return testId;
         } catch (DAOException de){
             System.out.println("DAO failed because: "+ de.getMessage());
@@ -64,6 +66,7 @@ public class TestDesignerServiceImpl implements TestDesignerService {
             e.printStackTrace();
             throw new ServiceException(e.getMessage());
         }finally {
+
             TransactionUtil.closeConn();
         }
         return -1;

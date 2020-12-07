@@ -8,6 +8,7 @@ import polyu.comp2411.project.dao.LoggerDAO;
 import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.dao.impl.LoggerDAOImpl;
 import polyu.comp2411.project.service.ServiceException;
+import polyu.comp2411.project.util.LoggerUtil;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.text.SimpleDateFormat;
@@ -21,13 +22,7 @@ public class AdminView {
 
     public AdminView(final int uid) {
         this.uid = uid;
-        long l = System.currentTimeMillis();
-        Date d = new Date(l);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String info = "[Admin: "+uid+"] log in system at: "+ simpleDateFormat.format(d);
-        LoggerDAO loggerDAO = new LoggerDAOImpl();
-        loggerDAO.addLog(info);
-        TransactionUtil.commit();
+        LoggerUtil.addLog("[Admin "+uid+"] log in system");
     }
 
     public void view(){

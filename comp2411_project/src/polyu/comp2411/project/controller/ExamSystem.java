@@ -9,6 +9,7 @@ import polyu.comp2411.project.service.AutoJudgeService;
 import polyu.comp2411.project.service.ExamService;
 import polyu.comp2411.project.service.impl.AutoJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.ExamServiceImpl;
+import polyu.comp2411.project.util.LoggerUtil;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -32,6 +33,7 @@ public class ExamSystem {
         sc.nextLine();
 
         List<Question> allQuestion = examService.sitExam(stuId, testId);
+        LoggerUtil.addLog("[Student "+stuId+"] take exam "+ testId);
         for (Question q : allQuestion) {
             if (isTimeUp(testId) == true) {
                 System.out.println("Exam ended, please wait us upload your answer...");

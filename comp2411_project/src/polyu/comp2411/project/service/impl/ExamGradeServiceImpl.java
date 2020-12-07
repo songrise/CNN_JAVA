@@ -60,7 +60,7 @@ public class ExamGradeServiceImpl implements ExamGradeService {
                 int normalizedScore = (score*100/fullMark);
                 ScoreList sl = new ScoreList(stu.getId(), testId,normalizedScore,null);
                 ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
-                scoreListDAO.addScoreList(sl);//todo bug
+                scoreListDAO.addScoreList(sl);
             }
 
             TransactionUtil.commit();

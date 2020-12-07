@@ -15,6 +15,7 @@ import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.impl.ExamGradeServiceImpl;
 import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
+import polyu.comp2411.project.util.LoggerUtil;
 import polyu.comp2411.project.util.TransactionUtil;
 
 import java.text.SimpleDateFormat;
@@ -28,13 +29,7 @@ public class TeacherView {
     private int uid;
     public TeacherView(int uid){
         this.uid = uid;
-        long l = System.currentTimeMillis();
-        Date d = new Date(l);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String info = "[Teacher: "+uid+"] log in system at: "+ simpleDateFormat.format(d);
-        LoggerDAO loggerDAO = new LoggerDAOImpl();
-        loggerDAO.addLog(info);
-        TransactionUtil.commit();
+        LoggerUtil.addLog("[Teacher "+uid+"] log in system");
     }
 
     public void teacherView(){
