@@ -9,8 +9,11 @@ import java.util.List;
 public interface StudentDAO {
 
     Student searchByID(int id);
+
     void addStudent(Student stu);
+
     List<Student> searchByClass(Classe cls);
+
     List<Student> searchByExam(Exam ex);
 
 }
