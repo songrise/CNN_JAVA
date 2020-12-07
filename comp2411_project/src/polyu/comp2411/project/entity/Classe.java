@@ -1,4 +1,5 @@
 package polyu.comp2411.project.entity;
+
 //it means class, or a body of students . added an "e" to avoid name ambiguity with java.lang.Class
 public class Classe {
     private int classNo;
