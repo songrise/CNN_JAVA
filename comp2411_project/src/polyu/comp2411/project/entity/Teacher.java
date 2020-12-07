@@ -10,7 +10,6 @@ public class Teacher {
     }
 
 
-
     public int getId() {
         return id;
     }
@@ -26,7 +25,6 @@ public class Teacher {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
 }
