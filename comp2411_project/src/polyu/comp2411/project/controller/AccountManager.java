@@ -96,11 +96,7 @@ public class AccountManager {
             }
             accountService.register(uid, pswd, priviledge);
 
-            if (rePswd.equals(pswd)) {
-                accountService.register(uid, pswd, priviledge);
-            } else {
-                throw new ServiceException("two inputs not match!");
-            }
+            // sc.close();
 
         } catch (ServiceException | DAOException e) {
             System.out.println("Error: " + e);
@@ -145,13 +141,13 @@ public class AccountManager {
         }
 
         System.out.print("Are you sure to reset the password as " + pswd + "(y/n): ");
-        if (sc.nextLine().toUpperCase().equals("Y"))
+        if (sc.nextLine().trim().toUpperCase().equals("Y"))
             accountService.changePassword(uid, pswd);
     }
 
     public static void main(String[] args) {
         AccountManager accountManager = new AccountManager();
-        // accountManager.register();
+//        accountManager.register();
         int i = accountManager.login();
         if (i == 0) {
             System.out.println("Welcome, admin!");
