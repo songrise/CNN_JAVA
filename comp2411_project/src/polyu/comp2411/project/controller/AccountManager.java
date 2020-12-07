@@ -95,7 +95,11 @@ public class AccountManager {
                     priviledge = 2;
             }
 
-            // sc.close();
+            if (rePswd.equals(pswd)) {
+                accountService.register(uid, pswd, priviledge);
+            } else {
+                throw new ServiceException("two inputs not match!");
+            }
 
         } catch (ServiceException | DAOException e) {
             System.out.println("Error: " + e);
@@ -154,7 +158,7 @@ public class AccountManager {
 
     public static void main(String[] args) {
         AccountManager accountManager = new AccountManager();
-//        accountManager.register();
+        // accountManager.register();
         int i = accountManager.login();
         if (i == 0) {
             System.out.println("Welcome, admin!");
