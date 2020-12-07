@@ -47,7 +47,7 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
             closeStatement();
             closePreparedStatement();
         }
-         throw new DAOException("Specified entity not found!");
+        throw new DAOException("Specified entity not found!");
     }
 
     @Override
@@ -67,12 +67,12 @@ public class ClasseDAOImpl extends BaseDAO implements ClasseDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-            
+
         } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
         }
-         throw new DAOException("Specified entity not found!");
+        throw new DAOException("Specified entity not found!");
     }
 }
