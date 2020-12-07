@@ -2,7 +2,7 @@ package polyu.comp2411.project.entity;
 
 
 // this means the answer a student made for any exams
-public class StudentAnswer implements Cloneable{
+public class StudentAnswer implements Cloneable {
     private int stuId;
     private int testId;
     private int queNo;
