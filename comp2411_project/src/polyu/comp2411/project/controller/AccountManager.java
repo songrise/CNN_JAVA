@@ -109,7 +109,7 @@ public class AccountManager {
         int uid;
 
         while (true) {
-            System.out.print("Please input your id number(6 digits): ");
+            System.out.print("Please input the user id (6 digits): ");
             try {
                 String input = sc.nextLine().trim();
                 if (input.length() == 6) {
