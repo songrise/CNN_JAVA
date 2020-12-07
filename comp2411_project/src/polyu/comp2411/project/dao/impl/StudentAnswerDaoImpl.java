@@ -31,13 +31,13 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
             ps.setInt(2, ex.getTestId());
             ps.setInt(3, que.getqNo());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int stuId = rs.getInt("STU_ID");
                 int testId = rs.getInt("TEST_ID");
-                int questionNo=rs.getInt("QUESTION_NO");
+                int questionNo = rs.getInt("QUESTION_NO");
                 String stuAns = rs.getString("ANSWER");
-                int score=rs.getInt("SCORE");
-                return new StudentAnswer(stuId,testId,questionNo,stuAns,score);
+                int score = rs.getInt("SCORE");
+                return new StudentAnswer(stuId, testId, questionNo, stuAns, score);
             }
 
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
             closeStatement();
             closePreparedStatement();
         }
-        return  null;
+        return null;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
             ps.setInt(2, stuAns.getTestId());
             ps.setInt(3, stuAns.getQueNo());
             ps.setString(4, stuAns.getAnswer());
-            ps.setInt(5,0);
+            ps.setInt(5, 0);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,11 +84,11 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
         try {
             PreparedStatement ps = getConn().prepareStatement(sql);
             // set parameter of sql
-            ps.setString(1,newStudentAns.getAnswer());
-            ps.setInt(2,newStudentAns.getScore());
-            ps.setInt(3,oldStuAns.getStuId());
-            ps.setInt(4,oldStuAns.getTestId());
-            ps.setInt(5,oldStuAns.getQueNo());
+            ps.setString(1, newStudentAns.getAnswer());
+            ps.setInt(2, newStudentAns.getScore());
+            ps.setInt(3, oldStuAns.getStuId());
+            ps.setInt(4, oldStuAns.getTestId());
+            ps.setInt(5, oldStuAns.getQueNo());
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,26 +103,25 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
     @Override
     public List<StudentAnswer> searchByStudent(Student stu) {
         String sql = "SELECT * FROM Question WHERE STU_ID=?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,stu.getId());
+            ps.setInt(1, stu.getId());
             ResultSet rs = ps.executeQuery();
             List<StudentAnswer> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int stuId = rs.getInt("STU_ID");
                 int testId = rs.getInt("TEST_ID");
-                int questionNo=rs.getInt("QUESTION_NO");
+                int questionNo = rs.getInt("QUESTION_NO");
                 String stuAns = rs.getString("ANSWER");
-                int score=rs.getInt("SCORE");
-                StudentAnswer result = new StudentAnswer(stuId,testId,questionNo,stuAns,score);
+                int score = rs.getInt("SCORE");
+                StudentAnswer result = new StudentAnswer(stuId, testId, questionNo, stuAns, score);
                 ans.add(result);
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -133,26 +132,25 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
     @Override
     public List<StudentAnswer> searchByExam(Exam ex) {
         String sql = "SELECT * FROM STUDENT_ANSWER WHERE TEST_ID=?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,ex.getTestId());
+            ps.setInt(1, ex.getTestId());
             ResultSet rs = ps.executeQuery();
             List<StudentAnswer> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int stuId = rs.getInt("STU_ID");
                 int testId = rs.getInt("TEST_ID");
-                int questionNo=rs.getInt("QUESTION_NO");
+                int questionNo = rs.getInt("QUESTION_NO");
                 String stuAns = rs.getString("ANSWER");
-                int score=rs.getInt("SCORE");
-                StudentAnswer result = new StudentAnswer(stuId,testId,questionNo,stuAns,score);
+                int score = rs.getInt("SCORE");
+                StudentAnswer result = new StudentAnswer(stuId, testId, questionNo, stuAns, score);
                 ans.add(result);
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
@@ -163,27 +161,26 @@ public class StudentAnswerDaoImpl extends BaseDAO implements StudentAnswerDAO {
     @Override
     public List<StudentAnswer> searchByQuestion(Question que) {
         String sql = "SELECT * FROM STUDENT_ANSWER WHERE TEST_ID=? AND QUESTION_NO = ?";
-        try{
+        try {
             PreparedStatement ps = getConn().prepareStatement(sql);
-            ps.setInt(1,que.getTestId());
-            ps.setInt(2,que.getqNo());
+            ps.setInt(1, que.getTestId());
+            ps.setInt(2, que.getqNo());
             ResultSet rs = ps.executeQuery();
             List<StudentAnswer> ans = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 int stuId = rs.getInt("STU_ID");
                 int testId = rs.getInt("TEST_ID");
-                int questionNo=rs.getInt("QUESTION_NO");
+                int questionNo = rs.getInt("QUESTION_NO");
                 String stuAns = rs.getString("ANSWER");
-                int score=rs.getInt("SCORE");
-                StudentAnswer result = new StudentAnswer(stuId,testId,questionNo,stuAns,score);
+                int score = rs.getInt("SCORE");
+                StudentAnswer result = new StudentAnswer(stuId, testId, questionNo, stuAns, score);
                 ans.add(result);
             }
             return ans;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
-        }
-        finally {
+        } finally {
             // close resources used
             closeStatement();
             closePreparedStatement();
