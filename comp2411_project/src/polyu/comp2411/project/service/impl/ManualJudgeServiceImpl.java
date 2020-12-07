@@ -22,13 +22,13 @@ public class ManualJudgeServiceImpl implements ManualJudgeService {
 
     /**
      * manual judge a particular exam for all student participated in it
-     * 
+     *
      * @param ex the exam
      * @return
      */
     @Override
     public List<StudentAnswer> fetchFLofAnExam(Exam ex) {// todo maybe add condition that only who arrange this test can
-                                                         // manual judge this?
+        // manual judge this?
         if (ex == null) {
             throw new ServiceException();
         }
@@ -65,7 +65,6 @@ public class ManualJudgeServiceImpl implements ManualJudgeService {
         }
 
     }
-
 
 
     @Override
