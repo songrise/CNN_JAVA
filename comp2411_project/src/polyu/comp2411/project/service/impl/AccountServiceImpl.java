@@ -39,12 +39,11 @@ public class AccountServiceImpl implements AccountService {
             throw new ServiceException(uid+ " did not registered");
         }
         catch (Exception e) {
-            e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         } finally {
             TransactionUtil.closeConn();
         }
-        return AccountServiceImpl.INVALID;
     }
 
     @Override
@@ -60,16 +59,36 @@ public class AccountServiceImpl implements AccountService {
             dao.addAccount(acct);
             TransactionUtil.commit();
         } catch (Exception e) {
-            e.printStackTrace();
             TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
         } finally {
             TransactionUtil.closeConn();
         }
     }
 
     @Override
-    public void changePassword() {
-        // TODO
+    public void changePassword(int uid, String newPassword) {
+        if (newPassword == null || newPassword.length() < AccountServiceImpl.MINLEN)
+            throw new ServiceException("Password must be no less than 6 bytes!");
+        try{
+        Connection conn = TransactionUtil.getConn();
+        TransactionUtil.startTransaction();
+        AccountDAO dao = new AccountDAOImpl(conn);
+        Account oldAcct = dao.searchByID(uid);
+
+        String encryptedInput = AccountServiceImpl.stringToMD5(newPassword);
+        Account acct = new Account(uid, encryptedInput, oldAcct.getPrivilege());
+
+        dao.updAccount(oldAcct,acct);
+
+        TransactionUtil.commit();
+    } catch (Exception e) {
+        e.printStackTrace();
+        TransactionUtil.rollBack();
+        throw new ServiceException(e.getMessage());
+    } finally {
+        TransactionUtil.closeConn();
+    }
     }
     // ===========private===========
 

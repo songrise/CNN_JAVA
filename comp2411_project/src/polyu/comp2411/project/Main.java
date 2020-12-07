@@ -15,6 +15,7 @@ public class Main {
         switch (priviledge){
             case 0:
                 AdminView adminView = new AdminView(uid);
+                adminView.view();
 
                 break;
             case 1:

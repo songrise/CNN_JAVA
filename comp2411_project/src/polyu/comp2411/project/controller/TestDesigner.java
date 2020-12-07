@@ -47,7 +47,7 @@ public class TestDesigner {
     Scanner sc=new Scanner(System.in);
     TestDesignerService testDesignerService = new TestDesignerServiceImpl();
     int qCount = 0;
-    System.out.printf("Please input the ID of exam: ");
+    System.out.printf("\nPlease input the ID of exam: ");
     int examId = sc.nextInt();
     sc.nextLine();
 
@@ -62,7 +62,7 @@ public class TestDesigner {
 
       System.out.printf("Please input whether this question is compulsory(yes/no): ");
       String s = sc.nextLine();
-      if(s.toUpperCase() == "YES")
+      if(s.toUpperCase().equals("YES"))
         isCompulsory = true;
 
 

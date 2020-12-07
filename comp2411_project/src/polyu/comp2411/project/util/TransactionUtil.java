@@ -1,6 +1,12 @@
 package polyu.comp2411.project.util;
 
+import polyu.comp2411.project.dao.LoggerDAO;
+import polyu.comp2411.project.dao.impl.LoggerDAOImpl;
+
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * provide utility for transaction control. todo I will refactor DAO part,
@@ -53,7 +59,13 @@ public class TransactionUtil {
         try {
             if (conn!=null){
                 conn.rollback();
-                System.out.println("Uncommited transaction(s) has been rollback.");
+                long l = System.currentTimeMillis();
+                java.util.Date d = new Date(l);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String info = "[Info] System rolledback at: "+ simpleDateFormat.format(d);
+                LoggerDAO loggerDAO = new LoggerDAOImpl();
+                loggerDAO.addLog(info);
+                TransactionUtil.commit();
             }
         }catch (SQLException se){
             se.printStackTrace();

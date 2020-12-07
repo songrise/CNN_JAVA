@@ -79,7 +79,14 @@ public class AccountManager {
 
     public void changePsw(){
         AccountService accountService = new AccountServiceImpl();
-        accountService.changePassword();
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Please input the user id: ");
+        int uid = Integer.parseInt(sc.nextLine());
+        System.out.print("Please input new password (at least 6 letters): ");
+        String pswd = sc.nextLine();
+        System.out.print("Are you sure to reset the password as "+pswd+"(y/n): ");
+        if (sc.nextLine().toUpperCase().equals("Y"))
+            accountService.changePassword(uid,pswd);
     }
 
     public static void main(String[] args) {

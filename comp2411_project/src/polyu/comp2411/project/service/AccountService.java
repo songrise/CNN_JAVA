@@ -12,6 +12,6 @@ public interface AccountService {
     int login(int uid, String inputPassword);
 
     void register(int uid, String inputPassword, int priviledge);
-    void changePassword();
+    void changePassword(int uid, String newPassword);
 
 }

@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class LoginView {
     private int uid = -1;
+
     public void view(){
         System.out.println("**Welcome to Automated Exam System!**");
         AccountManager accountManager = new AccountManager();

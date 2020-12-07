@@ -1,9 +1,11 @@
 package polyu.comp2411.project.view;
 
 import polyu.comp2411.project.controller.TestDesigner;
+import polyu.comp2411.project.dao.LoggerDAO;
 import polyu.comp2411.project.dao.impl.ClasseDAOImpl;
 import polyu.comp2411.project.dao.impl.DAOException;
 import polyu.comp2411.project.dao.impl.ExamDAOImpl;
+import polyu.comp2411.project.dao.impl.LoggerDAOImpl;
 import polyu.comp2411.project.entity.Classe;
 import polyu.comp2411.project.entity.Exam;
 import polyu.comp2411.project.entity.StudentAnswer;
@@ -13,7 +15,11 @@ import polyu.comp2411.project.service.ServiceException;
 import polyu.comp2411.project.service.impl.ExamGradeServiceImpl;
 import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
+import polyu.comp2411.project.util.TransactionUtil;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -22,6 +28,13 @@ public class TeacherView {
     private int uid;
     public TeacherView(int uid){
         this.uid = uid;
+        long l = System.currentTimeMillis();
+        Date d = new Date(l);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String info = "[Teacher: "+uid+"] log in system at: "+ simpleDateFormat.format(d);
+        LoggerDAO loggerDAO = new LoggerDAOImpl();
+        loggerDAO.addLog(info);
+        TransactionUtil.commit();
     }
 
     public void teacherView(){
