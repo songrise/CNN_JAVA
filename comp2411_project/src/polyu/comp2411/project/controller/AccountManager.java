@@ -140,17 +140,9 @@ public class AccountManager {
             System.out.println("two inputs not match!");
         }
 
-        while (true) {
-            System.out.print("Are you sure to reset the password as " + pswd + "(y/n): ");
-            String YorN = sc.nextLine();
-
-            if (YorN.toUpperCase().equals("Y"))
-                accountService.changePassword(uid, pswd);
-            else if (!YorN.toUpperCase().equals("N")) {
-                continue;
-            }
-            break;
-        }
+        System.out.print("Are you sure to reset the password as " + pswd + "(y/n): ");
+        if (sc.nextLine().toUpperCase().equals("Y"))
+            accountService.changePassword(uid, pswd);
     }
 
     public static void main(String[] args) {
