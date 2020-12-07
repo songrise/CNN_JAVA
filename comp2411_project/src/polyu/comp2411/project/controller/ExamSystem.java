@@ -19,21 +19,31 @@ import java.util.Scanner;
 public class ExamSystem {
     /**
      * a student use this to sit an exam
-     * 
-     * @param stuId
      *
+     * @param stuId
      */
 
     public static void sitExam(int stuId) {
-
         ExamService examService = new ExamServiceImpl();
         Scanner sc = new Scanner(System.in);
-        System.out.printf("Please input the test ID: ");
-        int testId = sc.nextInt();
-        sc.nextLine();
+
+        int testId;
+        while (true) {
+            System.out.print("Please input the test ID: ");
+            try {
+                String input = sc.nextLine().trim();
+                if (input.length() == 6) {
+                    testId = Integer.parseInt(input);
+                    break;
+                }
+            } catch (NumberFormatException ignored) {
+            }
+            System.out.println("The id should be 6 digits!");
+        }
 
         List<Question> allQuestion = examService.sitExam(stuId, testId);
-        LoggerUtil.addLog("[Student "+stuId+"] take exam "+ testId);
+        LoggerUtil.addLog("[Student " + stuId + "] take exam " + testId);
+
         for (Question q : allQuestion) {
             if (isTimeUp(testId) == true) {
                 System.out.println("Exam ended, please wait us upload your answer...");
@@ -46,18 +56,37 @@ public class ExamSystem {
             System.out.println("****************************************");
             System.out.println(q.getqDescri());
             System.out.println("****************************************");
-            System.out.printf("Input your answer(in one line): ");
 
             String answer;
+            while (true) {
+                System.out.printf("Input your answer(in one line): ");
+                answer = sc.nextLine();
 
-            answer = sc.nextLine();
+                boolean nextQustion = false;
+                while (true) {
+                    System.out.println("Next question?(Y/N)");
+                    String op = sc.nextLine().trim().toUpperCase();
+                    if (op.equals("Y"))
+                        nextQustion = true;
+                    else if (!op.equals("N"))
+                        continue;
+                    break;
+                }
+                if (nextQustion) {
+                    break;
+                }
+            }
             examService.answerAnQuestion(q, stuId, answer);
         }
-        System.out.println("You have answered all question, submit now?(Y/n)");
-        String op = sc.nextLine();
-        if (op.equals("Y")) {
-            AutoJudgeService autoJudgeService = new AutoJudgeServiceImpl();
-            autoJudgeService.judgeAnExam(testId);
+
+        while (true) {
+            System.out.println("You have answered all question, submit now?(Y/N)");
+            String op = sc.nextLine().trim().toUpperCase();
+            if (op.equals("Y")) {
+                AutoJudgeService autoJudgeService = new AutoJudgeServiceImpl();
+                autoJudgeService.judgeAnExam(testId);
+                break;
+            }
         }
     }
 
@@ -76,5 +105,4 @@ public class ExamSystem {
 
     public void answerAnQuestion(Question que, Student stu, String stuAnswerStr) {
     }
-
 }
