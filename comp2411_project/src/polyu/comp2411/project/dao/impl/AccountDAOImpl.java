@@ -39,7 +39,6 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
             e.printStackTrace();
             throw new DAOException(e.getMessage());
         } finally {
-
             closeStatement();
             closePreparedStatement();
         }
