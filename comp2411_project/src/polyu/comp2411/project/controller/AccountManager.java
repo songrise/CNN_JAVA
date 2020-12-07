@@ -94,6 +94,7 @@ public class AccountManager {
                 else
                     priviledge = 2;
             }
+            accountService.register(uid, pswd, priviledge);
 
             // sc.close();
 
