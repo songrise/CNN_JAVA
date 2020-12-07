@@ -18,27 +18,27 @@ import java.util.NoSuchElementException;
  */
 public class AccountServiceImpl implements AccountService {
     static final int INVALID = -1;
-    static final int MINLEN = 6;
 
     @Override
     public int login(int uid, String inputPassword) {
-        if (inputPassword == null || inputPassword.length() < AccountServiceImpl.MINLEN)
-            throw new ServiceException("Password must be no less than 6 bytes!");
         try {
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
+
             AccountDAO dao = new AccountDAOImpl(conn);
             Account acct = dao.searchByID(uid); // search that account in DB
+
             String encryptedInput = AccountServiceImpl.stringToMD5(inputPassword);
             TransactionUtil.commit();
+
             if (encryptedInput.equals(acct.getPassword())) {// check if password is right
                 return acct.getPrivilege(); // succeccful log in
             }
             return INVALID;
-        }catch (NoSuchElementException e){
-            throw new ServiceException(uid+ " did not registered");
-        }
-        catch (Exception e) {
+
+        } catch (NoSuchElementException e) {
+            throw new ServiceException(uid + " did not registered");
+        } catch (Exception e) {
             TransactionUtil.rollBack();
             throw new ServiceException(e.getMessage());
         } finally {
@@ -48,14 +48,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void register(int uid, String inputPassword, int priviledge) {
-        if (inputPassword == null || inputPassword.length() < AccountServiceImpl.MINLEN)
-            throw new ServiceException("Password must be no less than 6 bytes!");
         try {
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
+
             AccountDAO dao = new AccountDAOImpl(conn);
             String encryptedInput = AccountServiceImpl.stringToMD5(inputPassword);
             Account acct = new Account(uid, encryptedInput, priviledge);
+
             dao.addAccount(acct);
             TransactionUtil.commit();
         } catch (Exception e) {
@@ -68,33 +68,32 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void changePassword(int uid, String newPassword) {
-        if (newPassword == null || newPassword.length() < AccountServiceImpl.MINLEN)
-            throw new ServiceException("Password must be no less than 6 bytes!");
-        try{
-        Connection conn = TransactionUtil.getConn();
-        TransactionUtil.startTransaction();
-        AccountDAO dao = new AccountDAOImpl(conn);
-        Account oldAcct = dao.searchByID(uid);
+        try {
+            Connection conn = TransactionUtil.getConn();
+            TransactionUtil.startTransaction();
 
-        String encryptedInput = AccountServiceImpl.stringToMD5(newPassword);
-        Account acct = new Account(uid, encryptedInput, oldAcct.getPrivilege());
+            AccountDAO dao = new AccountDAOImpl(conn);
+            Account oldAcct = dao.searchByID(uid);
+            String encryptedInput = AccountServiceImpl.stringToMD5(newPassword);
+            Account acct = new Account(uid, encryptedInput, oldAcct.getPrivilege());
 
-        dao.updAccount(oldAcct,acct);
+            dao.updAccount(oldAcct, acct);
 
-        TransactionUtil.commit();
-    } catch (Exception e) {
-        e.printStackTrace();
-        TransactionUtil.rollBack();
-        throw new ServiceException(e.getMessage());
-    } finally {
-        TransactionUtil.closeConn();
+            TransactionUtil.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionUtil.rollBack();
+            throw new ServiceException(e.getMessage());
+        } finally {
+            TransactionUtil.closeConn();
+        }
     }
-    }
+
     // ===========private===========
 
     /**
      * reference: https://www.cnblogs.com/zhuyeshen/p/11424713.html
-     * 
+     *
      * @param plainText
      * @return encryped text
      */
