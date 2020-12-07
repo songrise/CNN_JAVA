@@ -17,10 +17,10 @@ import java.util.List;
 public class ScoreListServiceImpl implements ScoreListService {
     @Override
     public List<ScoreList> getScoreList(int stuID) {
-        if (stuID<0){
+        if (stuID < 0) {
             throw new ServiceException();
         }
-        try{
+        try {
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
             ScoreListDAO scoreListDAO = new ScoreListDAOImpl(conn);
@@ -31,11 +31,11 @@ public class ScoreListServiceImpl implements ScoreListService {
 
             TransactionUtil.commit();
             return sl;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
             throw new ServiceException(e.getMessage());
-        }finally {
+        } finally {
             TransactionUtil.closeConn();
         }
 
