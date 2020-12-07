@@ -10,9 +10,9 @@ public class Main {
         LoginView loginView = new LoginView();
         loginView.view();
         int uid = loginView.getUid();
-        int privilege = loginView.getPriviledge();
+        int priviledge = loginView.getPriviledge();
 
-        switch (privilege){
+        switch (priviledge) {
             case 0:
                 AdminView adminView = new AdminView(uid);
                 adminView.view();
