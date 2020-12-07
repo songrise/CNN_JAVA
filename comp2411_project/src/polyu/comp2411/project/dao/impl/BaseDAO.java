@@ -10,10 +10,11 @@ public class BaseDAO {
     private PreparedStatement ps;
 //    private ResultSet rs;
 
-    BaseDAO(){
+    BaseDAO() {
         conn = TransactionUtil.getConn();
     }
-    BaseDAO(Connection connection){
+
+    BaseDAO(Connection connection) {
         this.conn = connection;
     }
 
@@ -21,28 +22,25 @@ public class BaseDAO {
         return conn;
     }
 
-
-
     public void setStmt() {
         try {
-            if (conn!=null)
-                stmt=conn.createStatement();
-        }
-        catch (SQLException e){
+            if (conn != null)
+                stmt = conn.createStatement();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-    public void setPs(String sql){
+
+    public void setPs(String sql) {
         try {
-            if (conn!=null)
+            if (conn != null)
                 ps = conn.prepareStatement(sql);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-    public PreparedStatement getPs(){
+
+    public PreparedStatement getPs() {
         return ps;
     }
 
@@ -50,23 +48,20 @@ public class BaseDAO {
         return stmt;
     }
 
-
-    public void closeStatement(){
+    public void closeStatement() {
         try {
-            if (stmt!= null)
+            if (stmt != null)
                 stmt.close();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void closePreparedStatement(){
-        if (ps!= null){
+    public void closePreparedStatement() {
+        if (ps != null) {
             try {
                 ps.close();
-            }
-            catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -79,11 +74,10 @@ public class BaseDAO {
             baseDAO.setPs("SELECT * FROM TEACHER");
             ResultSet rs = baseDAO.getPs().executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("TEACHER_NAME"));
             }
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
