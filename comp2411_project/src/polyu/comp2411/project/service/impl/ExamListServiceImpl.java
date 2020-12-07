@@ -21,10 +21,10 @@ import java.util.Map;
 public class ExamListServiceImpl implements ExamListService {
     @Override
     public Map<Integer, String> getUpcomingTest(int stuId) {
-        if (stuId<0) {
+        if (stuId < 0) {
             throw new ServiceException();
         }
-        try{
+        try {
             Connection conn = TransactionUtil.getConn();
             TransactionUtil.startTransaction();
             ExamListDAO examListDAO = new ExamListDAOImpl(conn);
@@ -32,20 +32,20 @@ public class ExamListServiceImpl implements ExamListService {
             ExamDAO examDAO = new ExamDAOImpl(conn);
 
 
-            Student stu=studentDAO.searchByID(stuId);
-            List<ExamList> examList=examListDAO.searchByStudent(stu);
-            Map<Integer,String> result = new HashMap<>();
+            Student stu = studentDAO.searchByID(stuId);
+            List<ExamList> examList = examListDAO.searchByStudent(stu);
+            Map<Integer, String> result = new HashMap<>();
             for (ExamList record : examList) {
                 Exam e = examDAO.searchByID(record.getTestId());
                 String timeStr = e.getStartTime().toString();
-                result.put(record.getTestId(),timeStr);
+                result.put(record.getTestId(), timeStr);
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             TransactionUtil.rollBack();
             throw new ServiceException(e.getMessage());
-        }finally {
+        } finally {
             TransactionUtil.closeConn();
         }
 
