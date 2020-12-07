@@ -7,12 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LoggerUtil {
-    public static void addLog(String info){
+    public static void addLog(String info) {
         long l = System.currentTimeMillis();
         Date d = new Date(l);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         LoggerDAO loggerDAO = new LoggerDAOImpl();
-        loggerDAO.addLog(info+ " at: " + simpleDateFormat.format(d));
+        loggerDAO.addLog(info + " at: " + simpleDateFormat.format(d));
         TransactionUtil.commit();
     }
 }
