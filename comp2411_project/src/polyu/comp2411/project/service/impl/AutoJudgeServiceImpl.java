@@ -24,7 +24,7 @@ public class AutoJudgeServiceImpl implements AutoJudgeService {
     /**
      * auto judge a particular exam, all student participated in this exam will be
      * judged.
-     * 
+     *
      * @param testId the exam
      */
     @Override
