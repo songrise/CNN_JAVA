@@ -5,10 +5,10 @@ public class Student {
     private String name;
     private int classNo;
 
-    public Student(int id, String name,int classNo) {
+    public Student(int id, String name, int classNo) {
         this.id = id;
         this.name = name;
-        this.classNo=classNo;
+        this.classNo = classNo;
     }
 
     public void setName(String name) {
@@ -31,6 +31,7 @@ public class Student {
         this.classNo = classNo;
     }
 
-    public int getClassNo() { return classNo; }
+    public int getClassNo() {
+        return classNo;
+    }
 }
-
