@@ -30,7 +30,9 @@ public class AdminView {
         do {
             System.out.print("please indicate your option: ");
             try {
-                op = Integer.parseInt(sc.nextLine().trim());
+                String inpput = sc.nextLine().trim();
+                if (inpput.length() == 1)
+                    op = Integer.parseInt(inpput);
             } catch (NumberFormatException e) {
                 System.out.println("please enter an integer");
             }
