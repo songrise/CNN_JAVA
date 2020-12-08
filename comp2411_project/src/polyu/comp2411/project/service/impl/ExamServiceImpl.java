@@ -151,8 +151,8 @@ public class ExamServiceImpl implements ExamService {
         ExamDAO examDAO = new ExamDAOImpl();
         Exam ex = examDAO.searchByID(testId);
         long startTime = ex.getStartTime().getTime();
-        LocalDate timer = LocalDate.now();
-        long now = timer.toEpochDay();
+
+        long now = System.currentTimeMillis();
         if (now >= startTime) {
             return true;
         }
