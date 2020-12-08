@@ -17,6 +17,8 @@ import polyu.comp2411.project.service.impl.ManualJudgeServiceImpl;
 import polyu.comp2411.project.service.impl.PerformanceAnalysisServiceImpl;
 import polyu.comp2411.project.util.TransactionUtil;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -192,18 +194,40 @@ public class TeacherView {
                 PerformanceAnalysisServiceImpl performanceAnalysisService = new PerformanceAnalysisServiceImpl();
                 Map<String, Double> subjectAvgs = performanceAnalysisService.subjectAvgs(cls);
                 Map<String, Double> subjectVars = performanceAnalysisService.subjectVars(cls);
-                StringBuilder sb = new StringBuilder("Below are the preformance analysis of the class "+id+":\n");
-                sb.append("Subject\t\tAverage\t\tvariace:\n");
-                for (String k : subjectAvgs.keySet()){
-                    sb.append(String.format("%s,\t\t%.2f\t\t%.2f\n",k,subjectAvgs.get(k),subjectVars.get(k)));
+                StringBuilder sb = new StringBuilder("Below are the performance analysis of the class:\n");
+                sb.append("Subject\t\tAverage\t\tVariance:\n");
+                for (String k : subjectAvgs.keySet()) {
+                    sb.append(String.format("%s,\t\t%.2f\t\t%.2f\n", k, subjectAvgs.get(k), subjectVars.get(k)));
                 }
                 System.out.println(sb.toString());
-                System.out.print("Would you like to export the analysis? (y/n): ");
-                if (sc.nextLine().toUpperCase().equals("Y")){
-                    //todo
+
+                boolean isExport = false;
+                while (true) {
+                    System.out.print("Would you like export the analysis? (y/n): ");
+                    String input = sc.nextLine().trim().toUpperCase();
+                    if (input.equals("Y"))
+                        isExport = true;
+                    else if (!input.equals("N")) {
+                        continue;
+                    }
+                    break;
                 }
 
-
+                if (isExport) {
+                    FileOutputStream fileOutputStream;
+                    File file = new File(".\\example_analysis.txt");
+                    try {
+                        if(file.exists()){
+                            file.createNewFile();
+                        }
+                        fileOutputStream = new FileOutputStream(file);
+                        fileOutputStream.write(sb.toString().getBytes());
+                        fileOutputStream.flush();
+                        fileOutputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 teacherView();
 
