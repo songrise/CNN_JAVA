@@ -38,7 +38,9 @@ public class StudentView {
         do {
             System.out.print("Please input your option:");
             try {
-                op = Integer.parseInt(sc.nextLine().trim());
+                String input = sc.nextLine().trim();
+                if (input.length() == 1)
+                    op = Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 System.out.println("please enter an integer");
             }
