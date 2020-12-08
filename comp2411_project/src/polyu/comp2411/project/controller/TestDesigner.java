@@ -60,7 +60,8 @@ public class TestDesigner {
         if (examId == -1) {
             throw new ServiceException("You cannot create this exam!");
         }
-        System.out.printf("Successfully created test with id = " + examId);
+        String numStr = String.format("%06d", examId);
+        System.out.printf("Successfully created test with id = " + numStr);
     }
 
     public void createQuestions() {
