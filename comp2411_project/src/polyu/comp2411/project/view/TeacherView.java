@@ -195,9 +195,9 @@ public class TeacherView {
                 Map<String, Double> subjectAvgs = performanceAnalysisService.subjectAvgs(cls);
                 Map<String, Double> subjectVars = performanceAnalysisService.subjectVars(cls);
                 StringBuilder sb = new StringBuilder("Below are the performance analysis of the class:\n");
-                sb.append("Subject\t\tAverage\t\tVariance:\n");
+                sb.append("Subject\t\t\t\t  Average\t\tVariance:\n");
                 for (String k : subjectAvgs.keySet()) {
-                    sb.append(String.format("%s,\t\t%.2f\t\t%.2f\n", k, subjectAvgs.get(k), subjectVars.get(k)));
+                    sb.append(String.format("%-18s\t\t%.2f\t\t%.2f\n", k, subjectAvgs.get(k), subjectVars.get(k)));
                 }
                 System.out.println(sb.toString());
 
@@ -224,6 +224,7 @@ public class TeacherView {
                         fileOutputStream.write(sb.toString().getBytes());
                         fileOutputStream.flush();
                         fileOutputStream.close();
+                        System.out.println("Successfully write to root dir!");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

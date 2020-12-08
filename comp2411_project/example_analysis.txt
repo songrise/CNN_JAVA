@@ -1,0 +1,4 @@
+Below are the performance analysis of the class:
+Subject				  Average		Variance:
+Database          		75.00		16.67
+Linear Algebra    		80.00		40.00
