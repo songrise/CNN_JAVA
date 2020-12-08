@@ -171,7 +171,7 @@ public class TeacherView {
 
                 teacherView();
 
-            } else if (op == 4) { //TODO
+            } else if (op == 4) {
                 int id;
                 while (true) {
                     System.out.print("Please enter the id of the class you want to see the report: ");
@@ -192,9 +192,18 @@ public class TeacherView {
                 PerformanceAnalysisServiceImpl performanceAnalysisService = new PerformanceAnalysisServiceImpl();
                 Map<String, Double> subjectAvgs = performanceAnalysisService.subjectAvgs(cls);
                 Map<String, Double> subjectVars = performanceAnalysisService.subjectVars(cls);
-                System.out.println("Below are the preformance analysis of the class:");
-                System.out.println("The average:" + subjectAvgs);
-                System.out.println("The variance" + subjectVars);
+                StringBuilder sb = new StringBuilder("Below are the preformance analysis of the class:\n");
+                sb.append("Subject\t\tAverage\t\tvariace:\n");
+                for (String k : subjectAvgs.keySet()){
+                    sb.append(String.format("%s,\t\t%.2f\t\t%.2f\n",k,subjectAvgs.get(k),subjectVars.get(k)))
+                }
+                System.out.println(sb.toString());
+                System.out.println("Would you like export the analysis? (y/n): ");
+                if (sc.nextLine().toUpperCase().equals("Y")){
+                    //todo
+                }
+
+
 
                 teacherView();
 
