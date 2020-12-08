@@ -215,9 +215,9 @@ public class TeacherView {
 
                 if (isExport) {
                     FileOutputStream fileOutputStream;
-                    File file = new File(".\\example_analysis.txt");
+                    File file = new File("..\\example_analysis.txt");
                     try {
-                        if(file.exists()){
+                        if (file.exists()) {
                             file.createNewFile();
                         }
                         fileOutputStream = new FileOutputStream(file);
