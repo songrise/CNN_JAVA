@@ -54,7 +54,9 @@ public class TeacherView {
         do {
             System.out.print("Please input your option:");
             try {
-                op = Integer.parseInt(sc.nextLine().trim());
+                String inpput = sc.nextLine().trim();
+                if (inpput.length() == 1)
+                    op = Integer.parseInt(inpput);
             } catch (NumberFormatException e) {
                 System.out.println("please enter an integer");
             }
@@ -74,7 +76,9 @@ public class TeacherView {
                 do {
                     System.out.print("Please input your option:");
                     try {
-                        op = Integer.parseInt(sc.nextLine().trim());
+                        String inpput = sc.nextLine().trim();
+                        if (inpput.length() == 1)
+                            op = Integer.parseInt(inpput);
                     } catch (NumberFormatException e) {
                         System.out.println("please enter an integer");
                     }
