@@ -192,13 +192,13 @@ public class TeacherView {
                 PerformanceAnalysisServiceImpl performanceAnalysisService = new PerformanceAnalysisServiceImpl();
                 Map<String, Double> subjectAvgs = performanceAnalysisService.subjectAvgs(cls);
                 Map<String, Double> subjectVars = performanceAnalysisService.subjectVars(cls);
-                StringBuilder sb = new StringBuilder("Below are the preformance analysis of the class:\n");
+                StringBuilder sb = new StringBuilder("Below are the preformance analysis of the class "+id+":\n");
                 sb.append("Subject\t\tAverage\t\tvariace:\n");
                 for (String k : subjectAvgs.keySet()){
-                    sb.append(String.format("%s,\t\t%.2f\t\t%.2f\n",k,subjectAvgs.get(k),subjectVars.get(k)))
+                    sb.append(String.format("%s,\t\t%.2f\t\t%.2f\n",k,subjectAvgs.get(k),subjectVars.get(k)));
                 }
                 System.out.println(sb.toString());
-                System.out.println("Would you like export the analysis? (y/n): ");
+                System.out.print("Would you like to export the analysis? (y/n): ");
                 if (sc.nextLine().toUpperCase().equals("Y")){
                     //todo
                 }
